@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block headIcons %}
+  <link rel="shortcut icon" href="{{ asset_path }}images/unbranded.ico?0.18.3" type="image/x-icon" />
+{% endblock %}
+
+{% block head %}
+  <!--[if lte IE 8]><link href="/public/stylesheets/unbranded-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
+  <!--[if gt IE 8]><!--><link href="/public/stylesheets/unbranded.css" media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roobert">
+
+
+  {% for stylesheetUrl in extensionConfig.stylesheets %}
+    <link href="{{ stylesheetUrl }}" rel="stylesheet" type="text/css" />
+  {% endfor %}
+{% endblock %}
+
+{% block header %}
+
+<div class="govuk-header__container govuk-width-container pdp-header-no-border">
+  <a href="https://www.moneyhelper.org.uk/en"><img src="/public/images/mh-logo.jpeg" alt="Money Helper logo" class="pdp-consents-footer-img" width="15%">
+  </a>
+  <div class="pdp-login-hello">
+    {% if firstName %} <p class="pdp-login-hello-font"> Hello {{firstName}}</p> {% endif %}
+  </div>
+  <header class="govuk-header pdp-header" role="banner" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container pdp-header-no-border">
+
+    <div class="govuk-header__content pdp-header pdp-header-no-border">
+        <ul id="navigation" class="govuk-header__navigation pdp-header-nav" aria-label="Navigation menu">
+          <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
+              Benefits
+          </li>
+          <li class="govuk-header__navigation-item">
+              Everyday money
+          </li>
+          <li class="govuk-header__navigation-item">
+              Family & care
+          </li>
+          <li class="govuk-header__navigation-item">
+              Homes
+          </li>         
+          <li class="govuk-header__navigation-item">
+              Money troubles
+          </li>          
+          <li class="govuk-header__navigation-item">
+              Pensions & retirement
+          </li>          
+          <li class="govuk-header__navigation-item">
+              Savings
+          </li>          
+          <li class="govuk-header__navigation-item">
+              Work
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="govuk-footer pdp-footer">
+  <div class="govuk-width-container">
+
+    <img src="/public/images/mh-footer.jpeg" alt="H. M. Government logo" class="pdp-consents-footer-img" width="100%">
+  </div>
+</div> 
+{% endblock %}

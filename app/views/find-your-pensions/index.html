@@ -1,0 +1,38 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl pdp-heading-font">
+        {% if serviceName %} {{ serviceName }} {% endif %}
+      </h1>
+
+      <p>Use this service to:</p>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>find pensions that you may have lost touch with</li>
+        <li>view information about each of your pensions</li>        
+        <li>view values for each of your pensions</li>
+        <li>find out who provides your pensions</li>
+        <li>find contact information for your pension providers</li>      
+      </ul>
+      <p>
+        You'll need to verify your identity the first time you use this service so that we know that you are who you say you are.
+      </p>
+
+     <!--
+      <p>
+        We will ask you to set up an account so that we can store information about your pensions. This means that on later visits you will not need to enter your consents and information to view your pensions. You can choose to use this service as a guest if you do not want to set up an account.
+      </p>
+-->
+
+      <a href="fyp-sign-in-or-guest" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+        Start now
+      </a>
+    </div>
+  </div>
+{% endblock %}

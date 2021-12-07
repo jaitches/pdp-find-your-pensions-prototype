@@ -1,0 +1,235 @@
+// The unbranded stylesheet is used if you need to create pages in your
+// prototype without the GOV.UK branding.
+//
+// See localhost:3000/docs/templates/blank-unbranded
+
+// Import settings first so we can override them before importing all of GOV.UK Frontend
+// If you need to enable compatibility mode or the legacy palette, do that *before* this import.
+@import "node_modules/govuk-frontend/govuk/settings/all";
+
+// Override the default GOV.UK Frontend font stack
+$govuk-font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+
+// Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
+$govuk-canvas-background-colour: $govuk-body-background-colour;
+
+@import "application";
+//
+// consents styles
+//
+.body {
+	  font-family: "Poppins", sans-serif !important;
+}
+
+// Font
+.pdp-consent-heading-font {
+	color: #0090FF;
+	font-family: "Poppins", sans-serif !important;
+}
+.pdp-consent-font {
+	font-family: "Poppins", sans-serif !important;
+}
+
+//header
+
+.pdp-consents-header {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.14286;
+  border-bottom: 10px solid #E7EDF5;
+  color: #0090FF;
+  background: #E7EDF5;
+}
+.govuk-header__container {
+	border-color: #E7EDF5;
+	background: #E7EDF5;
+}
+
+.pdp-service-name-consents, 
+.govuk-header__link:link,
+.govuk-header__link:visited {
+	position : relative;
+	font-size : 2rem;
+	font-weight : bold;
+	color : #0090FF;
+	text-decoration: none;
+	text-align: center;
+	margin-bottom: 0px;
+}
+
+.pdp-consents-maps-logo {
+	float: right;
+}
+
+// footer
+
+.pdp-consents-footer {
+  font-family: "Poppins", arial, sans-serif !important;
+  font-weight: 400;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.14286;
+  padding-top: 25px;
+  padding-bottom: 15px;
+  border-top: 1px solid #E7EDF5; ;
+  color: #0090FF;
+  background: #E7EDF5;
+  min-height: 60px;
+}
+
+
+.pdp-consents-footer-img {
+	padding-right:20px;
+	text-decoration: none;
+}
+
+// button
+
+.pdp-consents-button {
+  	font-family: "Poppins", arial, sans-serif;
+	background-color: #0090FF;
+	color: white ;
+	box-shadow: 0 2px 0 #e5a044;	
+  	border-radius: 16px;
+}
+
+.pdp-consents-button-warning {
+	background-color: #EA3A3D;
+	font-family: "Poppins", arial, sans-serif;
+	color: white ;
+	box-shadow: 0 2px 0 #e5a044;	
+  	border-radius: 16px;
+}
+
+.pdp-consents-button-warning:hover {
+	background-color: #EA3A3D;
+	color: #384455;
+}
+
+.pdp-consents-button-small {
+  	font-family: "Poppins", arial, sans-serif;
+  	font-size: 12px;
+  	margin-bottom: 10px;
+  	padding: 4px 5px 4px;
+}
+
+.pdp-consents-button:hover,
+.pdp-consents-button:link,
+.govuk-button:link {
+	background-color: #0090FF;
+	box-shadow: 0 2px 0 #e5a044;	
+}
+
+.pdp-consents-button[disabled="disabled"]:hover,
+.govuk-button[disabled]:hover {
+  background-color: #0090FF;
+  cursor: default;
+}
+.govuk-button[disabled]:visited,
+.govuk-button[disabled]:active {
+  background-color: #0090FF;
+  cursor: default;
+}
+
+
+// other styles
+.pdp-warning-message {
+	color : red;
+	font-weight: bold;
+}
+.pdp-caption {
+	background-color: #d4351c;
+	color: white;
+	width: 25%;
+	padding-left: 10px;
+}
+// header changes
+
+
+// heading service name
+// header service name font size bigger
+.govuk-header__link--service-name {
+  font-family: "Poppins", arial, sans-serif;
+  font-size: 32px;
+}
+
+.govuk-header__link--service-name 
+.pdp-header-content-consents {
+  font-size: 32px;
+}
+
+.pdp-service-name-consents, 
+.govuk-header__link:link,
+.govuk-header__link:visited {
+	position : relative;
+	font-size : 2rem;
+	font-weight : bold;
+	text-decoration: none;
+	text-align: center;
+	margin-bottom: 0px;
+}
+.pdp-service-name, 
+.pdp-service-name:hover,
+.pdp-service-name:visited,
+.pdp-service-name:active {
+	position : relative;
+	font-size : 2rem;
+	font-weight : bold;
+	color : white;
+	text-decoration: none;
+	text-align: center;
+	margin-bottom: 0px;
+}
+.pdp-admin {
+	background: #058282;
+	border-color: #058282;
+
+}
+
+
+pdp-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.pdpid-photo-confirm {
+	position: relative;
+}
+
+.pdpid-oval {
+	border-radius: 50%;
+	border: 5px solid blue;
+}
+
+.pdpid-rounded-corners {
+  border-radius: 10%;
+}
+
+
+
+.pdpid-grey-background {
+	background-color:#f5f8f9;
+}
+
+.pdpid-photo-box {
+	border-radius: 25px;
+	border: 10px solid #959595;
+	padding: 20px; 
+	background-color:#f5f8f9;
+
+}
+.pdpid-photo-inner-box {
+	border-radius: 25px;
+  	padding: 20px; 
+  	background-color: #686868;
+}
+
+.pdpid-center {
+	text-align: center !important;
+}
+

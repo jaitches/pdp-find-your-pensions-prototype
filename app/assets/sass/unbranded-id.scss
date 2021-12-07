@@ -1,0 +1,125 @@
+// The unbranded stylesheet is used if you need to create pages in your
+// prototype without the GOV.UK branding.
+//
+// See localhost:3000/docs/templates/blank-unbranded
+
+// Import settings first so we can override them before importing all of GOV.UK Frontend
+// If you need to enable compatibility mode or the legacy palette, do that *before* this import.
+@import "node_modules/govuk-frontend/govuk/settings/all";
+
+// Override the default GOV.UK Frontend font stack
+$govuk-font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+
+// Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
+$govuk-canvas-background-colour: $govuk-body-background-colour;
+
+@import "application";
+
+//
+// font
+// 
+.pdpid-font {
+	font-family: "BuenosAiresWeb", sans-serif;
+}
+
+.pdpid-background-img {
+	background-image : url('/public/images/digidentity-background.png');
+	background-position: center; /* Center the image */
+  	background-repeat: no-repeat; /* Do not repeat the image */
+  	background-size: cover; /* Resize the background image to cover the entire container */
+  	height: 700px;
+}
+
+.pdpid-button {
+	font-family: "BuenosAiresWeb", sans-serif;
+	background-color: #00C464;
+	box-shadow: none ;	
+	color: white ;
+  	border-radius: 8px;
+}
+
+.pdpid-button-secondary {
+	font-family: "BuenosAiresWeb", sans-serif;
+	background-color: #D9E1E7;
+	box-shadow: none;
+	color : grey !important;
+  	border-radius: 8px;
+}
+.pdpid-button-secondary:hover,
+.pdpid-button-secondary:link {
+		background-color: #D9E1E7 !important;
+		color : grey;
+}
+
+.pdpid-button:hover,
+.pdpid-button:link,
+.govuk-button:link {
+	background-color: #00C464;
+	box-shadow: none;	
+}
+
+/* img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+*/
+.pdpid-no-link-detail:focus {
+  outline-style: none;
+  background-color: transparent;
+  box-shadow: none;
+  text-decoration: none;
+ }
+
+.pdpid-login-panel-centre {
+	margin-left: auto;
+  	margin-right: auto;
+}
+.pdpid-padding {
+	padding-top: 50px;
+	padding-left: 50px;
+}
+.pdpid-centre-text {
+	align: center;
+}
+
+.pdpid-photo-confirm {
+	position: relative;
+}
+
+.pdpid-oval {
+	border-radius: 50%;
+	border: 5px solid blue;
+}
+
+.pdpid-rounded-corners {
+  border-radius: 10%;
+}
+
+.pdpid-footer-img {
+	float:left !important;
+}
+
+.pdpid-grey-background {
+	background-color:#f5f8f9;
+}
+
+.pdpid-photo-box {
+	border-radius: 25px;
+	border: 10px solid #959595;
+	padding: 20px; 
+	background-color:#f5f8f9;
+
+}
+.pdpid-photo-inner-box {
+	border-radius: 25px;
+  	padding: 20px; 
+  	background-color: #686868;
+}
+
+.pdpid-center {
+	text-align: center !important;
+}
+

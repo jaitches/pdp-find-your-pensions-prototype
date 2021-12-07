@@ -1,0 +1,58 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+		{{ govukBackLink({
+			text: "Back",
+			href: "take-photo-id"
+		}) }}
+	</div>  
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+		<div>
+			<img src="/public/images/photo-confirm-icon.jpeg" alt="Photo id is complete" class="pdpid-photo-confirm">
+		</div>
+
+		<h1 class="govuk-heading-xl">
+			Biometric consent
+		</h1>
+		<div class="pdp-id-shaded-box">
+			<p>
+				Our verification process uses your biometrics for extra security.
+			</p>
+			<p>
+				You need to provide consent for your biometrics to us and the organisation doing the check.
+			</p>
+			<ul class="govuk-list govuk-list--bullet">
+		        <li>
+		        	The scan of your face is used for anti-spoofing purposes and to verify that you're a real person.
+		        </li>
+		        <li>
+		        	Images captured during the scan are also matched to your ID document photo to make sure no one is trying to impersonate you.</li>      
+		        <li>
+		        	The organization doing the check will delete your biometrics in accordance with its privacy policy and we will delete your biometrics once the organization no longer requires us to hold it, and at the very latest within three years.
+		        </li>
+		    </ul>
+			<div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+			  <div class="govuk-checkboxes__item">
+			    <input class="govuk-checkboxes__input" id="organisation" name="organisation" type="checkbox" value="hmrc">
+			    <label class="govuk-label govuk-checkboxes__label" for="organisation">
+			      I confirm I have read, understood and agree to continue.
+			    </label>
+			  </div>
+			</div>
+		</div>
+		<p></p>
+
+		<a href="verify-its-you" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+		CONTINUE 
+		</a>  
+	</div>
+ </div>
+{% endblock %}

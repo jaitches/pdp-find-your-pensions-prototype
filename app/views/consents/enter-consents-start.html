@@ -1,0 +1,24 @@
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %}
+  {{serviceNameConsents}}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+
+      <h1 class="govuk-heading-xl pdp-consent-heading-font">
+        Your identity has been verified
+      </h1>
+
+      <p class="pdp-consent-font"> 
+        Before we search for your pensions you need to consent to the processing of your personal data by the <a href="https://moneyandpensionsservice.org.uk/">Money and Pensions Service</a>.
+      </p>
+
+      <a href="consents-all" role="button" draggable="false" class="govuk-button pdp-consents-button">
+        Continue
+      </a>
+    </div>
+  </div>
+{% endblock %}

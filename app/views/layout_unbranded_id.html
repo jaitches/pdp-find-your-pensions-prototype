@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block headIcons %}
+  <link rel="shortcut icon" href="{{ asset_path }}images/unbranded.ico?0.18.3" type="image/x-icon" />
+{% endblock %}
+
+{% block head %}
+  <!--[if lte IE 8]><link href="/public/stylesheets/unbranded-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link href="/public/stylesheets/unbranded-id.css" media="all" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+  <!--<![endif]-->
+
+  {% for stylesheetUrl in extensionConfig.stylesheets %}
+    <link href="{{ stylesheetUrl }}" rel="stylesheet" type="text/css" />
+  {% endfor %}
+{% endblock %}
+
+{% block header %}
+<img src="/public/images/digid-logo.jpeg" alt="digidentity logo" style="float: left; padding-left: 20px;"> <img src="/public/images/digid-menu.jpeg" alt="digidentity menu" style="float: right; padding-right: 20px;"> 
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

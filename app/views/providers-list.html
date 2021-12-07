@@ -1,0 +1,63 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - display providers
+{% endblock %}
+
+{% block content %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Manage pension information",
+        href: "/manage-pensions"
+      }
+    ]
+  }) }}
+  
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-xl">
+        Pension provider list
+      </h1>
+      <table class="govuk-table">
+        <thead class="govuk-table__head govuk-body-s">
+
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Provider name</th>
+            <th scope="col" class="govuk-table__header">Website</th>
+            <th scope="col" class="govuk-table__header">Email</th>
+            <th scope="col" class="govuk-table__header">Telephone</th>
+            <th scope="col" class="govuk-table__header">Address</th>
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header"></th>
+          </tr>
+        </thead>
+      {% for details in providersDetails %}
+        <tbody class="govuk-table__body govuk-body-xs">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{details.administratorName}}</td>
+            <td class="govuk-table__cell">{{details.administratorURL}}</td>
+            <td class="govuk-table__cell">{{details.administratorEmail}}</td>
+            <td class="govuk-table__cell">{{details.administratorPhoneNumber}}<br>{{details.administratorPhoneNumberType}}</td>
+            <td class="govuk-table__cell">{{details.administratorAddressLine1}}<br>{{details.administratorAddressLine2}}<br>{{details.administratorAddressLine3}}<br>{{details.administratorPostcode}}</td>
+            <td class="govuk-table__cell" ><a href="update-provider?providerId={{details._id}}" class="govuk-link">Edit</button></a></td>
+            <form action="/delete-provider/{{details._id}}" method="post" class="form">
+              <td class="govuk-table__cell" onclick="deleteProviderRow()"><button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button></td>
+            </form>
+          </tr>
+
+
+        </tbody>
+      {% endfor %}
+      </table>
+      <hr>
+        {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

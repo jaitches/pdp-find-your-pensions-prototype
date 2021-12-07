@@ -1,0 +1,26 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">
+        Verify your identity
+      </h1>
+
+      <p>
+        To use this service you need to verify your identity so that we know that you are who you say your are.
+      </p>
+      <p>
+        You will be redirected to an organisation to verify your identity.
+      </p>
+
+      <a href="/identity/start" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+        Continue 
+      </a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - 
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/enter-your-details" method="post" class="form">
+        <div class="govuk-form-group">
+          <div class="govuk-form-group">
+            <h1 class="govuk-heading-l">
+              Finding your pensions   
+            </h1>
+            <h2 class="govuk-heading-m">
+              Information we share with pension providers
+            </h2>
+            <p> 
+              To find your pensions we send the information you have given us to all UK pension providers (that’s about 36,000 pension schemes). They use your information to see if you have a pension with them.
+            </p> 
+            <h2 class="govuk-heading-m">
+              Reducing the amount of pension providers we share your information with
+            </h2>
+            <p class="govuk-body">You may want to reduce the number of pension providers we search for your pension information:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>to reduce the number of pension providers your information is shared with</li>
+              <li>if you have a new pension and you want it to be displayed on [dashboard name]</li>
+              <li>if you know exactly where all your pensions are held</li>
+            </ul>
+
+            <p>
+              To reduce the number of pension providers we contact you can create a list of pension providers for us to contact.
+            </p>
+
+            <br>
+
+            <a href="find-all-or-directed" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+              Continue 
+            </a>
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

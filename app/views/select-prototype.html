@@ -1,0 +1,97 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - select the protoype to use
+{% endblock %}
+
+{% block content %}
+
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      }
+    ]
+  }) }}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">     
+      <form action="/select-prototype" method="post" novalidate>
+        <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+
+
+      {{ govukRadios({
+        idPrefix: "select-prototype",
+        name: "select-prototype",
+        fieldset: {
+          legend: {
+            text: "Which prototype do you want to use?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+
+        items: [
+          
+          {
+            value: "prototype-find-view",
+            text: "Pension and provider information",
+            hint: {
+              text: "No figures"
+            }
+          },
+          {
+            value: "prototype-find-accrued",
+            text: "Current pension values",
+            hint: {
+              text: "Accrued figures only"
+            }
+          },
+          {
+            value: "prototype-find-accrued-estimated",
+            text: "Current and projected pension values - tabular display", 
+            hint: {
+              text: "Accrued and estimated figures displayed in a table"
+            }
+          },
+          {
+            value: "prototype-full-display-alt",
+            text: "Current and projected pension values - individual display", 
+            hint: {
+              text: "Accrued and estimated figures displayed by individual pension"
+            }
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+      <!--
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Previous versions of the protoypes
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <pl class="govuk-list govuk-list--number">
+            <li>
+              <a href="prototype-sep-21">Sep 2021</a> - ERI tests no figures displayed
+            </li>
+            <li>             
+              <a href="prototype-oct-21">Oct 2021</a> - ERI tests current and projected figures
+            </li>
+          </ul>
+        </div>
+    </details>
+  -->
+    </div>
+    <div class="govuk-grid-column-one-third">
+        {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

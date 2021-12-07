@@ -1,0 +1,196 @@
+
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - Enter your details
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <form action="/enter-your-details" method="post" class="form">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="details-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading pdp-consent-heading-font">
+                Enter your details
+              </h1>
+            </legend>
+            <div id="details-hint" class="govuk-hint pdp-consent-font">
+              We will use your details to find your pensions.         
+            </div>
+            <h2 class="govuk-heading-m pdp-consent-font">
+                The identity service has given us:
+            </h2>
+            <div class="govuk-form-group">
+              <label class="govuk-label pdp-consent-font" for="first-name">
+                First name
+              </label>
+              <input class="govuk-input govuk-input--width-30 pdp-consent-font" id="first-name" name="first-name" type="text" value= "Jane" disabled>
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label pdp-consent-font" for="last-name">
+                Last name
+              </label>
+              <input class="govuk-input govuk-input--width-30 pdp-consent-font" id="last-name" name="last-name" type="text" value="Smith" disabled>
+            </div>
+            <div class="govuk-form-group">
+              <div class="govuk-date-input" id="dob">
+                <label class="govuk-label pdp-consent-font" for="event-name">
+                  Date of Birth
+                </label>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label pdp-consent-font" for="dob-day">
+                      Day
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2 pdp-consent-font" id="dob-day" name="dob-day" type="text" pattern="[0-9]*" inputmode="numeric" value="01" disabled>
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label pdp-consent-font" for="dob-month">
+                      Month
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2 pdp-consent-font" id="dob-month" name="dob-month" type="text" pattern="[0-9]*" inputmode="numeric" value="APR" disabled>
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label pdp-consent-font" for="dob-year">
+                      Year
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4 pdp-consent-font" id="dob-year" name="dob-year" type="text" pattern="[0-9]*" inputmode="numeric" value="1982" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label pdp-consent-font" for="address-line-1">
+                Address
+              </label>
+              <input class="govuk-input pdp-consent-font" id="address-line-1" name="address-line-1" type="text" value="42 High Street" disabled>
+            </div>
+
+            <div class="govuk-form-group">
+              <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="address-town" name="address-town" type="text" value="Reading" disabled>
+            </div>
+
+            <div class="govuk-form-group">
+              <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="address-county" name="address-county" type="text" value="Berks" disabled>
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label pdp-consent-font" for="address-postcode">
+                Postcode
+              </label>
+              <input class="govuk-input govuk-input--width-10 pdp-consent-font" id="address-postcode" name="address-postcode" type="text" value="RG1 4WD" disabled>
+            </div>
+
+            <br>
+            <h2 class="govuk-heading-m pdp-consent-font">
+                National Insurance number
+            </h2>
+       
+            <div class="govuk-form-group">
+
+              <div id="details-hint" class="govuk-hint pdp-consent-font">
+                Entering your National Insurance number will make it more likely that we will find your pensions.         
+              </div>
+              <input class="govuk-input govuk-input govuk-input--width-10 pdp-consent-font" id="ni-number" name="ni-number" type="text">
+            </div> 
+            <h2 class="govuk-heading-m">
+                Additional details
+            </h2>
+            <div id="details-hint" class="govuk-hint pdp-consent-font">
+              These additional details could also help us find your pensions.
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label pdp-consent-font" for="alt-name">
+                Previous or alternative name
+              </label>
+              <div id="alt-name-hint" class="govuk-hint pdp-consent-font">
+                If you have a used a different name to register a pension enter it here.
+              </div>
+              <input class="govuk-input govuk-input govuk-input--width-30 pdp-consent-font" id="alt-name" name="alt-name" type="text">
+            </div> 
+
+            <fieldset class="govuk-fieldset" id="prev-address">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <label class="govuk-label pdp-consent-font">
+                  Previous address
+                </label>            
+                <div id="alt-address-hint" class="govuk-hint pdp-consent-font">
+                  If you have a used a different address to register a pension enter it here.
+                </div>
+              </legend>
+              <div class="govuk-form-group">
+                <label class="govuk-label pdp-consent-font" for="prev-address-line-1">
+                  Building and street <span class="govuk-visually-hidden">line 1 of 2</span>
+                </label>
+                <input class="govuk-input pdp-consent-font" id="prev-address-line-1" name="prev-address-line-1" type="text">
+              </div>
+
+              <div class="govuk-form-group">
+                <label class="govuk-label pdp-consent-font" for="prev-address-line-2">
+                  <span class="govuk-visually-hidden">Building and street line 2 of 2</span>
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="prev-address-line-2" name="prev-address-line-2" type="text">
+              </div>
+
+              <div class="govuk-form-group">
+                <label class="govuk-label pdp-consent-font" for="prev-address-town">
+                  Town or city
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="prev-address-town" name="prev-address-town" type="text">
+              </div>
+
+              <div class="govuk-form-group">
+                <label class="govuk-label pdp-consent-font" for="prev-address-county">
+                  County
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="prev-address-county" name="prev-address-county" type="text">
+              </div>
+
+              <div class="govuk-form-group">
+                <label class="govuk-label pdp-consent-font" for="prev-address-postcode">
+                  Postcode
+                </label>
+                <input class="govuk-input govuk-input--width-10 pdp-consent-font" id="prev-address-postcode" name="prev-address-postcode" type="text" autocomplete="postal-code">
+              </div>
+            </fieldset>
+            <br>
+            <a href="#prev-address" role="button" draggable="false" class="govuk-button pdp-consents-button pdp-consents-button-small">
+              Enter another previous address
+            </a>
+            <p></p>
+            <div class="govuk-form-group">
+              <label class="govuk-label pdp-consent-font" for="email">
+                Email address
+              </label>
+              <input class="govuk-input pdp-consent-font" id="email" name="email" type="email" spellcheck="false">
+            </div> 
+            <div class="govuk-form-group">
+              <label class="govuk-label pdp-consent-font" for="telephone-number">
+                UK telephone number
+              </label>
+              <input class="govuk-input govuk-input--width-20 pdp-consent-font" id="telephone-number" name="telephone-number" type="tel">
+            </div>             
+          </fieldset>
+        </div>
+
+        <button class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Save and continue
+        </button>
+
+
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

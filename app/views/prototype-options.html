@@ -1,0 +1,66 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - prototype options
+{% endblock %}
+
+{% block content %}
+
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Which prototype do you want to use?",
+        href: "/select-prototype"
+      }
+    ]
+  }) }}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">     
+      <form action="/prototype-options" method="post" novalidate>
+        <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="options-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Which options do you want to apply to the '{{ptype.text}}' prototype?
+              </h1>
+            </legend>
+              <div id="options-hint" class="govuk-hint">
+                   Select the options to switch on, leave blank to switch off.
+                  </div>
+              <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="split-origin" name="ptype-option" type="checkbox" value="split-origin">
+                <label class="govuk-label govuk-checkboxes__label" for="split-origin">
+                  Separate headings for pension origin (state, workplace and private)
+                </label>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="split-type" name="ptype-option" type="checkbox" value="split-type">
+                <label class="govuk-label govuk-checkboxes__label" for="split-type">
+                  Separate headings for pension type (DB, DC etc.)
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+      </form>
+
+    </div>
+    <div class="govuk-grid-column-one-third">
+        {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

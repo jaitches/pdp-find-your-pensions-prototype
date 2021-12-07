@@ -1,0 +1,45 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/display-or-manage-data" method="post" novalidate>
+
+          {{ govukRadios({
+            idPrefix: "what-do-you-want-to-do",
+            name: "what-do-you-want-to-do",
+            fieldset: {
+              legend: {
+                text: "What do you want to do?",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+              }
+            },
+
+            items: [
+              {
+                value: "prototype",
+                text: "View the prototypes"
+              },
+              {
+                value: "manage-data",
+                text: "Manage pension information to display on the prototype"
+              }
+            ]
+          }) }}
+
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

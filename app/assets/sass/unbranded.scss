@@ -1,0 +1,186 @@
+// The unbranded stylesheet is used if you need to create pages in your
+// prototype without the GOV.UK branding.
+//
+// See localhost:3000/docs/templates/blank-unbranded
+
+// Import settings first so we can override them before importing all of GOV.UK Frontend
+// If you need to enable compatibility mode or the legacy palette, do that *before* this import.
+@import "node_modules/govuk-frontend/govuk/settings/all";
+
+// Override the default GOV.UK Frontend font stack
+$govuk-font-family: "Roobert", sans-serif;
+
+// Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
+$govuk-canvas-background-colour: $govuk-body-background-colour;
+
+@import "application";
+
+.body {
+	  font-family: "Roobert", sans-serif !important;
+}
+// Font
+.pdp-heading-font {
+	color: #0f19a0;
+}
+// button
+.pdp-button {
+  	font-family: "Roobert", arial, sans-serif;
+	background-color: #c82a87;
+	color: white ;
+	box-shadow: 0 2px 0 #ABB2B6;	
+  	border-radius: 4px;
+}
+
+.pdp-button-warning {
+	background-color: #EA3A3D;
+	font-family: "Roobert", arial, sans-serif;
+	color: white ;
+	box-shadow: 0 2px 0 #e5a044;	
+  	border-radius: 16px;
+}
+
+.pdp-button-warning:hover {
+	background-color: #c82a87;
+	color: #384455;
+}
+
+.pdp-button:hover,
+.pdp-button:link {
+	background-color: #c82a87;
+	box-shadow: 0 2px 0 #e5a044;	
+}
+
+// header
+.pdp-header-no-border {
+	border-bottom: none;
+	margin-bottom: 0px;
+    padding-top: 0px;
+}
+.pdp-header {
+//	border-bottom: 1px solid white;
+	background-color: #0f19a0;
+	width: 100%;
+	font-family: "Roobert", arial, sans-serif;
+}
+
+.pdp-header-nav {
+	font-family: "Roobert", arial, sans-serif;
+}
+
+.pdp-login-hello {
+	float: right;
+	padding-top: 40px;
+}
+
+.pdp-login-hello-font {
+	color: #c82a87;
+	font-size: 16px;
+	font-family: "Roobert", arial, sans-serif;
+}
+
+//
+// pension panels
+//
+
+// pension box formatting ptype 5
+
+.pdp-pension-box-border {
+	border-style: solid;
+	border-width: 8px;
+	border-color: #9da1ca;
+	padding: 5px;
+	border-radius: 0px 0px 0px 2.25em
+}
+// More details link
+.pdp-details-link-right {
+	text-align: right;
+}
+
+
+// footer
+.pdp-footer {
+  border-top: 0px ;
+}
+// header service name
+// header service name font size bigger
+.govuk-header__link--service-name {
+  font-size: 32px;
+}
+
+.govuk-header__link--service-name 
+.pdp-header-content-consents{
+  font-size: 32px;
+}
+
+.pdp-service-name, 
+.govuk-header__link:link,
+.govuk-header__link:visited {
+	position : relative;
+	font-size : 2rem;
+	font-weight : bold;
+	text-decoration: none;
+	text-align: center;
+	margin-bottom: 0px;
+}
+.pdp-service-name, 
+.pdp-service-name:hover,
+.pdp-service-name:visited,
+.pdp-service-name:active {
+	position : relative;
+	font-size : 2rem;
+	font-weight : bold;
+	color : black;
+	text-decoration: none;
+	text-align: center;
+	margin-bottom: 0px;
+}
+.pdp-admin {
+	background: #058282;
+	border-color: #058282;
+
+}
+
+
+pdp-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.pdpid-photo-confirm {
+	position: relative;
+}
+
+.pdpid-oval {
+	border-radius: 50%;
+	border: 5px solid blue;
+}
+
+.pdpid-rounded-corners {
+  border-radius: 10%;
+}
+
+
+
+.pdpid-grey-background {
+	background-color:#f5f8f9;
+}
+
+.pdpid-photo-box {
+	border-radius: 25px;
+	border: 10px solid #959595;
+	padding: 20px; 
+	background-color:#f5f8f9;
+
+}
+.pdpid-photo-inner-box {
+	border-radius: 25px;
+  	padding: 20px; 
+  	background-color: #686868;
+}
+
+.pdpid-center {
+	text-align: center !important;
+}

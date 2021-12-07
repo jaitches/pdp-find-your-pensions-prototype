@@ -1,0 +1,31 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row ">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h2 class="govuk-heading-l">
+        Steps completed
+      </h2>
+      <p>
+        We have everything we need to verify your identity
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>a photo of your ID document</li>
+        <li>a quick scan of your face</li>
+        <li>consent for us to share your data</li>
+      </ul>
+      <p>
+        You will now be redirected to the PensionFinder.
+      </p>
+      <a href="/consents/enter-consents-start" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+        FINISH 
+      </a>      
+
+    </div>
+  </div>
+{% endblock %}

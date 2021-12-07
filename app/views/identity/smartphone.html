@@ -1,0 +1,49 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+		{{ govukBackLink({
+			text: "Back",
+			href: "identity-login"
+		}) }}
+	</div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+
+		<h1 class="govuk-heading-l">
+			Use your smartphone to continue
+		</h1>
+		<p>
+			Scan your documents with a smartphone if you have it handy. Proceed with computer if you don’t have a smartphone on you.
+		</p>
+		<div class="pdpid-grey-background">
+			<h2 class="govuk-heading-m">
+				Why use a smartphone over computer?
+			</h2>
+			<p>
+				It's easier to take clearer pictures of your documents and helps us to verify your identity quickly.
+			</p>
+		</div>
+	</div>
+	<div class="govuk-grid-column-one-half">
+
+		<img src="/public/images/smartphone.jpeg" alt="Person using the scan facility on their computer" class="pdpid-rounded-corners">
+		<br>
+
+		<a href="select-id-document" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+		USE COMPUTER
+		</a> 		
+		<a href="smartphone-error" role="button" draggable="false" class="govuk-button pdpid-button-secondary" data-module="govuk-button">
+		CONTINUE 
+		</a>      
+
+    </div>
+ </div>
+{% endblock %}

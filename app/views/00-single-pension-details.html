@@ -1,0 +1,351 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  View my pensions - Pension detail
+{% endblock %}
+
+{% block content %}
+{% if ptypeNumber == "5" %}
+  {% set frequencyPaidUpper = "Monthly" %}
+  {% set frequencyPaidLower = "monthly" %}
+  {% set frequencyPer = "month" %}
+{% else %}
+  {% set frequencyPaidUpper = "Yearly" %}
+  {% set frequencyPaidLower = "yearly" %}
+  {% set frequencyPer = "year" %}
+{% endif %}
+
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <p>{{ptypeDisplayURL}}</p>
+        <a class="govuk-breadcrumbs__link" href="{{ptypeDisplayUrl}}?ptype={{ptypeNumber}}&owner={{pensionOwnerName}}">Back to pension list</a>
+      </li> 
+    </ol>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-xl pdp-heading-with-caption pdp-heading-font">
+        {{pensionDetails.pensionDescription}}
+      </h1>
+      <p class="govuk-caption-m">{{pensionDetails.pensionReference}}</p>
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Age your pension is payable
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionDetails.pensionRetirementAge}}
+          </dd>
+        </div>
+      </dl>      
+
+      {% if pensionDetails.pensionType == "ST" or pensionDetails.pensionType == "DB" and (ptypeNumber == 3 or ptypeNumber == 4 or ptypeNumber == 5 ) %}
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              {{frequencyPaid}} income built up so far
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{pensionDetails.accruedAmountSterling}}<br><br>
+              <p class="govuk-body-s">
+                Calculated on {{pensionDetails.accruedCalculationDateString}}.
+              </p>
+            </dd>
+          </div>
+        </dl>
+        {% if ptypeNumber == 4 or ptypeNumber == 5 %}
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              What your pension could pay you at retirement each {{frequencyPer}}
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{pensionDetails.ERIAnnualAmountSterling}}<br><br>
+              {% if pensionDetails.pensionStatus == "A" %}
+                {% if pensionDetails.pensionOrigin == "S" and NINotPaidUP %}
+                  <p class="govuk-body-s">
+                    If you continue contributing National Insurance.
+                  </p>
+                {% elseif not NINotPaidUP %}
+                <!-- no messsage if paid up NI -->
+                {% else %}
+                  <p class="govuk-body-s">
+                    If you continue saving at the same rate.
+                  </p>
+                {% endif %}
+
+              {% endif %}
+            </dd>
+          </div>
+        </dl>
+        {% endif %}
+      {% endif %}
+
+      {% if pensionDetails.pensionType == "DC" %}
+        <dl class="govuk-summary-list">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Pot value so far
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{pensionDetails.accruedAmountSterling}}<br><br>              
+              <p class="govuk-body-s">
+                Calculated on {{pensionDetails.accruedCalculationDateString}}.
+                {% if pensionDetails.pensionOrigin == "W" %}
+                <br>
+                <br>
+                This is the amount that you and your employer have contributed, as well as tax relief from the government.
+                {% endif %}
+              </p>
+            </dd>
+          </div>
+        </dl>
+        {% if ptypeNumber == 4 or ptypeNumber == 5 %}
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                What your pot value could be at {{pensionDetails.pensionRetirementAge}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{pensionDetails.ERIPotSterling}}              
+                {% if pensionDetails.pensionStatus == "A" %}
+                  <p></p>
+                  <p class="govuk-body-s">
+                    If you continue saving at the same rate.
+                  </p>
+                {% endif %}
+              </dd>
+            </div>
+          </dl>        
+          <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                What your {{frequencyPaidLower}} income could be {{pensionDetails.pensionRetirementAge}}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{pensionDetails.ERIAnnualAmountSterling}}
+                <p></p>
+                <p class="govuk-body-s">
+                  We’re showing you what you might get if you turned your pension into an income for life – an annuity.
+                </p>            
+             </dd>
+            </div>
+          </dl>       
+        {% endif %}
+      {% endif %}
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Pension type
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionDetails.pensionTypeName}}<br><br>
+            <p class="govuk-body-s">
+              {{pensionDetails.pensionTypeDescription}}
+            </p>
+          </dd>
+        </div>
+      </dl>
+
+      {%if pensionDetails.employerName %} 
+      <h2 class="govuk-heading-l">
+        Employment details
+      </h2> 
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Employer
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionDetails.employerName}}
+          </dd>
+        </div>
+      </dl>      
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Employment start date
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionDetails.employmentStartDateString}}
+          </dd>
+        </div>
+      </dl> 
+      {% if pensionDetails.employmentEndDateString %}     
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Date you stopped working for {{pensionDetails.employerName}}
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionDetails.employmentEndDateString}}
+          </dd>
+        </div>
+      </dl>
+      {% endif %}
+      {% endif %}
+      {% if pensionDetails.pensionType !== "ST" %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Date you started saving in to your pension
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionDetails.pensionStartDateString}}
+          </dd>
+        </div>
+      </dl>
+      {% endif %}
+      <h3 class="govuk-heading-l">
+        Pension provider details
+      </h3>
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Pension provider name
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionDetails.administratorName}}
+          </dd>
+        </div>
+      </dl>
+      <!--
+      {%if pensionProvider.administratorContactPreference %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Prefered method of contact
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionProvider.administratorContactPreference}}
+          </dd>
+        </div>
+      </dl>  
+      {% endif %} 
+    -->
+      {% if pensionProvider.administratorURL %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Website
+          </dt>
+          <dd class="govuk-summary-list__value"><a href={{pensionProvider.administratorURL}}>
+            {{pensionProvider.administratorShortURL}}</a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %} 
+      {%if pensionProvider.administratorEmail %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Email address
+          </dt>
+          <dd class="govuk-summary-list__value"><a href="mailto:pensionProvider.administratorEmail">
+            {{pensionProvider.administratorEmail}}
+          </a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %} 
+      {%if pensionProvider.administratorPhoneNumber %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Phone number
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionProvider.administratorPhoneNumber}}
+            {% if pensionProvider.administratorPhoneNumberType %}
+              <br>
+              ({{pensionProvider.administratorPhoneNumberType}})
+            {% endif %}
+
+          </a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %} 
+      {%if pensionProvider.administratorAddressLine1 %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Address
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionProvider.administratorPostalName}}<br>
+            {{pensionProvider.administratorAddressLine1}}<br>
+            {{pensionProvider.administratorAddressLine2}}<br>
+            {{pensionProvider.administratorAddressLine3}}<br>
+            {% if pensionProvider.administratorAddressLine4 %}
+            {{pensionProvider.administratorAddressLine4}}<br>
+            {% endif %}
+            {% if pensionProvider.administratorAddressLine5 %}
+            {{pensionProvider.administratorAddressLine5}}<br>
+            {% endif %}
+            {{pensionProvider.administratorPostcode}}<br>
+          </a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %}
+      {% if pensionProvider.administratorAnnualReportURL %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Annual report
+          </dt>
+          <dd class="govuk-summary-list__value"><a href="{{pensionProvider.administratorAnnualReportURL}}">
+            {{pensionProvider.administratorAnnualReportShortURL}}
+          </a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %}
+      {% if pensionProvider.administratorCostsChargesURL %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Costs and charges website
+          </dt>
+          <dd class="govuk-summary-list__value"><a href="pensionProvider.administratorCostsChargesURL">
+            {{pensionProvider.administratorCostsChargesShortURL}}
+          </a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %}
+      {% if pensionProvider.administratorImplementationURL %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Implementation statement website
+          </dt>
+          <dd class="govuk-summary-list__value"><a href="pensionProvider.administratorImplementationURL">
+            {{pensionProvider.administratorImplementationShortURL}}
+          </a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %}
+      {% if pensionProvider.administratorSIPURL %}
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Statement of investment principles website
+          </dt>
+          <dd class="govuk-summary-list__value"><a href="pensionProvider.administratorSIPURL">
+            {{pensionProvider.administratorSIPShortURL}}
+          </a>
+          </dd>
+        </div>
+      </dl>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

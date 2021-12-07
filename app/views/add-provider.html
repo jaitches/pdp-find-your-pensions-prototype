@@ -1,0 +1,75 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - add provider
+{% endblock %}
+
+{% block content %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Manage pension information",
+        href: "/manage-pensions"
+      }
+    ]
+  }) }}
+  
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/add-provider-details" method="post" class="form">
+        <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+
+        {% call govukFieldset({
+          legend: {
+            text: "Add pension provider",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+
+        }) %}
+
+          {{ govukInput({
+            label: {
+              html: 'Provider name'
+            },
+
+            hint: {
+              text: "Do not enter any special characters or punctation."
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administrator-name",
+            name: "administrator-name"
+          }) }} 
+        {% if providerExistsMsg %}
+          <p class="pdp-warning-message">
+            {{providerExistsMsg}}
+          </p>
+        {% endif %}
+   
+        {% endcall %}
+        {% if calledFromAddPension or calledFromUpdPension %}
+          <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
+              Save and return
+            </button>
+          </div>
+        {% else %}
+          <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
+              Save
+            </button>
+          </div>
+        {% endif %}
+      </form>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+		{{ govukBackLink({
+			text: "Back",
+			href: "take-photo-id"
+		}) }}
+	</div>
+</div>
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">		
+		<h1 class="govuk-heading-l">
+			Sorry the upload service is not available at this time
+		</h1>
+		<p>
+			Please try again later
+		</p>
+
+		<a href="take-photo-id" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+	    	BACK TO PREVIOUS PAGE 
+	    </a>
+	</div>
+</div>
+{% endblock %}

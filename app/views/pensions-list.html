@@ -1,0 +1,132 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - display pensions
+{% endblock %}
+
+
+
+{% block content %}
+    {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Manage pension information",
+        href: "/manage-pensions"
+      }
+    ]
+  }) }}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+      <h1 class="govuk-heading-xl">
+        Pension list
+      </h1>
+
+      <h2 class="govuk-heading-l">
+        Pensions displayed on the prototype
+      </h2>
+      <table class="govuk-table">
+        <thead class="govuk-table__head govuk-body-s">
+
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Pension owner</th>
+            <th scope="col" class="govuk-table__header">Pension description</th>
+            <th scope="col" class="govuk-table__header">Pension type</th>
+            <th scope="col" class="govuk-table__header">Pension name</th>
+            <th scope="col" class="govuk-table__header">Provider</th>
+            <th scope="col" class="govuk-table__header">Reference</th>
+            <th scope="col" class="govuk-table__header">Employer</th>
+            <th scope="col" class="govuk-table__header">Accrued Income</th>
+            <th scope="col" class="govuk-table__header">ERI Pot</th>
+            <th scope="col" class="govuk-table__header">ERI Income</th>
+            <th scope="col" class="govuk-table__header">Accrued Calc</th>
+            <th scope="col" class="govuk-table__header">            
+              <form action="/delete-all-pensions" method="post" class="form">
+                <td class="govuk-table__cell" onclick="deleteAllPensions()"><button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete All</button></td>
+              </form></th>
+            <th scope="col" class="govuk-table__header"></th>
+          </tr>
+        </thead>
+      {% for details in manualPensionDetails %}
+        <tbody class="govuk-table__body govuk-body-xs">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{details.pensionOwner}}</td>
+            <td class="govuk-table__cell pdp-word-break">{{details.pensionDescription}}</td>
+            <td class="govuk-table__cell">{{details.pensionType}}</td>
+            <td class="govuk-table__cell">{{details.pensionName}}</td>
+            <td class="govuk-table__cell">{{details.administratorName}}</td>
+            <td class="govuk-table__cell pdp-word-break">{{details.pensionReference}}</td>
+            <td class="govuk-table__cell">{{details.employerName}}</td>
+            <td class="govuk-table__cell">£{{details.accruedAmount}}</td>
+            <td class="govuk-table__cell">£{{details.ERIPot}}</td>
+            <td class="govuk-table__cell">£{{details.ERIAnnualAmount}}</td>
+            <td class="govuk-table__cell">{{details.accruedCalculationDate}}</td>
+            <td class="govuk-table__cell" ><a href="update-pension?pensionId={{details._id}}" class="govuk-link">Edit</button></a></td>
+            <form action="/delete-pension/{{details._id}}" method="post" class="form">
+              <td class="govuk-table__cell" onclick="deleteRow()"><button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button></td>
+            </form>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      <h2 class="govuk-heading-l" id="example-pensions">
+        Example pensions
+      </h2>
+      <div class="govuk-hint">
+        Copy these pensions to add a pension to the prototype display.
+      </div>
+      <table class="govuk-table">
+        <thead class="govuk-table__head govuk-body-s">
+
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Pension description</th>
+            <th scope="col" class="govuk-table__header">Pension type</th>
+            <th scope="col" class="govuk-table__header">Pension name</th>
+            <th scope="col" class="govuk-table__header">Provider</th>
+            <th scope="col" class="govuk-table__header">Ref</th>
+            <th scope="col" class="govuk-table__header">Employer</th>
+            <th scope="col" class="govuk-table__header">Accrued Income</th>
+            <th scope="col" class="govuk-table__header">ERI Pot</th>
+            <th scope="col" class="govuk-table__header">ERI Income</th>
+            <th scope="col" class="govuk-table__header">Date payable</th>
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header"></th>
+            <th scope="col" class="govuk-table__header"></th>
+          </tr>
+        </thead>
+      {% for details in examplePensionDetails %}
+        <tbody class="govuk-table__body govuk-body-xs">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{details.pensionDescription}}</td>
+            <td class="govuk-table__cell">{{details.pensionType}}</td>
+            <td class="govuk-table__cell">{{details.pensionName}}</td>
+            <td class="govuk-table__cell">{{details.administratorName}}</td>
+            <td class="govuk-table__cell">{{details.pensionReference}}</td>
+            <td class="govuk-table__cell">{{details.employerName}}</td>
+            <td class="govuk-table__cell">£{{details.accruedAnnualIncome}}</td>
+            <td class="govuk-table__cell">£{{details.ERIPot}}</td>
+            <td class="govuk-table__cell">£{{details.ERIAnnualAmount}}</td>
+            <td class="govuk-table__cell">{{details.ERIPayableDate}}</td>
+            <td class="govuk-table__cell" ><a href="update-pension?pensionId={{details._id}}" class="govuk-link">Edit</button></a></td>
+            <form action="/copy-pension/{{details._id}}" method="post" class="form">
+              <td class="govuk-table__cell">
+                <button class="govuk-button govuk-button" data-module="govuk-button">Copy</button></td>
+            </form>
+            <form action="/delete-pension/{{details._id}}" method="post" class="form">
+              <td class="govuk-table__cell" onclick="deleteRow()"><button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button></td>
+            </form>
+          </tr>
+        </tbody>
+      {% endfor %}
+      </table>
+      <hr>
+        {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

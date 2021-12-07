@@ -1,0 +1,67 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/which-page-to-start" method="post" novalidate>
+
+          {{ govukRadios({
+            idPrefix: "which-page",
+            name: "which-page",
+            fieldset: {
+              legend: {                
+                text: "Which area of the prototype do you want to start from?",
+
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+              }
+            },
+
+            items: [
+              {
+                value: "full",
+                text: "The full prototype from the dashboard start"
+              },
+              {
+                value: "identity",
+                text: "From the identity service"
+              },
+              {
+                value: "consents",
+                text: "From the Manage my consents service start"
+              }
+            ]
+          }) }}
+
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+  {% block footer %}
+    {{ govukFooter({
+      meta: {
+        items: [
+          {
+            href: "https://govuk-prototype-kit.herokuapp.com/",
+            text: "GOV.UK Prototype Kit " + releaseVersion
+          },
+          {
+            href: "/prototype-admin/clear-data",
+            text: "Clear data"
+          }
+        ],
+        visuallyHiddenTitle: "Footer links"
+      }
+    }) }}
+  {% endblock %}

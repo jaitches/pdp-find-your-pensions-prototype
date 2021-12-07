@@ -1,0 +1,201 @@
+// global styles for <a> and <p> tags
+$govuk-global-styles: true;
+$govuk-new-link-styles: true;
+
+// We can't mount GOV.UK Frontend's assets at root as it's done automatically by the extensions framework.
+$govuk-assets-path: '/govuk/assets/';
+
+// Import GOV.UK Frontend and any extension styles if extensions have been configured
+@import "lib/extensions/extensions";
+
+// Patterns that aren't in Frontend
+@import "patterns/step-by-step-header";
+@import "patterns/step-by-step-nav";
+@import "patterns/step-by-step-related";
+@import "patterns/task-list";
+@import "patterns/related-items";
+
+// Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+
+
+
+//
+// table formatting
+//
+
+
+// override padding
+
+.govuk-table__cell {
+	padding: 5px !important;
+}
+
+.govuk-table__header {
+	padding: 5px !important;
+}
+
+
+.govuk-grid-row {
+  display: flex;
+}
+
+
+// override summary margin size from 30 to 10
+.govuk-summary-list {
+	margin-bottom: 10px !important;
+}
+// general box formatting
+
+.pdp-box-border {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #b1b4b6;
+}
+
+.pdp-box-border-left {
+	border-left: 1px solid #b1b4b6;
+}
+.pdp-box-border-right {
+	border-right: 1px solid #b1b4b6;
+	box-sizing: border-box;
+}
+.pdp-box-border-top {
+	border-top: 1px solid #b1b4b6;
+}
+
+.pdp-box-border-bottom {
+	border-bottom: 1px solid #b1b4b6;
+}
+
+.pdp-box-border-no-top {
+	border-top: none !important;
+}
+.pdp-box-border-no-bottom {
+	border-bottom: none !important;
+}
+.pdp-width-5 {
+	width: 5% !important;
+	box-sizing: border-box;
+}
+.pdp-width-10 {
+	width: 10% !important;
+	box-sizing: border-box;
+}
+.pdp-width-12-5 {
+	width: 12.5% !important;
+	box-sizing: border-box;
+}
+.pdp-width-15 {
+	width: 15% !important;
+	box-sizing: border-box;
+}
+.pdp-width-20 {
+	width: 20% !important;
+	box-sizing: border-box;
+}
+.pdp-width-25 {
+	width: 25% !important;
+	box-sizing: border-box;
+}
+.pdp-width-30 {
+	width: 30% !important;
+	box-sizing: border-box;
+}
+.pdp-width-50 {
+	width: 50% !important;
+	box-sizing: border-box;
+}
+.pdp-word-break {
+	word-break: break-word;
+}
+
+.pdp-align-bottom {
+	vertical-align: bottom;	
+}
+.pdp-align-bottom-right {
+	vertical-align: bottom;
+	text-align: right;
+}
+
+.pdp-table-header {
+	text-align: center;
+	vertical-align: bottom;	
+}
+.pdp-align-center {
+	text-align: center;
+}
+
+.pdp-align-right {
+	text-align: right;
+}
+
+.pdp-table-shaded-1 {
+	background-color: #E5F2F2;	
+}
+.pdp-table-shaded-2 {
+	background-color: #CCE5E5;	
+}
+//
+// loading wheel
+//
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.loading--full-height {
+  align-items: center;
+  height: 100%;
+}
+
+.loading::after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  border: 10px solid #dddddd;
+  border-top-color: #058282;
+  border-radius: 50%;
+  transform: rotate(0.16turn);
+  animation: loading 1s ease infinite;
+}
+
+@keyframes loading {
+  /* Safari support */
+  from {
+    transform: rotate(0turn);
+  }
+  
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.loading-message {
+	text-align: center;
+	color: grey;
+	padding-top:20px
+}
+
+//
+// Pension box formatting
+//
+.pdp-pension-box {
+	border: 8px solid;
+}
+
+// when the caption is underneath e.g. pension reference reduce the padding of the heading it's under
+.pdp-heading-with-caption {
+  margin-bottom: 10px;
+}
+
+.pdp-caption-m {
+  font-family: "GDS Transport", arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  font-size: 14px;
+  font-size: 1rem;
+  line-height: 1.25;
+  display: block;
+  color: #505a5f;
+}

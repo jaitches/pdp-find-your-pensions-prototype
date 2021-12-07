@@ -1,0 +1,310 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - add pension
+{% endblock %}
+
+{% block content %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Manage pension information",
+        href: "/manage-pensions"
+      }
+    ]
+  }) }}
+  
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+      <h1 class="govuk-heading-xl">
+        Add pension details
+      </h1>
+
+      <form action="/add-pension-details" method="post" class="form">      
+        <div class="govuk-form-group">
+          <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="administratorName">
+              Select the pension provider
+            </label>
+          </h1>
+          <div id="administrator-name-hint" class="govuk-hint">
+            If the pension provider is not displayed on the list you can <a href="add-provider">add a new provider</a>
+          </div>
+          <select class="govuk-select" id="administratorDetails" name="administratorDetails">
+          {% for name in pensionProviders %}
+          {% set administratorDetails =  name._id + ":" + name.administratorName %}
+
+            <option value="{{administratorDetails}}">{{name.administratorName}}</option>
+
+          {% endfor %}
+          </select>
+        </div>
+
+        {% call govukFieldset({
+          legend: {
+            text: "Pension arrangement details",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+        {% if testEnv %}     
+          {{ govukInput({
+            label: {
+              html: 'Pension owner'
+            },
+            classes: "govuk-!-width-two-thirds",
+            hint: {
+              text: "The name you enter will be used by the prototype to select your pensions"
+            },
+            id: "pensionOwner",
+            name: "pensionOwner"
+          }) }} 
+        {% endif %}
+          {{ govukInput({
+            label: {
+              html: 'Enter a brief description of the pension'
+            },
+            classes: "govuk-!-width-two-thirds",  
+            hint: {
+              text: "use the employer name for workplace pensions or the provider name for private pensions"
+            },
+            id: "pensionDescription",
+            name: "pensionDescription"
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Pension reference'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "pensionReference",
+            name: "pensionReference"
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Pension scheme name'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "pensionName",
+            name: "pensionName"
+          }) }}
+
+          {{ govukSelect({
+            id: "pensionType",
+            name: "pensionType",
+            label: {
+              text: "Pension type"
+            },
+            items: [
+
+              {
+                value: "DC",
+                text: "DC pension"
+              },              
+              {
+                value: "DB",
+                text: "DB pension"
+              },              
+              {
+                value: "ST",
+                text: "State Pension"
+              },
+              {
+                value: "AVC",
+                text: "AVC pension"
+              },
+              {
+                value: "HYB",
+                text: "Hybrid (DC and DB) pension"
+              }             
+            ]
+          }) }}
+
+          {{ govukSelect({
+            id: "pensionOrigin",
+            name: "pensionOrigin",          
+            label: {
+              html: 'Pension origin' 
+            },
+            items: [
+              {
+                value: "W",
+                text: "Workplace"
+              },              
+              {
+                value: "P",
+                text: "Private"
+              },              
+              {
+                value: "S",
+                text: "State"
+              }
+            ]
+   
+          }) }}
+
+           {{ govukSelect({
+            id: "pensionStatus",
+            name: "pensionStatus",          
+            label: {
+              html: 'Pension status'
+            },
+            items: [
+              {
+                value: "A",
+                text: "Active"
+              },              
+              {
+                value: "I",
+                text: "Inactive"
+              }
+            ]
+   
+          }) }}
+          {{ govukInput({
+            label: {
+              html: 'Retirement age'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "pensionRetirementAge",
+            name: "pensionRetirementAge"
+          }) }}
+
+          <div class="govuk-form-group">
+            <label for="pensionStartDate" class="govuk-body">Pension start date</label>
+            <p>
+              <input type="date" id="pensionStartDate" name="pensionStartDate" class="govuk-body">
+            </p>
+          </div>          
+          <div class="govuk-form-group">
+            <label for="pensionRetirementDate" class="govuk-body">Date payable</label>
+            <p>
+              <input type="date" id="pensionRetirementDate" name="pensionRetirementDate" class="govuk-body">
+            </p>
+          </div>
+
+        {% endcall %}
+
+        {% call govukFieldset({
+          legend: {
+            text: "Employer details",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+          
+          {{ govukInput({
+            label: {
+              html: 'Employer name'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "employerName",
+            name: "employerName"
+          }) }}
+
+          <div class="govuk-form-group">
+            <label for="employmentStartDate" class="govuk-body">Employment start date</label>
+            <p>
+              <input type="date" id="employmentStartDate" name="employmentStartDate" class="govuk-body">
+            </p>
+          </div>
+          <div class="govuk-form-group">
+            <label for="employmentEndDate" class="govuk-body">Employment end date</label>
+            <p>
+              <input type="date" id="employmentEndDate" name="employmentEndDate" class="govuk-body">
+            </p>
+          </div>
+
+        {% endcall %}
+
+        {% call govukFieldset({
+          legend: {
+            text: "Estimated retirement income",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+
+          {{ govukInput({
+            id: "ERIAnnualAmount",
+            name: "ERIAnnualAmount",
+            label: {
+              text: "ERI annual amount"
+            },
+            prefix: {
+              text: "£"
+            },
+            classes: "govuk-input--width-5",
+            hint: {
+              text: "For example £104.45"
+            }
+          }) }}
+          
+          {{ govukInput({
+            id: "ERIPot",
+            name: "ERIPot",
+            label: {
+              text: "ERI pot value"
+            },
+            prefix: {
+              text: "£"
+            },
+            classes: "govuk-input--width-5",
+            hint: {
+              text: "For example £104.45"
+            }
+          }) }}
+
+        {% endcall %}
+
+
+        {% call govukFieldset({
+          legend: {
+            text: "Accrued figures",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+
+          <div class="govuk-form-group">
+            <label for="accruedCalculationDate" class="govuk-body">Date accrued amount calculated</label>
+            <p>
+              <input type="date" id="accruedCalculationDate" name="accruedCalculationDate" class="govuk-body">
+            </p>
+          </div>
+
+          {{ govukInput({
+            id: "accruedAmount",
+            name: "accruedAmount",
+            label: {
+              text: "Accrued amount"
+            },
+            prefix: {
+              text: "£"
+            },
+            classes: "govuk-input--width-5",
+            hint: {
+              text: "For example £104.45"
+            }
+          }) }}
+          {% endcall %}
+
+        <div class="govuk-button-group">
+          <button class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
+            Save pension details
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="govuk-grid-column-one-third">
+        {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

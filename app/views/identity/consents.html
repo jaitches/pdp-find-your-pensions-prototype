@@ -1,0 +1,43 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+<div class="pdpid-background-img">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-one-quarter">
+        </div>
+        <div class="govuk-grid-column-one-half pdpid-padding">
+
+        <h2 class="govuk-heading-m pdpid-font">
+          Consent to us sharing your information
+        </h2>
+
+
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="consents" name="consents" type="checkbox" value="share-providers" aria-describedby="consents-item-hint">
+            <label class="govuk-label govuk-checkboxes__label pdpid-font" for="consents">
+              I consent to my name, address and date of birth being sent to the Money and Pensions Service
+            </label>
+          </div>
+        </div>
+
+        <p></p>
+        <a href="/consents/enter-consents-start" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+          Continue 
+        </a>
+        </div>   
+        <div class="govuk-grid-column-one-quarter">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

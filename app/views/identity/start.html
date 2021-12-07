@@ -1,0 +1,30 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h2 class="govuk-heading-l">
+        Verify your identity
+      </h2>
+      <p>
+        To do this, we'll need the following information:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>a photo of your ID document</li>
+        <li>a quick scan of your face</li>
+      </ul>
+      <p>
+        To verify your identity you will need to create an account
+      </p>
+
+      <a href="smartphone" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+        Get started 
+      </a>      
+    </div>
+  </div>
+{% endblock %}

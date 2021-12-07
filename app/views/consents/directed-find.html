@@ -1,0 +1,127 @@
+
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - Select which pensions to see
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">  
+      <a href="find-all-or-directed" class="govuk-back-link">Back</a>
+      <h1 class="govuk-heading-l pdp-consent-heading-font">Selecting providers
+        <span class="govuk-hint pdp-consent-font">
+         We will ask the pension providers that you add to your list if you have a pension with them..
+        </span>
+      </h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-third">
+    <form action="/search-for-provider" method="post" novalidate>  
+
+
+      <div class="govuk-form-group {{errorFormClass}}" id="form-group">
+        <h2 class="govuk-label-wrapper"><label class="govuk-label govuk-label--m pdp-consent-font" for="provider-search-value">
+            Enter the name of the pension provider
+          </label>
+          <div id="event-name-hint pdp-consent-font" class="govuk-hint">
+            For example, Aviva.
+          </div>
+
+        <span id="no-value-entered-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden pdp-consent-font">Error:</span> {{errorString}}
+        </span>
+        </h2>
+        <input class="govuk-input govuk-!-width-three-quarters pdp-consent-font {{errorInputClass}}" id="provider-search-value" name="provider-search-value" type="text" value="{{providerSearchValue}}">
+        <p></p>
+        <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Search</button>
+        <h3 class="govuk-heading-s pdp-consent-font">Forgotten your pension provider's name?</h3> 
+        <p>You might be able to find their details using the <a href="https://www.gov.uk/find-pension-contact-details" target="_blank">Find pension contact details service</a>.      
+      </div>
+    </form>
+
+
+    {% if searchListNames.length > 0 %}
+  
+      <form action="/add-provider-to-list" method="post" novalidate>  
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="provider-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m pdp-consent-font">
+              <h2 class="govuk-fieldset__heading">
+                Add pension providers to the list
+              </h2>
+            </legend>
+            <div id="provider-hint pdp-consent-font" class="govuk-hint">
+              Select all that apply.
+            </div>
+            {% for details in searchListNames %}
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input pdp-consent-font" id="provider-list" name="provider-list" type="checkbox" value="{{details}}">
+                <label class="govuk-label govuk-checkboxes__label pdp-consent-font" for="provider-list">
+                  {{details}}
+                </label>
+              </div>
+            </div>
+            {% endfor %}
+          </fieldset>
+        </div>
+        <button class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Add to list
+        </button>
+      </form>
+
+    {% else %}
+      {%if not firstPageLoad %}
+        <p class="govuk-heading-s pdp-consent-font">
+          There are no matching results.
+        </p>
+        <p class="govuk-body pdp-consent-font">Improve your search results by:</p>
+        <ul class="govuk-list govuk-list--bullet pdp-consent-font">
+          <li>double-checking your spelling</li>
+          <li>using fewer keywords</li>
+          <li>searching for something less specific</li>
+        </ul>
+      {% endif %}
+    {% endif %}
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m pdp-consent-font">
+        Your list of pension providers
+      </h2>
+      {% if not listStarted %}
+        <p class="pdp-consent-font">
+          Your list of pension providers to search will appear here.
+        </p>
+      {% endif %}
+
+      <table class="govuk-table">
+        <tr class="govuk-table__row govuk-bod-s pdp-consent-font" >
+        {% for details in directedListNames %}
+          <td class="govuk-table__cell">{{details}}</td>
+          <td class="govuk-table__cell">
+              <form action="/remove-provider/{{details}}" method="post" class="form">
+               <button class="govuk-button pdp-consents-button-warning" onclick="removeProvider()" data-module="govuk-button">Remove</button>
+             </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% if directedListNames|length > 0 %}
+        <a href="/consents/search" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Find pensions 
+        </a>
+      {% else %}
+        <a href=# disabled="disabled" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Find pensions 
+        </a>
+      {% endif %}
+
+  </div>
+</div>
+
+
+{% endblock %}

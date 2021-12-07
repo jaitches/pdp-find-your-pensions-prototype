@@ -1,0 +1,82 @@
+
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - 
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/find-all-or-directed" method="post" class=novalidate>
+      <h1 class="govuk-heading-l pdp-consent-heading-font">
+        Search pension providers
+      </h1>
+      <p class="pdp-consent-font"> 
+        To find your pensions, we can send the information you have given us to all 36,000 UK pension providers.
+      </p>
+      {{ govukRadios({
+        idPrefix: "which-find",
+        name: "which-find",
+        fieldset: {
+          legend: {
+            text: "Which pension providers do you want to search?",
+            classes: "govuk-fieldset__legend--m pdp-consent-font"
+          }
+        },
+        items: [
+
+          {
+            value: "directed-find",
+            text: "I want to reduce the number of pension providers you send my information to",
+            hint: {
+              text: "This option reduces the risk to your data because we share it with less people. "
+            },
+            classes: "pdp-consent-font"
+
+          },
+          {
+            value: "find-all",
+            text: "I want to search all pension providers",
+            hint: {
+              text: "We'll send your information to all UK pension providers."
+            },
+            classes: "pdp-consent-font"
+
+          }
+        ]
+        }) }}
+          <div class="govuk-inset-text pdp-consent-font">
+            If you think that you have lost touch with a pension, you should search all pension providers.
+          </div> 
+
+          <br>
+
+          {{ govukButton({
+            text: "Continue",
+            classes: "pdp-consents-button"
+          }) }}
+
+          <details class="govuk-details pdp-consent-font" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text pdp-consent-font">
+                Reducing the risk to your data
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              <p class="pdp-consent-font">You may want to reduce the amount of pension providers we share your information with:</p>
+              <ul class="govuk-list govuk-list--bullet pdp-consent-font">
+                <li>to reduce the number of pension providers your information is shared with</li>
+                <li>if you have a new pension and you know who the pension provider is</li>
+                <li>if you know exactly where all your pensions are held</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

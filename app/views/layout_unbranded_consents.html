@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block headIcons %}
+  <link rel="shortcut icon" href="{{ asset_path }}images/unbranded.ico?0.18.3" type="image/x-icon" />
+{% endblock %}
+
+{% block head %}
+  <link href="/public/stylesheets/unbranded-consents.css" media="all" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+
+  {% for stylesheetUrl in extensionConfig.stylesheets %}
+    <link href="{{ stylesheetUrl }}" rel="stylesheet" type="text/css" />
+  {% endfor %}
+{% endblock %}
+
+{% block header %}
+<div class="govuk-header pdp-consents-header">
+  <div class="govuk-header__container govuk-width-container ">
+    <div class="pdp-consents-maps-logo ">
+      <a href=#><img src="/public/images/maps-logo-header.jpeg" alt="Money and Pensions Service logo" class="pdp-consents-footer-img" width="20%">
+      </a>
+    </div>
+   	<div class="pdp-service-name-consents">
+      <a href="/consents/index"> 
+  		<a href="/consents/index" class="govuk-header__link govuk-header__link--service-name pdp-header-content-consents">
+  		  {{ serviceNameConsents }}
+  		</a>
+  	</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="govuk-footer pdp-consents-footer">
+    <div class="govuk-width-container">
+      <div class="pdp-consents-footer-img-group">
+        <a href="https://www.gov.uk/"><img src="/public/images/logo-en-footer-gov.svg" alt="H. M. Government logo" class="pdp-consents-footer-img" width="15%">
+        </a> 
+        <a href="https://moneyandpensionsservice.org.uk/"><img src="/public/images/logo-footer-maps.svg" alt="H. M. Government logo" class="pdp-consents-footer-img" width="15%">
+        </a> 
+    </div>
+    <br>
+    <ul class="govuk-footer__inline-list">
+      <li class="govuk-footer__inline-list-item">
+        <a href="">Help</a>
+      </li>
+      <li class="govuk-footer__inline-list-item">
+        <a href="">Privacy</a>
+      </li>
+      <li class="govuk-footer__inline-list-item">
+        <a href="">Cookies statement</a>
+      </li>      
+      <li class="govuk-footer__inline-list-item">
+        <a href="">Accessibility statement</a>
+      </li>      
+      <li class="govuk-footer__inline-list-item">
+        <a href="">Terms and conditions</a>
+      </li>
+    </p>
+
+  </div>
+</div>
+{% endblock %}

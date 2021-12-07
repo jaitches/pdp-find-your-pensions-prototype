@@ -1,0 +1,76 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+	<div class="govuk-grid-row">
+  		<div class="govuk-grid-column-full">
+			{{ govukBackLink({
+				text: "Back",
+				href: ""
+			}) }}
+		</div>  
+	</div>
+	<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+    	<form action="/select-id-document" method="post" novalidate>
+			<h1 class="govuk-heading-l">
+				Select the type of ID document you want to add
+			</h1>
+			<p>
+				You'll need to take a photo of your ID in the next step. We'll ask you to enable camera access.
+			</p>
+
+			<div class="govuk-form-group">
+			<label class="govuk-label" for="sort">
+				Issuing country
+			</label>
+				<select class="govuk-select" id="country" name="country">
+				  	{% for name in countryList %}
+				    	<option value="{{name.option}}" {% if name.selected %} selected {% endif %}>{{name.name}} </option>
+				  	{% endfor %}
+				</select>
+			</div>
+
+			{{ govukRadios({
+			  idPrefix: "type-of-id",
+			  name: "type-of-id",
+			  fieldset: {
+			    legend: {
+			      text: "Type of ID",
+			      isPageHeading: false,
+			      classes: "govuk-fieldset__legend--m"
+			    }
+			  },
+			  items: [
+			    {
+			      value: "driving-licence",
+			      text: "Driving licence"
+			    },
+			    {
+			      value: "passport",
+			      text: "Passport"
+			    },
+			    {
+			      value: "biometric-residence-permit",
+			      text: "Biometric residence permit"
+			    }
+			  ]
+			}) }}
+
+			<p>
+				<a href="more-about-verification">More about verification</a>
+			</p>
+			
+			{{ govukButton({
+			  text: "ADD PHOTO",
+			  classes: "pdpid-button"
+			}) }}
+		</form>		
+    </div>
+</div>
+{% endblock %}

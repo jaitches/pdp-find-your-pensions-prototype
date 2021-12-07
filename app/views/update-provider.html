@@ -1,0 +1,214 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - update pension provider
+{% endblock %}
+
+{% block content %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      }
+    ]
+  }) }}
+  
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/update-provider-details" method="post" class="form">
+        <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+
+        {% call govukFieldset({
+          legend: {
+            text: "Update pension provider details",
+            classes: "govuk-fieldset__legend--xl",
+            isPageHeading: true
+          }
+        }) %}
+
+          {{ govukInput({
+            label: {
+              html: 'Pension provider name'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorName",
+            name: "administratorName",
+            value: pensionProvider.administratorName
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Prefered method of contact'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorContactPreference",
+            name: "administratorContactPreference",
+            value: pensionProvider.administratorContactPreference
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Website'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorURL",
+            name: "administratorURL",
+            value: pensionProvider.administratorURL
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Email'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorEmail",
+            name: "administratorEmail",
+            value: pensionProvider.administratorEmail
+          }) }} 
+
+          {{ govukInput({
+            label: {
+              html: 'Phone number'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorPhoneNumber",
+            name: "administratorPhoneNumber",
+            value: pensionProvider.administratorPhoneNumber
+          }) }}
+          
+          {{ govukInput({
+            label: {
+              html: 'Phone number type'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorPhoneNumber",
+            name: "administratorPhoneNumberType",
+            value: pensionProvider.administratorPhoneNumberType
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Postal name'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorPostalName",
+            name: "administratorPostalName",
+            value: pensionProvider.administratorPostalName
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Address line 1'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorAddressLine1",
+            name: "administratorAddressLine1",
+            value: pensionProvider.administratorAddressLine1
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Address line 2'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorAddressLine2",
+            name: "administratorAddressLine2",
+            value: pensionProvider.administratorAddressLine2
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Address line 3'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorAddressLine3",
+            name: "administratorAddressLine3",
+            value: pensionProvider.administratorAddressLine3
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Address line 4'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorAddressLine4",
+            name: "administratorAddressLine4",
+            value: pensionProvider.administratorAddressLine4
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Address line 5'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorAddressLine5",
+            name: "administratorAddressLine5",
+            value: pensionProvider.administratorAddressLine5
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Post code'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorPostcode",
+            name: "administratorPostcode",
+            value: pensionProvider.administratorPostcode
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Annual report website'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorAnnualReportURL",
+            name: "administratorAnnualReportURL",
+            value: pensionProvider.administratorAnnualReportURL
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Cost and charges website'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorCostsChargesURL",
+            name: "administratorCostsChargesURL",
+            value: pensionProvider.administratorCostsChargesURL
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Implementation statement website'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorImplementationURL",
+            name: "administratorImplementationURL",
+            value: pensionProvider.administratorImplementationURL
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Statement of investment principles website'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "administratorSIPURL",
+            name: "administratorSIPURL",
+            value: pensionProvider.administratorSIPURL
+          }) }}
+        {% endcall %}
+        <div class="govuk-button-group">
+          <button class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
+            Update provider details
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+        {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

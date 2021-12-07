@@ -1,0 +1,346 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - update pension
+{% endblock %}
+
+{% block content %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      },
+      {
+        text: "Manage pension information",
+        href: "/manage-pensions"
+      },
+      {
+        text: "Pension list",
+        href: "/display-pensions"
+      }
+    ]
+  }) }}
+<!-- for testing -->
+  
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+
+      <h1 class="govuk-heading-xl">
+        Update pension details
+      </h1>
+      <form action="/update-pension-details" method="post" class="form">
+
+        <div class="govuk-form-group">
+          <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="administratorName">
+              Select the pension provider
+            </label>
+          </h1>
+            <div id="event-name-hint" class="govuk-hint">
+              If the pension provider is not displayed on the list you can <a href="add-provider?lastPage=updatePension&pensionId={{pensionDetails._id}}">add a new provider</a>
+            </div>
+            <select class="govuk-select" id="administratorDetails" name="administratorDetails" >
+            {% for name in pensionProviders %}
+            {% set administratorDetails =  name._id + ":" + name.administratorName %}
+
+            <option value="{{administratorDetails}}" {% if name.selected %} selected {% endif %}>{{name.administratorName}}</option>
+
+            {% endfor %}
+
+          </select>
+        </div>
+
+        {% call govukFieldset({
+          legend: {
+            text: "Pension arrangement details",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+        {% if testEnv %}     
+          {{ govukInput({
+            label: {
+              html: 'Pension owner'
+            },
+            classes: "govuk-!-width-two-thirds",
+            hint: {
+              text: "The name you enter will be used by the prototype to select your pensions"
+            },
+            id: "pensionOwner",
+            name: "pensionOwner",
+            value: pensionDetails.pensionOwner
+
+          }) }} 
+
+        {% endif %}
+
+          {{ govukInput({
+            label: {
+              html: 'Enter a brief description of the pension'
+            },
+            classes: "govuk-!-width-two-thirds",  
+            hint: {
+              text: "employer name for workplace pension or provider name"
+            },
+            id: "pensionDescription",
+            name: "pensionDescription",
+            value: pensionDetails.pensionDescription
+
+          }) }}
+
+      {{ govukInput({
+            label: {
+              html: 'Pension reference'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "pensionReference",
+            name: "pensionReference",
+            value: pensionDetails.pensionReference
+          }) }}
+
+          {{ govukInput({
+            label: {
+              html: 'Pension scheme name'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "pensionName",
+            name: "pensionName",
+            value: pensionDetails.pensionName
+          }) }}
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="pensionType">
+              Pension type
+            </label>
+           <select class="govuk-select" id="pensionType" name="pensionType">
+            {% for penType in pensionDetails.pensionTypeArr %}
+              <option value={{penType.type}} {% if penType.selected %} selected {% endif %}>{{penType.text}}</option>
+            {% endfor %}  
+            </select>
+          </div>
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="pensionOrigin">
+              Pension origin
+            </label>
+           <select class="govuk-select" id="pensionOrigin" name="pensionOrigin">
+            {% for penOrigin in pensionDetails.pensionOriginArr %}
+              <option value={{penOrigin.type}} {% if penOrigin.selected %} selected {% endif %}>{{penOrigin.text}}</option>
+            {% endfor %}  
+            </select>
+          </div>
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="pensionStatus">
+              Pension status
+            </label>
+           <select class="govuk-select" id="pensionStatus" name="pensionStatus">
+            {% for penStatus in pensionDetails.pensionStatusArr %}
+              <option value={{penStatus.type}} {% if penStatus.selected %} selected {% endif %}>{{penStatus.text}}</option>
+            {% endfor %}  
+            </select>
+          </div>
+          
+          <div class="govuk-form-group">
+            <label for="pensionStartDate" class="govuk-body">Pension start date</label>
+            <p>
+              <input type="date" id="pensionStartDate" name="pensionStartDate" class="govuk-body" value={{pensionDetails.pensionStartDate}}>
+            </p>
+          </div>
+
+          {{ govukInput({
+            label: {
+              html: 'Retirement age'
+            },
+            classes: "govuk-!-width-one-third",
+            id: "pensionRetirementAge",
+            name: "pensionRetirementAge",            
+            value: pensionDetails.pensionRetirementAge
+
+          }) }}
+
+          <div class="govuk-form-group">
+            <label for="pensionRetirementDate" class="govuk-body">Pension retirement date</label>
+            <p>
+              <input type="date" id="pensionRetirementDate" name="pensionRetirementDate" class="govuk-body" value={{pensionDetails.pensionRetirementDate}}>
+            </p>
+          </div>
+
+        {% endcall %}
+
+        {% call govukFieldset({
+          legend: {
+            text: "Employer details",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+          
+          {{ govukInput({
+            label: {
+              html: 'Employer name'
+            },
+            classes: "govuk-!-width-two-thirds",
+            id: "employerName",
+            name: "employerName",
+            value: pensionDetails.employerName
+          }) }}
+
+          <div class="govuk-form-group">
+            <label for="employmentStartDate" class="govuk-body">Employment start date</label>
+            <p>
+              <input type="date" id="employmentStartDate" name="employmentStartDate" class="govuk-body" value={{pensionDetails.employmentStartDate}}>
+            </p>
+          </div>
+
+          <div class="govuk-form-group">
+            <label for="employmentEndDate" class="govuk-body">Employment end date</label>
+            <p>
+              <input type="date" id="employmentEndDate" name="employmentEndDate" class="govuk-body" value={{pensionDetails.employmentEndDate}}>
+            </p>
+          </div>
+
+        {% endcall %}
+
+        {% call govukFieldset({
+          legend: {
+            text: "Estimated retirement income",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+        <!--
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="ERIType">
+              ERI type
+            </label>
+           <select class="govuk-select" id="ERIType" name="ERIType">
+            {% for ERIType in pensionDetails.pensionERITypeArr %}
+              <option value={{ERIType.type}} {% if ERIType.selected %} selected {% endif %}>{{ERIType.text}}</option>
+            {% endfor %}  
+            </select>
+          </div>
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="ERIBasis">
+              How ERI calculated
+            </label>
+           <select class="govuk-select" id="ERIBasis" name="ERIBasis">
+            {% for ERIBasis in pensionDetails.pensionERIBasis %}
+              <option value={{ERIBasis.type}} {% if ERIBasis.selected %} selected {% endif %}>{{ERIBasis.text}}</option>
+            {% endfor %}  
+            </select>
+          </div>
+
+          <div class="govuk-form-group">
+            <label for="ERICalculationDate" class="govuk-body">Date of ERI calculation</label>
+            <p>
+              <input type="date" id="ERICalculationDate" name="ERICalculationDate" class="govuk-body" value={{pensionDetails.ERICalculationDate}}>
+            </p>
+          </div>
+-->
+          {{ govukInput({
+            id: "ERIAnnualAmount",
+            name: "ERIAnnualAmount",
+            label: {
+              text: "ERI annual amount"
+            },
+            value: pensionDetails.ERIAnnualAmount,
+            prefix: {
+              text: "£"
+            },
+            classes: "govuk-input--width-5",
+            hint: {
+              text: "For example £104.45"
+            }
+          }) }}
+          
+          {{ govukInput({
+            id: "ERIPot",
+            name: "ERIPot",
+            label: {
+              text: "ERI pot value"
+            },
+            value: pensionDetails.ERIPot,
+            prefix: {
+              text: "£"
+            },
+            classes: "govuk-input--width-5",
+            hint: {
+              text: "For example £104.45"
+            }
+          }) }}
+
+        {% endcall %}
+
+
+        {% call govukFieldset({
+          legend: {
+            text: "Accrued figures",
+            classes: "govuk-fieldset__legend--l",
+            isPageHeading: true
+          }
+        }) %}
+        <!--
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="accruedType">
+              Accrued type
+            </label>
+           <select class="govuk-select" id="accruedType" name="accruedType">
+            {% for accrType in pensionDetails.pensionAccruedTypeArr %}
+              <option value={{accrType.type}} {% if accrType.selected %} selected {% endif %}>{{accrType.text}}</option>
+            {% endfor %}  
+            </select>
+          </div>         
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="accruedAmountType">
+              Accrued amount type
+            </label>
+           <select class="govuk-select" id="accruedAmountType" name="accruedAmountType">
+            {% for penAccAmtType in pensionDetails.pensionAccruedAmtTypeArr %}
+              <option value={{penAccAmtType.type}} {% if penAccAmtType.selected %} selected {% endif %}>{{penAccAmtType.text}}</option>
+            {% endfor %}  
+            </select>
+          </div>
+-->
+          <div class="govuk-form-group">
+            <label for="accruedCalculationDate" class="govuk-body">Date accrued amount calculated</label>
+            <p>
+              <input type="date" id="accruedCalculationDate" name="accruedCalculationDate" class="govuk-body" value={{pensionDetails.accruedCalculationDate}}>
+            </p>
+          </div>
+
+          {{ govukInput({
+            id: "accruedAmount",
+            name: "accruedAmount",
+            label: {
+              text: "Accrued amount"
+            },
+            value: pensionDetails.accruedAmount,
+            prefix: {
+              text: "£"
+            },
+            classes: "govuk-input--width-5",
+            hint: {
+              text: "For example £104.45"
+            }
+          }) }}
+
+          {% endcall %}
+        
+        <div class="govuk-button-group">
+          <button class="govuk-button" data-module="govuk-button" data-prevent-double-click="true">
+            Update pension details
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+
+{% endblock %}

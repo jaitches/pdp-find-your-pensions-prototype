@@ -1,0 +1,31 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+		{{ govukBackLink({
+			text: "Back",
+			href: "smartphone"
+		}) }}
+	</div>
+</div>
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">		
+		<h1 class="govuk-heading-l">
+			Sorry you cannot use the smartphone app from your desktop or laptop computer
+		</h1>
+		<p>
+			Please return to the previous page and select use computer
+		</p>
+
+		<a href="smartphone" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+	    	BACK TO PREVIOUS PAGE 
+	    </a>
+	</div>
+</div>
+{% endblock %}

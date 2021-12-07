@@ -1,0 +1,50 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - Login
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <form action="/fyp-login" method="post" class="form">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="details-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading pdp-heading-font">
+                Sign in
+              </h1>
+            </legend>
+
+            <span id="no-account-error" class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:</span> {{loginErrorString}}
+            </span>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="email">
+                Email address
+              </label>
+              <input class="govuk-input" id="email" name="email" type="email" spellcheck="false" autocomplete="email">
+            </div>
+
+            
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="password">
+                Password
+              </label>
+              <input class="govuk-input" id="password" name="password" type="password">
+            </div>
+            <br>
+          </fieldset>
+        </div>
+       <button type="submit" class="govuk-button pdp-button" onclick="checkError()">Sign in</button>
+
+      <h2 class="govuk-heading-m pdp-heading-font">
+        Don't have an account?
+      </h2>
+      <p><a href="/find-your-pensions/fyp-create-account" role="button">Create an account</a>.</p>
+      <p></p>
+    </form>
+  </div>
+</div>
+{% endblock %}

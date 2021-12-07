@@ -1,0 +1,72 @@
+
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <form action="/consents-all" method="post" novalidate>
+        <div class="govuk-form-group">
+          <h1 class="govuk-heading-xl pdp-consent-heading-font">
+            Giving your consent
+          </h1>
+          <p class="pdp-consent-font">
+            We will only use your personal information to find your pensions and we will not share it with any other parties outside the service.
+          </p>            
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              <h2 class="govuk-fieldset__heading pdp-consent-font">
+                Consent to the <a href="https://moneyandpensionsservice.org.uk/">Money and Pensions Service</a>
+              </h2>
+            </legend>
+            <span id="consents-error" class="govuk-error-message pdp-consent-font">
+              <span class="govuk-visually-hidden">Error:
+              </span>
+              {{consentsErrorString}}
+            </span>
+            <div class="govuk-checkboxes {{errorFormClass}}" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="consents-1" name="consents-1" type="checkbox" value="share-providers" {{checkedConsent1}}>
+                <label class="govuk-label govuk-checkboxes__label pdp-consent-font" for="consents-1"  >
+                  I consent to the Money and Pensions Service sharing my personal identity data with all the UK's pension providers to find my pensions.
+                </label>
+              </div>
+
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="consents-2" name="consents-2" type="checkbox" value="tokens" {{checkedConsent2}}>
+                <label class="govuk-label govuk-checkboxes__label pdp-consent-font" for="consents-2">
+                  I consent to the Money and Pensions Service making, using and storing tokens related to me and my pensions.
+                </label>
+                <div id="consents-item-hint" class="govuk-hint govuk-checkboxes__hint" >
+                  This is to keep your identity and information secure.
+                </div>
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="consents-3" name="consents-3" type="checkbox" value="provider-check"  {{checkedConsent3}}>
+                <label class="govuk-label govuk-checkboxes__label pdp-consent-font" for="consents-3">
+                  I consent to the Money and Pensions Service telling my pension providers where to send my information.
+                </label>
+
+              </div>
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="consents-4" name="consents-4" type="checkbox" value="store-consents"  {{checkedConsent4}}>
+                <label class="govuk-label govuk-checkboxes__label pdp-consent-font" for="consents-4">
+                  I consent to the Money and Pensions Service storing a record of my consent.
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <p class="pdp-consent-font">
+          To use the service you must consent to all of the statements.
+        </p>
+        <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Continue</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

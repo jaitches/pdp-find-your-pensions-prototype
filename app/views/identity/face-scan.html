@@ -1,0 +1,29 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceNameIdentity}}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-full">
+		{{ govukBackLink({
+			text: "Back",
+			href: "verify-its-you"
+		}) }}
+
+		<h1 class="govuk-heading-l" align="center">
+			Get ready for your scan
+		</h1>
+		<p align="center">
+			Please frame your face in the small oval, then the big oval.
+		</p>
+
+		<img src="/public/images/man.jpeg" alt="Image of face to be scanned" class="pdpid-oval" width="30%">
+
+		<a href="consents" role="button" draggable="false" class="govuk-button pdpid-button" data-module="govuk-button">
+		I'M READY 
+		</a>  
+	</div>
+ </div>
+{% endblock %}

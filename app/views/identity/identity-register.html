@@ -1,0 +1,81 @@
+{% extends "layout_unbranded_id.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - Register or login
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <form action="/register-fyp" method="post" class="form">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="details-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Create an account
+              </h1>
+            </legend>
+
+            {{ govukInput({
+              label: {
+                text: "First name"
+              },
+              id: "first-name",
+              name: "first-name",
+              autocomplete: "name",
+              spellcheck: false
+            }) }}
+
+            {{ govukInput({
+              label: {
+                text: "Last name"
+              },
+              id: "last-name",
+              name: "last-name",
+              autocomplete: "name",
+              spellcheck: false
+            }) }}
+
+            {{ govukInput({
+              label: {
+                text: "Email address"
+              },
+              id: "email",
+              name: "email",
+              type: "email",
+              autocomplete: "email",
+              spellcheck: false
+            }) }}
+
+            {{ govukInput({
+              label: {
+                text: "Create a password"
+              },
+              id: "password",
+              name: "password",
+              spellcheck: false
+            }) }}            
+
+            {{ govukInput({
+              label: {
+                text: "Repeat password"
+              },
+              id: "password-repeat",
+              name: "password-repeat",
+              spellcheck: false
+            }) }}
+            <br>
+            <a href="identity-login" role="button" draggable="false" class="govuk-button pdpid-button">
+              Save and continue
+            </a>
+            <h2 class="govuk-heading-m">
+              Already have an account?
+            </h2>
+            <p><a href="fyp-login" role="button">Sign in to your account</a></p>
+            <p></p>
+          </fieldset>
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
