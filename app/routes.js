@@ -103,6 +103,23 @@ router.post('/which-page-to-start', function (req, res) {
     }
 })
 
+//Routes for first-page with journey options
+router.post('/which-start-page', function (req, res) {
+
+    const whichStart = req.session.data['which-start']
+    switch (whichStart) {
+        case "consents":
+            res.redirect('/consents/manage-consents')
+            break
+        case "delegates":
+            res.redirect('/consents/fyp-display-pensions')
+            break
+        case "identity":
+            res.redirect('/identity/start')
+            break
+    }
+})
+
 //
 // MoneyHelper dashboard pages
 //
@@ -113,7 +130,12 @@ router.post('/sign-in-or-register', function (req, res) {
             req.app.locals.guest = false
             req.app.locals.fypRegistered = false
             res.redirect('/find-your-pensions/fyp-login')
-            break      
+            break   
+        case "createaccount":
+            req.app.locals.guest = false
+            req.app.locals.fypRegistered = false
+            res.redirect('/find-your-pensions/fyp-create-account')
+            break          
         case "guest":
             req.app.locals.guestCheckedUse = "" 
             req.app.locals.guest = true
