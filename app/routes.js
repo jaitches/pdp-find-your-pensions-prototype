@@ -109,9 +109,9 @@ router.post('/which-start-page', function (req, res) {
     const whichStart = req.session.data['which-start']
     switch (whichStart) {
         case "consents":
-            res.redirect('/consents/manage-consents')
+            res.redirect('/manage-consents')
             break
-        case "delegates":
+        case "adddelegate":
             res.redirect('/consents/fyp-display-pensions')
             break
         case "identity":
