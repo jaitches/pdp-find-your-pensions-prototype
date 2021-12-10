@@ -1,0 +1,78 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - manage pensions
+{% endblock %}
+
+{% block content %}
+  {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      }
+    ]
+  }) }}
+  
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <span class="govuk-caption-xl pdp-caption ">Admin page</span>
+      <form action="/manage-pensions" method="post" novalidate>
+
+
+      {{ govukRadios({
+        idPrefix: "what-do-you-want-to-do",
+        name: "what-do-you-want-to-do",
+        fieldset: {
+          legend: {
+            text: "What do you want to do?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+
+        items: [
+          {
+            value: "add-pension",
+            text: "Add a new pension for the participant"
+          },
+          {
+            value: "pensions-list",
+            text: "View the list of pensions",
+            hint : {
+              text : "To copy, edit or delete pensions"
+            }      
+          },          
+          {
+            value: "add-provider",
+            text: "Add a new pension provider"
+          },
+          {
+            value: "providers-list",
+            text: "View the list of pension providers",
+            hint : {
+              text : "To edit or delete pension providers "
+            }       
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+    </form>
+
+
+      <p>
+        If the provider doesn't exist in the prototype database you will need to <a href="add-provider">add the pension provider</a> before you can <a href="add-pension">add a pension that they manage</a>.
+      </p>
+
+
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+      {% include "sidebar-nav.html" %}
+    </div>
+  </div>
+{% endblock %}

@@ -103,7 +103,7 @@ router.post('/which-page-to-start', function (req, res) {
     }
 })
 
-//Routes for first-page with journey options
+//Routes for index page with journey options
 router.post('/which-start-page', function (req, res) {
 
     const whichStart = req.session.data['which-start']
@@ -112,11 +112,20 @@ router.post('/which-start-page', function (req, res) {
             res.redirect('/manage-consents')
             break
         case "adddelegate":
-            res.redirect('/consents/fyp-display-pensions')
+            res.redirect('/find-your-pensions/fyp-display-pensions')
             break
         case "identity":
             res.redirect('/identity/start')
             break
+        case "full":
+            res.redirect('/find-your-pensions/index')
+            break
+     // case "consents":
+     //     res.redirect('/consents/enter-consents-start')
+     //     break
+     // case "identity":
+     //     res.redirect('/identity/start')
+     //     break
     }
 })
 
@@ -163,6 +172,28 @@ router.post('/fyp-login', function(req,res) {
 
     }
 })
+
+// password reset, if user doesn't go to the create account first then raise an error
+router.post('/password-reset', function(req,res) {
+    console.log('guest ' + req.app.locals.guest)
+    if (!req.app.locals.fypRegistered && !req.app.locals.guest) {
+        req.app.locals.loginErrorString = "Error: Enter a valid email address "
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        res.render('find-your-pensions/password-reset')
+    }    
+    else {
+        req.app.locals.guest = false
+        req.app.locals.loginErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+
+        res.redirect('find-your-pensions/password-reset-confirmation')
+
+    }
+})
+
+
 
 // create dashoard account - reset flag so sign in doesn't error second time round
 router.get('/find-your-pensions/fyp-create-account', function(req,res) {
@@ -281,6 +312,50 @@ router.post('/check-photo', function (req, res) {
 //
 // consent and authorisation pages
 //
+
+// route for get for managing consent for individual dashboard providers
+// the * is a wildcard for the prototype number in this get
+
+router.get('./consents/individual-consents', function (req, res) {
+    async function findPensionsByOwner() {
+    console.log('getIndividualConsent')    
+
+        const client = new MongoClient(uri)
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect()
+
+                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
+                req.app.locals.pensionIdentifiers=pensionDetailsAll
+            
+            }            
+
+             
+        finally {
+            // Close the connection to the MongoDB cluster
+            await client.close()
+            res.render('./consents/individual-consents')
+        }
+    }
+
+   
+
+   
+    async function getAllPensions(client, pptNumber) {
+        const results = await client.db(dataBaseName).collection("pensionDetails")
+        // find all documents
+        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
+        // save them to an array
+        .sort({pensionName: 1})        
+        .toArray()
+//        console.log('results ' + JSON.stringify(results))
+        return results
+    }
+
+}) 
+
+
+//consent for dashbioard provider code end
 
 router.post('/find-all-or-directed', function (req, res) {
     const whichFind = req.session.data['which-find']
