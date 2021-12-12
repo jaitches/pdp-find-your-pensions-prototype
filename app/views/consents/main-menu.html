@@ -11,8 +11,8 @@
     <div class="govuk-grid-column-full">
       <form action="/consents-select-action" method="post" class="form">
         {{ govukRadios({
-          idPrefix: "consents-select-action",
-          name: "consents-select-action",
+          idPrefix: "select-action",
+          name: "select-action",
           fieldset: {
             legend: {
               text: "What do you want to do?",
@@ -40,9 +40,10 @@
           ]
         }) }}
 
-          <a href="/05-full-alt-display/05-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button">
-            Continue
-          </a>
+        {{ govukButton({
+          text: "Continue",
+          classes: "pdp-consents-button"
+        }) }}
 
         </div>
       </form>

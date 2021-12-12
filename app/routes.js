@@ -182,9 +182,6 @@ router.post('/guest-consent', function(req,res) {
     // copy checked status from checkboxes
     const guestConsentUse = req.session.data['consent-to-use']
 
-    // set the checked status in the variable so that the box remains checked when the user leaves and comes ack to this page
-    // couldn't get the prototype kit recommended way to work !! https://govuk-prototype-kit.herokuapp.com/docs/examples/pass-data
-
     // set the error fields if not all the consents are checked
 
     if (guestConsentUse == null) {
@@ -373,17 +370,23 @@ router.post('/remove-provider/:providerName', function (req, res) {
 
 })
 
-router.post('/consents-main-menu', function (req, res) {
+router.post('/consents-select-action', function (req, res) {
 
-    const consentsSelection = req.session.data['consents-select-action']
+    const consentsSelection = req.session.data['select-action']
     switch (consentsSelection) {
         case "find":
-            res.redirect('find-all-or-directed')
+            res.redirect('find-options-start')
+            break        
+        case "directed-find":
+            res.redirect('consents/directed-find')
+            break
         case "delegates":
             req.app.locals.firstPageLoad = true
             res.redirect('select-delegate')
+            break
         case "manage-consents":
             res.redirect('manage-consents')
+            break
         }
 
 })
@@ -432,33 +435,6 @@ router.post('/enter-your-details', function (req, res) {
 
 })
 
-// if examples database selected choose which example details to show
-
-router.post('/examples-person-selection', function (req, res) {
-    const whoToSee = req.session.data['who-do-you-want-to-see']
-
-    switch (whoToSee) {
-        case "1":
-            req.app.locals.exampleParticipant = 1
-            break        
-        case "2":
-            req.app.locals.exampleParticipant = 2
-            break
-        case "3":
-            req.app.locals.exampleParticipant = 3
-            break
-        case "4":
-            req.app.locals.exampleParticipant = 4
-            break
-        case "5":
-            req.app.locals.exampleParticipant = 5
-            break
-        default:
-            req.app.locals.exampleParticipant = 0
-    }
-    res.redirect('select-prototype')
-
-})
 
 // choose to manage data or display prototypes
 router.post('/display-or-manage-data', function (req, res) {
@@ -485,10 +461,8 @@ router.post('/enter-your-details*', function (req, res) {
     res.redirect(ptypeDetails.displayUrl + '?ptype=' + ptypeNumber + '&owner=' + pensionOwnerName)
 })
 
-// the * is a wildcard for the prototype number in this get
-router.get('/*-display-pensions*', function (req, res) {
+router.get('/fyp-display-pensions', function (req, res) {
     async function findPensionsByOwner() {
-        let ptypeNumber = req.query.ptype
         let pensionOwnerName = ""
         if (req.query.owner) {
             pensionOwnerName = req.query.owner
@@ -931,10 +905,6 @@ router.get('/admin/pensions-list', function (req, res) {
             let examplePensionDetails = []
 
             // create two arrays one for the manually entered pensions for the selected partiipant and one for the examples
-            if (participantNumber == 0) {
-
-            }
-
 
             for (i=0; i < allPensionDetails.length; i++){
                 if (allPensionDetails[i].pensionOwnerType == "M" && participantNumber == 0) {
