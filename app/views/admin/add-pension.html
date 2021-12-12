@@ -52,19 +52,6 @@
             isPageHeading: true
           }
         }) %}
-        {% if testEnv %}     
-          {{ govukInput({
-            label: {
-              html: 'Pension owner'
-            },
-            classes: "govuk-!-width-two-thirds",
-            hint: {
-              text: "The name you enter will be used by the prototype to select your pensions"
-            },
-            id: "pensionOwner",
-            name: "pensionOwner"
-          }) }} 
-        {% endif %}
           {{ govukInput({
             label: {
               html: 'Enter a brief description of the pension'

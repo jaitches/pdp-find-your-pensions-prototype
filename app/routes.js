@@ -67,24 +67,15 @@ const penAccrAmtType = [
 // ****** routes for main pages and prototypes
 //
 
-router.get('/', function (req, res) {
-    switch (process.env.PENSIONS_DB) {
-        case "pdp-test":
-            req.app.locals.testEnv = true
-            req.app.locals.examples = false
-
-            break;
-        case "pensions":
-            req.app.locals.testEnv = false
-            req.app.locals.examples = false
-            break;
-        case "examples":
-            req.app.locals.testEnv = false
-            req.app.locals.examples = true
-            break;
+router.get('/', function (req,res) {
+    req.app.locals.participantNumber = process.env.PARTICIPANT_NUMBER
+    if (process.env.PENSIONS_DB == "pdp-test") {
+        req.app.locals.pensionsDatabase = "Test"
+    }
+    else if (process.env.PENSIONS_DB == "pensions") {
+        req.app.locals.pensionsDatabase = "Live prototype"
     }
     res.render('index')
-
 })
 
 router.post('/which-page-to-start', function (req, res) {
@@ -94,13 +85,12 @@ router.post('/which-page-to-start', function (req, res) {
         case "full":
             res.redirect('/find-your-pensions/index')
             break
-        case "consents":
-            res.redirect('/consents/enter-consents-start')
+        case "manage-consents":
+            res.redirect('/consents/main-menu')
             break
-        case "identity":
-            res.redirect('/identity/start')
-            break
-    }
+         case "manage-pensions":
+            res.redirect('/admin/manage-pensions')
+            break   }
 })
 
 //
@@ -142,7 +132,7 @@ router.post('/fyp-login', function(req,res) {
     }
 })
 
-// create dashoard account - reset flag so sign in doesn't error second time round
+// create dashboard account - reset flag so sign in doesn't error second time round
 router.get('/find-your-pensions/fyp-create-account', function(req,res) {
 
         req.app.locals.fypRegistered = true
@@ -218,66 +208,13 @@ router.post('/guest-consent', function(req,res) {
 // identity pages
 //
 
-router.get('/identity/select-id-document', function (req, res) {
-    
-    req.app.locals.countryList = countryListJson.countries
-    res.render('./identity/select-id-document')
-
-})
-
-router.post('/select-id-document', function (req, res) {
-    const typeOfId = req.session.data['type-of-id']
-    if (typeOfId == "driving-licence") {
-        req.app.locals.IdType = 'Driving licence'
-    }
-    else if (typeOfId == "passport") {
-        req.app.locals.IdType = 'Passport'
-    }
-    else {
-        req.app.locals.IdType = 'Biomedical residence permit'
-    }
-    req.app.locals.frontOrBack = 'front'
-    res.redirect('/identity/take-photo-id')
-})
-
-// first time through return and do the back
-// once done the back move on to the next page
-// 23/11/21 - remove return to do the back
-router.post('/check-photo', function (req, res) {
-    /*if (req.app.locals.frontOrBack == "front") {
-        req.app.locals.frontOrBack = "back"
-        res.redirect('/identity/take-photo-id')
-    }
-    else {
-        res.redirect('/identity/biometric-consent')
-    } */
-    res.redirect('/identity/biometric-consent')
-
-})
-
 
 //
-// consent and authorisation pages
+// PensionFinder - consent and authorisation pages
 //
 
-router.post('/find-all-or-directed', function (req, res) {
-    const whichFind = req.session.data['which-find']
-    switch (whichFind) {
-        case "directed-find":
-            req.app.locals.firstPageLoad = true
-            req.app.locals.directedListNames =[]
-            req.app.locals.directedOrAll = "the pension providers you have selected"
-            res.redirect('consents/directed-find')
-            break      
-        case "find-all":
-            req.app.locals.directedOrAll = "all UK pension providers"
-            res.redirect('consents/search')
-            break
 
-    }
-})
-
-// consents page C&A
+// consents page PensionFinder
  
 router.post('/consents-all', function (req, res) {
 
@@ -335,6 +272,24 @@ router.post('/consents-all', function (req, res) {
 
 })
 
+// directed find menu 
+
+router.post('/find-all-or-directed', function (req, res) {
+    const whichFind = req.session.data['which-find']
+    switch (whichFind) {
+        case "directed-find":
+            req.app.locals.firstPageLoad = true
+            req.app.locals.directedListNames =[]
+            req.app.locals.directedOrAll = "the pension providers you have selected"
+            res.redirect('consents/directed-find')
+            break      
+        case "find-all":
+            req.app.locals.directedOrAll = "all UK pension providers"
+            res.redirect('consents/search')
+            break
+
+    }
+})
 
 // directed find
 
@@ -472,22 +427,6 @@ router.post('/enter-your-details', function (req, res) {
     req.app.locals.dob = '01 APR 1982'
     req.app.locals.address = '42 High Street, Reading, Berks, RG1 4WD'
 
-/*
-    let dobDay = req.session.data['dob-day']
-    let dobMon = req.session.data['dob-month']
-    let dobYear = req.session.data['dob-year']
-
-    req.app.locals.dob = dobDay + ' ' + dobMon + ' '  + dobYear
-
-    let address1 =  req.session.data['address-line1'] 
-    let address2 =  req.session.data['address-line2']
-    let town =  req.session.data['address-town']
-    let county =  req.session.data['address-county']
-    let postcode = req.session.data['address-postcode']
-    
-    req.app.locals.address = address1 + ', ' + address2 + ', ' + town + ', ' + county + ', ' + postcode
-
-*/
     res.redirect('/consents/find-all-or-directed')
 
 
@@ -532,40 +471,9 @@ router.post('/display-or-manage-data', function (req, res) {
     }
 })
 
-// choose which prototype to display
-router.post('/select-prototype', function (req, res) {
 
-    const selectPrototype = req.session.data['select-prototype']
-    req.app.locals.ptype = {}
-//    console.log('selectPrototype ' + selectPrototype)
-
-    switch (selectPrototype) {
-        case "prototype-find-only":
-        ptypeNumber = 1
-        break;
-        case "prototype-find-view":
-        ptypeNumber = 2
-        break;       
-        case "prototype-find-accrued":
-        ptypeNumber = 3  
-        break;             
-        case "prototype-find-accrued-estimated":
-        ptypeNumber = 4
-        break;        
-        case "prototype-full-display-alt":
-        ptypeNumber = 5
-        break;       
-        default:
-        ptypeNumber = 0
-    }
-    ptypeDetails = getPrototypeDetails(ptypeNumber)
-    req.app.locals.ptype = ptypeDetails
-// use the stored start url for the redirect
-    res.redirect(ptypeDetails.startUrl + '?ptype=' + ptypeNumber)
-
-})
 //
-// Find your pension pages
+// Find your pensions pages
 //
 
 // enter your details
@@ -979,49 +887,38 @@ router.get('/*-single-pension-details*', function (req, res) {
     }
 })
 
+
+
+//
+// ****** routes for pension management *******
+//
+
 // choose what data to add or update
 router.post('/manage-pensions', function (req, res) {
     const whatDataToManage = req.session.data['what-do-you-want-to-do']
     switch (whatDataToManage) {
         case "add-pension":
-            res.redirect('add-pension')
+            res.redirect('/admin/add-pension')
             break;
         case "pensions-list":
-            res.redirect('pensions-list')
+            res.redirect('/admin/pensions-list')
             break;       
         case "add-provider":
-            res.redirect('add-provider')
+            res.redirect('/admin/add-provider')
             break;             
         case "providers-list":
-            res.redirect('providers-list')
+            res.redirect('/admin/providers-list')
             break;     
         default:
-            res.render('/manage-pensions')
+            res.render('/admin/manage-pensions')
     }
 })
 
-//
-// ****** routes for pension crud
-//
-
 // Display pensions
-router.get('/pensions-list*', function (req, res) {
-    let pensionOwnerSelected = ""
+router.get('/admin/pensions-list', function (req, res) {
     let participantNumber = process.env.PARTICIPANT_NUMBER
 
 // connect to MongoDB to add the doc (record) to the collection (table)
-    if (process.env.PENSIONS_DB == "pdp-test") {
-        req.app.locals.testEnv = true
-    }
-    else {
-        req.app.locals.testEnv = false
-    }
-    if (req.query.owner) {
-        pensionOwnerSelected = req.query.owner
-    }
-    else {
-        pensionOwnerSelected = "All"
-    }
 
     async function findAllPensions() {
         const client = new MongoClient(uri)
@@ -1029,24 +926,21 @@ router.get('/pensions-list*', function (req, res) {
         try {
             // Connect to the MongoDB cluster
             await client.connect()
-            // populate filter list
-            req.app.locals.pensionOwners = await getOwners(client)
-
             let allPensionDetails = await getAllPensions(client)
             let manualPensionDetails = []
             let examplePensionDetails = []
 
+            // create two arrays one for the manually entered pensions for the selected partiipant and one for the examples
+            if (participantNumber == 0) {
+
+            }
+
+
             for (i=0; i < allPensionDetails.length; i++){
-/*                if (allPensionDetails[i].pensionOwnerType == "M" && allPensionDetails[i].pensionParticipant == participantNumber && participantNumber !== 0) {
-                    if (pensionOwnerSelected == "All" || pensionOwnerSelected == null) {
-                        manualPensionDetails.push(allPensionDetails[i])
-                    }
-                    else if (pensionOwnerSelected == allPensionDetails[i].pensionOwner) {
-                        manualPensionDetails.push(allPensionDetails[i])
-                    }
+                if (allPensionDetails[i].pensionOwnerType == "M" && participantNumber == 0) {
+                                        manualPensionDetails.push(allPensionDetails[i])
                 }
-                */
-                if (allPensionDetails[i].pensionOwnerType == "M" && allPensionDetails[i].pensionParticipant == participantNumber) {
+                else if (allPensionDetails[i].pensionOwnerType == "M" && allPensionDetails[i].pensionParticipant == participantNumber) {
                     manualPensionDetails.push(allPensionDetails[i])
                 }
                 else if (allPensionDetails[i].pensionOwnerType == "E") {
@@ -1058,8 +952,7 @@ router.get('/pensions-list*', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close();    
-//            res.render('pensions-list?owner=' + pensionOwnerSelected)
-            res.render('pensions-list')
+            res.render('admin/pensions-list')
         }
     }
 
@@ -1074,26 +967,10 @@ router.get('/pensions-list*', function (req, res) {
         .toArray()
         return results
     }
-
-    async function getOwners(client) {
-        const query = {pensionOwnerType:"M"}
-        const results = await client.db(dataBaseName).collection("pensionDetails")
-        // find all documents
-        .distinct("pensionOwner",query)
-//        console.log('results owners' + JSON.stringify(results))
-        return results
-    }
-})
-// filter by name on the pensions-list
-router.post('/filter-pensions', function (req, res) {
-    // reload the pensions-list page with the filter
-    pensionOwnerSelected = req.session.data['ownerName']
-    res.redirect('pensions-list?owner=' + pensionOwnerSelected)
 })
 
-
-router.get('/add-pension', function (req, res) {
-    // load pension providers into local var to select on form
+router.get('/admin/add-pension', function (req, res) {
+    // get the pension provider list to display in the select provider field
     req.app.locals.pensionProviders = []
     async function findPensionProviders() {        
         const client = new MongoClient(uri);
@@ -1102,11 +979,11 @@ router.get('/add-pension', function (req, res) {
             // Connect to the MongoDB cluster
             await client.connect();
             req.app.locals.pensionProviders = await getProviders(client)
-//            console.log('pensionProviders ' + req.app.locals.pensionProviders)
+            console.log('pensionProviders ' + req.app.locals.pensionProviders)
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close();    
-            res.render('add-pension')
+            res.render('admin/add-pension')
         }
     }
 
@@ -1246,9 +1123,8 @@ router.post('/add-pension-details', function (req, res) {
 
 })
 
-router.get('/update-pension', function (req, res) {
+router.get('/admin/update-pension*', function (req, res) {
     // find the pension providers for the select options
-
     async function findAndDisplayPension() { 
 
         let pensionId = req.query.pensionId
@@ -1275,7 +1151,6 @@ router.get('/update-pension', function (req, res) {
         req.app.locals.pensionDetails = []
 
         req.app.locals.pensionId = req.query.pensionId
-//        console.log('req.app.locals.pensionId ' + req.app.locals.pensionId)
 
         const client = new MongoClient(uri);
 
@@ -1346,13 +1221,11 @@ router.get('/update-pension', function (req, res) {
                  req.app.locals.pensionDetails.pensionAccruedAmtTypeArr[i].selected = 'selected'   
                 }
             }
-            console.log('req.app.locals.pensionDetails.accruedCalculationDateString ' + req.app.locals.pensionDetails.accruedCalculationDateString )
-            console.log('req.app.locals.pensionDetails.accruedCalculationDate ' + req.app.locals.pensionDetails.accruedCalculationDate )
 
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close() 
-            res.render('update-pension')
+            res.render('admin/update-pension')
         }
     }
 
@@ -1403,7 +1276,8 @@ router.post('/update-pension-details', function (req, res) {
 
     async function updatePension() {
     // create an instance of the client
-        const client = new MongoClient(uri);        
+        const client = new MongoClient(uri)
+
         let pensionId = req.app.locals.pensionId
         let pension_Participant = process.env.PARTICIPANT_NUMBER
 
@@ -1505,7 +1379,7 @@ router.post('/update-pension-details', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close()
-            res.redirect('pensions-list')
+            res.redirect('/admin/pensions-list')
         }
     }
 
@@ -1534,7 +1408,7 @@ router.post('/delete-pension/:id', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close()
-            res.redirect ('/pensions-list')   
+            res.redirect ('/admin/pensions-list')   
         }
     }
     deletePension().catch(console.error)
@@ -1633,7 +1507,7 @@ router.post('/copy-pension/:id', function (req, res) {
             console.log('newPensionDocument ' + JSON.stringify(newPensionDocument))
             // Close the connection to the MongoDB cluster
             await client.close()
-            res.redirect ('/update-pension?pensionId=' + newPensionId)   
+            res.redirect ('/admin/update-pension?pensionId=' + newPensionId)   
         }
     }
     copyPension().catch(console.error)
@@ -1667,7 +1541,7 @@ router.get('/providers-list', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close();    
-            res.render('providers-list')
+            res.render('admin/providers-list')
         }
     }
 
@@ -1734,7 +1608,7 @@ router.post('/add-provider-details', function (req, res) {
             let newProviderDocument = await client.db(dataBaseName).collection("pensionProvider").findOne({ timeStamp : today_timestamp});
             await client.close()
 
-            res.redirect('update-provider?providerId=' + newProviderDocument._id)
+            res.redirect('./admin/update-provider?providerId=' + newProviderDocument._id)
         }
     }
 
@@ -1771,7 +1645,7 @@ router.get('/update-provider', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close() 
-            res.render('update-provider')
+            res.render('admin/update-provider')
         }
     }
 
@@ -1841,7 +1715,7 @@ router.post('/update-provider-details', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close()
-            res.redirect('providers-list')
+            res.redirect('./admin/providers-list')
         }
     }
 
@@ -1867,7 +1741,7 @@ router.post('/delete-provider/:id', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close()
-            res.redirect ('/providers-list')   
+            res.redirect ('./admin/providers-list')   
         }
     }
     deleteProvider().catch(console.error)

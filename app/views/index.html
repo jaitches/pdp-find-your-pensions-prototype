@@ -16,7 +16,7 @@
             name: "which-page",
             fieldset: {
               legend: {                
-                text: "Which area of the prototype do you want to start from?",
+                text: "What do you want to do?",
 
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
@@ -29,12 +29,15 @@
                 text: "The full prototype from the dashboard start"
               },
               {
-                value: "identity",
-                text: "From the identity service"
+                value: "manage-consents",
+                text: "PensionFinder index page for managing consents"
+              },    
+              {
+                divider: "or"
               },
               {
-                value: "consents",
-                text: "From the Manage my consents service start"
+                value: "manage-pensions",
+                text: "Manage pension details for a participant"
               }
             ]
           }) }}
@@ -44,6 +47,25 @@
           }) }}
 
       </form>
+
+      <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Participant number
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{participantNumber}}
+          </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+          <dt class="govuk-summary-list__key">
+            Database
+          </dt>
+          <dd class="govuk-summary-list__value">
+            {{pensionsDatabase}}
+          </dd>
+        </div>
+      </dl>
     </div>
   </div>
 
