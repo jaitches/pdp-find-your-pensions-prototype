@@ -24,7 +24,7 @@
               <label class="govuk-label" for="email">
                 Email address
               </label>
-              <input class="govuk-input" id="email" name="email" type="email" spellcheck="false" autocomplete="email">
+              <input class="govuk-input" id="email" name="email" type="email" spellcheck="false" autocomplete="email" value="jane.smith@gmail.com">
             </div>
 
             
@@ -32,14 +32,17 @@
               <label class="govuk-label" for="password">
                 Password
               </label>
-              <input class="govuk-input" id="password" name="password" type="password">
+              <input class="govuk-input" id="password" name="password" type="password" value="4k£*hgu!">
             </div>
             <br>
           </fieldset>
         </div>
-        <p><a href="/find-your-pensions/password-reset" role="button">Forgot your login? Reset password</a></p>
-       <button type="submit" class="govuk-button pdp-button" onclick="checkError()">Sign in</button>
+        <p><a href="/find-your-pensions/fyp-password-reset" role="button">I've forgotten my login details</a></p>
 
+<!--        <button type="submit" class="govuk-button pdp-button" onclick="checkError()">Sign in</button> -->
+        <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+          Continue 
+        </a>
       <h2 class="govuk-heading-m pdp-heading-font">
         Don't have an account?
       </h2>

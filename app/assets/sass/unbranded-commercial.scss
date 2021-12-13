@@ -8,7 +8,7 @@
 @import "node_modules/govuk-frontend/govuk/settings/all";
 
 // Override the default GOV.UK Frontend font stack
-$govuk-font-family: "Livvic", sans-serif;
+$govuk-font-family: "Ubuntu", sans-serif;
 
 // Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
 $govuk-canvas-background-colour: $govuk-body-background-colour;
@@ -16,73 +16,100 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 @import "application";
 
 .body {
-	  font-family: "Livvic", sans-serif !important;
+	  font-family: "Ubuntu", sans-serif !important;
 }
 // Font
 .pdp-heading-font {
-	color: #0f19a0;
+	color: #6A207F;
 }
 // button
 .pdp-button {
-  	font-family: "Livvic", sans-serif;
-	background-color: #c82a87;
+  	font-family: "Ubuntu", sans-serif;
+	background-color: #6A207F;
 	color: white ;
-	box-shadow: 0 2px 0 #ABB2B6;	
+	box-shadow: none;	
   	border-radius: 4px;
 }
 
 .pdp-button-warning {
 	background-color: #EA3A3D;
-	font-family: "Livvic", sans-serif;
+	font-family: "Ubuntu", sans-serif;
 	color: white ;
 	box-shadow: 0 2px 0 #e5a044;	
   	border-radius: 16px;
 }
 
 .pdp-button-warning:hover {
-	background-color: #c82a87;
+	background-color: #6A207F;
 	color: #384455;
 }
 
 .pdp-button:hover,
 .pdp-button:link {
-	background-color: #c82a87;
+	background-color: #6A207F;
 	box-shadow: 0 2px 0 #e5a044;	
 }
 
 // header
+.pdp-header-logo {
+	font-family: "Teko", sans-serif;
+	font-weight: bold;
+	font-size: 30px;
+	color: #6A207F;
+}
+.pdp-header-float-right {
+	float: right;
+}
 .pdp-header-no-border {
 	border-bottom: none;
 	margin-bottom: 0px;
-    padding-top: 0px;
+    padding-top: 10px;
+
 }
 .pdp-header {
 //	border-bottom: 1px solid white;
-	background-color: #0f19a0;
+	background-color: #FFD700;
 	width: 100%;
-	font-family: "Livvic", sans-serif;
+	font-family: "Ubuntu", sans-serif;
 }
 
 .pdp-header-nav {
-	font-family: "Livvic", sans-serif;
+	font-family: "Ubuntu", sans-serif;
+	color: #6A207F;
+}
+.pdp-header-button {
+	margin-bottom: 0px;
+	box-shadow: none !important;
+	font-size: 0.8em;
+
+}
+.pdp-full-width {
+    background-color: #FFD700;
+    max-width: none;
 }
 
-.pdp-login-hello {
-	float: right;
-	padding-top: 40px;
+// footer
+.pdp-footer {
+  border-top: 0px ;
+  background-color: #FFD700;
+  padding-top: 10px;
+
 }
 
-.pdp-login-hello-font {
-	color: #c82a87;
-	font-size: 16px;
-	font-family: "Livvic", arial, sans-serif;
+.pdp-footer-ul {
+	list-style: none;
+	color: #6A207F
 }
+.pdp-footer-li {
+	padding: 10px;
+}
+
 
 //
 // pension panels
 //
 
-// pension box formatting ptype 5
+// pension box formatting
 
 .pdp-pension-box-border {
 	border-style: solid;
@@ -97,10 +124,8 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 }
 
 
-// footer
-.pdp-footer {
-  border-top: 0px ;
-}
+
+
 // header service name
 // header service name font size bigger
 .govuk-header__link--service-name {
