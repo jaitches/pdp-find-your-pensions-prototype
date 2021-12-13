@@ -9,11 +9,11 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form action="/which-page-to-start" method="post" novalidate>
+      <form action="/which-start-page" method="post" novalidate>
 
           {{ govukRadios({
-            idPrefix: "which-page",
-            name: "which-page",
+            idPrefix: "which-start",
+            name: "which-start",
             fieldset: {
               legend: {                
                 text: "What do you want to do?",
@@ -25,6 +25,7 @@
 
             items: [
               {
+
                 value: "full",
                 text: "Go to the full prototype from the dashboard start"
               },

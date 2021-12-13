@@ -93,6 +93,32 @@ router.post('/which-page-to-start', function (req, res) {
             break   }
 })
 
+//Routes for index page with journey options
+router.post('/which-start-page', function (req, res) {
+
+    const whichStart = req.session.data['which-start']
+    switch (whichStart) {
+        case "consents":
+            res.redirect('/manage-consents')
+            break
+        case "adddelegate":
+            res.redirect('/find-your-pensions/fyp-display-pensions')
+            break
+        case "identity":
+            res.redirect('/identity/start')
+            break
+        case "full":
+            res.redirect('/find-your-pensions/index')
+            break
+     // case "consents":
+     //     res.redirect('/consents/enter-consents-start')
+     //     break
+     // case "identity":
+     //     res.redirect('/identity/start')
+     //     break
+    }
+})
+
 //
 // MoneyHelper dashboard pages
 //
@@ -103,7 +129,12 @@ router.post('/sign-in-or-register', function (req, res) {
             req.app.locals.guest = false
             req.app.locals.fypRegistered = false
             res.redirect('/find-your-pensions/fyp-login')
-            break      
+            break   
+        case "createaccount":
+            req.app.locals.guest = false
+            req.app.locals.fypRegistered = false
+            res.redirect('/find-your-pensions/fyp-create-account')
+            break          
         case "guest":
             req.app.locals.guestCheckedUse = "" 
             req.app.locals.guest = true
@@ -156,6 +187,7 @@ router.post('/password-reset', function(req,res) {
 
 
 // create dashboard account - reset flag so sign in doesn't error second time round
+
 router.get('/find-your-pensions/fyp-create-account', function(req,res) {
 
         req.app.locals.fypRegistered = true
@@ -232,6 +264,50 @@ router.post('/guest-consent', function(req,res) {
 //
 // PensionFinder - consent and authorisation pages
 //
+// route for get for managing consent for individual dashboard providers
+// the * is a wildcard for the prototype number in this get
+
+router.get('./consents/individual-consents', function (req, res) {
+    async function findPensionsByOwner() {
+    console.log('getIndividualConsent')    
+
+        const client = new MongoClient(uri)
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect()
+
+                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
+                req.app.locals.pensionIdentifiers=pensionDetailsAll
+            
+            }            
+
+             
+        finally {
+            // Close the connection to the MongoDB cluster
+            await client.close()
+            res.render('./consents/individual-consents')
+        }
+    }
+
+   
+
+   
+    async function getAllPensions(client, pptNumber) {
+        const results = await client.db(dataBaseName).collection("pensionDetails")
+        // find all documents
+        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
+        // save them to an array
+        .sort({pensionName: 1})        
+        .toArray()
+//        console.log('results ' + JSON.stringify(results))
+        return results
+    }
+
+}) 
+
+
+//consent for dashbioard provider code end
+
 // route for get for managing consent for individual dashboard providers
 // the * is a wildcard for the prototype number in this get
 

@@ -1,0 +1,71 @@
+
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-form-group govuk-form-group--error">
+  <fieldset class="govuk-fieldset" aria-describedby="pension-hint pension-error">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+      <h1 class="govuk-fieldset__heading">
+        Manage access to pensions
+      </h1>
+    </legend>
+    <div id="pension-hint" class="govuk-hint">
+      Manage your preferences for which dashboard providers can access your pension information
+    </div>
+    <span id="pension-error" class="govuk-error-message">
+      <span class="govuk-visually-hidden">Error:</span> Select which dashboard provider can access your pensions or select none
+    </span>
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="pension" name="pension" type="checkbox" value="moneyhelper" aria-describedby="pension-item-hint">
+        <label class="govuk-label govuk-checkboxes__label" for="pension">
+          MoneyHelper
+        </label>
+        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          I consent to MoneyHelper having access to my pensions. You can select which pensions MoneyHelper displays.
+        </div>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="pension-2" name="pension" type="checkbox" value="aviva">
+        <label class="govuk-label govuk-checkboxes__label" for="pension-2">
+          Aviva
+        </label>
+        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          I consent to Aviva having access to my pensions. You can select which pensions Aviva displays.
+        </div>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="pension-3" name="pension" type="checkbox" value="pensionbee">
+        <label class="govuk-label govuk-checkboxes__label" for="pension-3">
+          Pension Bee
+        </label>
+        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          I consent to Pension Bee having access to my pensions. You can select which pensions Pension Bee displays.
+        </div>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="pension-4" name="pension" type="checkbox" value="none">
+        <label class="govuk-label govuk-checkboxes__label" for="pension-4">
+          None
+        </label>
+        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          I do not wish to grant pension access to any of the providers
+        </div>
+      </div>
+    </div>
+
+  </fieldset>
+</div>  
+
+
+        <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Continue</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
+
