@@ -78,12 +78,15 @@ router.get('/', function (req,res) {
     res.render('index')
 })
 
-router.post('/which-page-to-start', function (req, res) {
+router.post('/which-start-page', function (req, res) {
 
-    const whichPage = req.session.data['which-page']
+    const whichPage = req.session.data['which-start']
     switch (whichPage) {
-        case "full":
-            res.redirect('/find-your-pensions/index')
+        case "first-visit":
+            res.redirect('/commercial-db/cdb-index')
+            break        
+        case "revisit":
+            res.redirect('/find-your-pensions/fyp-index')
             break
         case "manage-consents":
             res.redirect('/consents/main-menu')
@@ -91,32 +94,6 @@ router.post('/which-page-to-start', function (req, res) {
          case "manage-pensions":
             res.redirect('/admin/manage-pensions')
             break   }
-})
-
-//Routes for index page with journey options
-router.post('/which-start-page', function (req, res) {
-
-    const whichStart = req.session.data['which-start']
-    switch (whichStart) {
-        case "consents":
-            res.redirect('/manage-consents')
-            break
-        case "adddelegate":
-            res.redirect('/find-your-pensions/fyp-display-pensions')
-            break
-        case "identity":
-            res.redirect('/identity/start')
-            break
-        case "full":
-            res.redirect('/find-your-pensions/index')
-            break
-     // case "consents":
-     //     res.redirect('/consents/enter-consents-start')
-     //     break
-     // case "identity":
-     //     res.redirect('/identity/start')
-     //     break
-    }
 })
 
 //
@@ -129,12 +106,7 @@ router.post('/sign-in-or-register', function (req, res) {
             req.app.locals.guest = false
             req.app.locals.fypRegistered = false
             res.redirect('/find-your-pensions/fyp-login')
-            break   
-        case "createaccount":
-            req.app.locals.guest = false
-            req.app.locals.fypRegistered = false
-            res.redirect('/find-your-pensions/fyp-create-account')
-            break          
+            break      
         case "guest":
             req.app.locals.guestCheckedUse = "" 
             req.app.locals.guest = true
@@ -162,32 +134,8 @@ router.post('/fyp-login', function(req,res) {
 
     }
 })
-// create dashboard account - reset flag so sign in doesn't error second time round
-
-// password reset, if user doesn't go to the create account first then raise an error
-router.post('/password-reset', function(req,res) {
-    console.log('guest ' + req.app.locals.guest)
-    if (!req.app.locals.fypRegistered && !req.app.locals.guest) {
-        req.app.locals.loginErrorString = "Error: Enter a valid email address "
-        req.app.locals.errorFormClass = "govuk-form-group--error"  
-        req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('find-your-pensions/password-reset')
-    }    
-    else {
-        req.app.locals.guest = false
-        req.app.locals.loginErrorString = ""
-        req.app.locals.errorFormClass = ""
-        req.app.locals.errorInputClass = ""
-
-        res.redirect('find-your-pensions/password-reset-confirmation')
-
-    }
-})
-
-
 
 // create dashboard account - reset flag so sign in doesn't error second time round
-
 router.get('/find-your-pensions/fyp-create-account', function(req,res) {
 
         req.app.locals.fypRegistered = true
@@ -255,349 +203,8 @@ router.post('/guest-consent', function(req,res) {
     }
 })
 
-
 //
-// identity pages
-//
-
-
-//
-// PensionFinder - consent and authorisation pages
-//
-// route for get for managing consent for individual dashboard providers
-
-
-
-
-router.get('/consents/individual-consents', function (req, res) {
-    async function findPensionsByOwner() {
-    console.log('getIndividualConsent') 
-    req.app.locals.dashboard = req.query.dashboard 
-    
-
-        const client = new MongoClient(uri)
-        try {
-            // Connect to the MongoDB cluster
-            await client.connect()
-
-                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
-                req.app.locals.pensionIdentifiers=pensionDetailsAll
-            
-            }            
-
-             
-        finally {
-            // Close the connection to the MongoDB cluster
-            await client.close()
-            res.render('./consents/individual-consents')
-        }
-    }
-
-   
-
-   
-    async function getAllPensions(client, pptNumber) {
-        const results = await client.db(dataBaseName).collection("pensionDetails")
-        // find all documents
-        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
-        // save them to an array
-        .sort({pensionName: 1})        
-        .toArray()
-//        console.log('results ' + JSON.stringify(results))
-        return results
-    }
-
-}) 
-
-
-//consent for dashbioard provider code end
-
-// route for get for managing consent for individual dashboard providers
-// the * is a wildcard for the prototype number in this get
-
-router.get('./consents/individual-consents', function (req, res) {
-    async function findPensionsByOwner() {
-    console.log('getIndividualConsent')    
-
-        const client = new MongoClient(uri)
-        try {
-            // Connect to the MongoDB cluster
-            await client.connect()
-
-                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
-                req.app.locals.pensionIdentifiers=pensionDetailsAll
-            
-            }            
-
-             
-        finally {
-            // Close the connection to the MongoDB cluster
-            await client.close()
-            res.render('./consents/individual-consents')
-        }
-    }
-
-   
-
-   
-    async function getAllPensions(client, pptNumber) {
-        const results = await client.db(dataBaseName).collection("pensionDetails")
-        // find all documents
-        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
-        // save them to an array
-        .sort({pensionName: 1})        
-        .toArray()
-//        console.log('results ' + JSON.stringify(results))
-        return results
-    }
-
-}) 
-
-
-//consent for dashbioard provider code end
-
-router.post('/find-all-or-directed', function (req, res) {
-    const whichFind = req.session.data['which-find']
-    switch (whichFind) {
-        case "directed-find":
-            req.app.locals.firstPageLoad = true
-            req.app.locals.directedListNames =[]
-            req.app.locals.directedOrAll = "the pension providers you have selected"
-            res.redirect('consents/directed-find')
-            break      
-        case "find-all":
-            req.app.locals.directedOrAll = "all UK pension providers"
-            res.redirect('consents/search')
-            break
-
-    }
-})
-// consents page PensionFinder
- 
-router.post('/consents-all', function (req, res) {
-
-    // copy checked status from checkboxes
-
-    const consent1 = req.session.data['consents-1']
-    const consent2 = req.session.data['consents-2']
-    const consent3 = req.session.data['consents-3']
-    const consent4 = req.session.data['consents-4']
-
-    // set the checked status in the variable so that the box remains checked when the user leaves and comes ack to this page
-    // couldn't get the prototype kit recommended way to work !! https://govuk-prototype-kit.herokuapp.com/docs/examples/pass-data
-
-    if (consent1 == null) {
-        req.app.locals.checkedConsent1 = ""
-    }
-    else {
-        req.app.locals.checkedConsent1 = "checked"
-    }
-    if (consent2 == null) {
-        req.app.locals.checkedConsent2 = ""
-    }
-    else {
-        req.app.locals.checkedConsent2 = "checked"
-    }
-
-    if (consent3 == null) {
-        req.app.locals.checkedConsent3 = ""
-    }
-    else {
-        req.app.locals.checkedConsent3 = "checked"
-    }
-
-    if (consent4 == null) {
-        req.app.locals.checkedConsent4 = ""
-    }
-    else {
-        req.app.locals.checkedConsent4 = "checked"
-    }
-
-// set the error fields if not all the consents are checked
-    if (consent1 == null || consent2 == null || consent3 == null || consent4 == null) {
-
-        req.app.locals.consentsErrorString = "To find your pensions you must agree to all of these consents"
-        req.app.locals.errorFormClass = "govuk-form-group--error"  
-        req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('consents/consents-all')
-    } 
-    else {
-        req.app.locals.consentsErrorString = ""
-        req.app.locals.errorFormClass = ""
-        req.app.locals.errorInputClass = ""
-        res.redirect('consents/enter-your-details')
-    }
-
-})
-
-// directed find menu 
-
-router.post('/find-all-or-directed', function (req, res) {
-    const whichFind = req.session.data['which-find']
-    switch (whichFind) {
-        case "directed-find":
-            req.app.locals.firstPageLoad = true
-            req.app.locals.directedListNames =[]
-            req.app.locals.directedOrAll = "the pension providers you have selected"
-            res.redirect('consents/directed-find')
-            break      
-        case "find-all":
-            req.app.locals.directedOrAll = "all UK pension providers"
-            res.redirect('consents/search')
-            break
-
-    }
-})
-
-// directed find
-
-router.get('/consents/directed-find', function (req, res) {
-    req.app.locals.firstPageLoad = true
-    req.app.locals.listStarted = false
-    req.app.locals.directedListNames =[]
-    res.render('consents/directed-find')
-})
-
-router.post('/search-for-provider', function (req, res) {
-    // filter function
-
-    req.app.locals.firstPageLoad = false
-    let providerSearchValue = req.session.data['provider-search-value']
-    req.app.locals.providerSearchValue = providerSearchValue
-  //error if no value entered
-    if (providerSearchValue == "") {
-        req.app.locals.errorString = "Field is blank - Enter a pension provider name"
-        req.app.locals.errorFormClass = "govuk-form-group--error"  
-        req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('consents/directed-find')
-    }
-    else {
-        req.app.locals.errorString = ""
-        req.app.locals.errorFormClass = ""
-        req.app.locals.errorInputClass = "" 
-
-        // if more than one term entered make them both required to narrow down the search
-
-        if (providerSearchValue !== null) {
-
-    // do a filtered search on the json
-
-            searchResults= filterItems( providerListDirectedFind, providerSearchValue)
-            req.app.locals.searchListNames = searchResults
-
-            if (searchResults.length > 1) {
-                req.app.locals.pensionProviderPlural = 'pension providers'
-            }
-            else {
-                req.app.locals.pensionProviderPlural = 'pension provider'
-            }
-        }
-        res.render('consents/directed-find')
-    }
-    function filterItems(arr, query) {
-      return arr.filter(function(el) {
-        return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
-      })
-    }
-
-})
-
-router.post('/add-provider-to-list', function (req, res) {
-    req.app.locals.listStarted = true
-    let selectedProviders =[]
-    selectedProviders = req.session.data['provider-list']
-
-    console.log('req.app.locals.directedListNames ' + req.app.locals.directedListNames)
-    console.log('selectedProviders' + selectedProviders)
-//    console.log('providerList' + providerList)
-    if (selectedProviders) {
-        let providerList = req.app.locals.directedListNames
-        for (i=0; i < selectedProviders.length; i++) {
-            providerList.push(selectedProviders[i])
-        }
-        req.app.locals.directedListNames = providerList
-    }
-    res.render('consents/directed-find')
-
-})
-
-router.post('/remove-provider/:providerName', function (req, res) {
-    for (i=0 ; i<req.app.locals.directedListNames.length; i++ ) {
-        if (req.app.locals.directedListNames[i] == req.params.providerName)
-            req.app.locals.directedListNames.splice([i],1)
-    }
-    res.render('consents/directed-find')
-
-
-})
-
-router.post('/consents-select-action', function (req, res) {
-
-    const consentsSelection = req.session.data['select-action']
-    switch (consentsSelection) {
-        case "find":
-            res.redirect('consents/find-options-start')
-            break        
-        case "directed-find":
-            res.redirect('consents/directed-find')
-            break
-        case "delegates":
-            req.app.locals.firstPageLoad = true
-            res.redirect('consents/select-delegate')
-            break
-        case "manage-consents":
-            res.redirect('consents/manage-consents')
-            break
-        }
-
-})
-
-router.post('/enter-your-details', function (req, res) {
-    // initialise variables
-    req.app.locals.emailAddress = ""
-    req.app.locals.address = ""
-    req.app.locals.niNumber = ""
-    req.app.locals.telNumber = ""  
-//    req.app.locals.lastName = ""
-//    req.app.locals.firstName = ""
-    req.app.locals.altName = ""
-    req.app.locals.prevAddress = ""
-
-    let altName = req.session.data['alt-name']
-
-    let emailAddress = req.session.data['email']
-    let telNumber = req.session.data['telephone-number']
-    let niNumber = req.session.data['ni-number']
-
-    let address1 = req.session.data['prev-address-line-1']
-    let address2 = req.session.data['prev-address-line-2']
-    let town = req.session.data['prev-address-town']
-    let county = req.session.data['prev-address-county']
-    let postcode = req.session.data['prev-address-postcode']
-    let prevAddress = address1 + ', ' + address2 + ', ' + town + ', ' + county + ', ' + postcode
-    console.log('req.session.data[prev-address-line-1] ' + req.session.data['prev-address-line-1'])
-    console.log('adress1 ' + address1)
-    console.log('prevAddress ' + prevAddress)
-
-
-    req.app.locals.prevAddress = prevAddress
-    req.app.locals.emailAddress = emailAddress
-    req.app.locals.niNumber = niNumber
-    req.app.locals.telNumber = telNumber  
-    req.app.locals.altName = altName
-
-    req.app.locals.firstName = 'Jane'
-    req.app.locals.lastName = 'Smith'
-    req.app.locals.dob = '01 APR 1982'
-    req.app.locals.address = '42 High Street, Reading, Berks, RG1 4WD'
-
-    res.redirect('/consents/find-all-or-directed')
-
-
-})
-
-//
-// Find your pensions pages
+// Find your pensions pages MoneyHelper
 //
 
 router.get('/find-your-pensions/fyp-display-pensions', function (req, res) {
@@ -864,6 +471,675 @@ router.get('/find-your-pensions/fyp-single-pension-details*', function (req, res
     }
 })
 
+//
+// Commercial dashboard pages
+//
+
+router.post('/cdb-sign-in-or-register', function (req, res) {
+    const loginOrGuest = req.session.data['signin-or-guest']
+    switch (loginOrGuest) {
+        case "signin":
+            req.app.locals.guest = false
+            req.app.locals.fypRegistered = false
+            res.redirect('/commercial-db/cdb-login')
+            break      
+        case "guest":
+            req.app.locals.guestCheckedUse = "" 
+            req.app.locals.guest = true
+            res.redirect('/commercial-db/cdb-consents')
+            break
+    }
+})
+
+// sign in, if user doesn't go to the create account first then raise an error
+router.post('/cdb-login', function(req,res) {
+    console.log('guest ' + req.app.locals.guest)
+    if (!req.app.locals.fypRegistered && !req.app.locals.guest) {
+        req.app.locals.loginErrorString = "Error: Enter a valid user ID and password or create an account "
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        res.render('commercial-db/cdb-login')
+    }    
+    else {
+        req.app.locals.guest = false
+        req.app.locals.loginErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+
+        res.redirect('commercial-db/cdb-redirect-consents')
+
+    }
+})
+
+// create dashboard account - reset flag so sign in doesn't error second time round
+router.get('/commercial-db/cdb-create-account', function(req,res) {
+
+        req.app.locals.fypRegistered = true
+        req.app.locals.loginErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+        res.render('commercial-db/cdb-create-account')
+})
+
+// dashboard consents page 
+router.post('/cdb-create-account', function(req,res) {
+    req.app.locals.firstName = req.session.data['first-name']
+    // copy checked status from checkboxes
+    const dashboardConsentStore = req.session.data['consent-to-store']
+    const dashboardConsentUse = req.session.data['consent-to-use']
+
+    // set the checked status in the variable so that the box remains checked when the user leaves and comes ack to this page
+    // couldn't get the prototype kit recommended way to work !! https://govuk-prototype-kit.herokuapp.com/docs/examples/pass-data
+
+    if (dashboardConsentStore == null) {
+        req.app.locals.checkedStore = ""
+    }
+    else {
+        req.app.locals.checkedStore = "checked"
+    }
+
+    // set the error fields if not all the consents are checked
+
+    if (dashboardConsentUse == null) {
+        req.app.locals.dashboardConsentErrorString = "To find your pensions you must agree to this consent"
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        req.app.locals.checkedUse = "" 
+        res.render('commercial-db/cdb-create-account')
+    } 
+    else {
+        req.app.locals.dashboardConsentErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+        req.app.locals.checkedUse = "checked" 
+        res.redirect('commercial-db/cdb-login')
+    }
+})
+
+
+router.post('/cdb-guest-consent', function(req,res) {
+    // copy checked status from checkboxes
+    const guestConsentUse = req.session.data['consent-to-use']
+
+    // set the error fields if not all the consents are checked
+
+    if (guestConsentUse == null) {
+        req.app.locals.guestConsentErrorString = "To find your pensions you must agree to this consent"
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        req.app.locals.guestCheckedUse = "" 
+        res.render('commercial-db/cdb-consents')
+    } 
+    else {
+        req.app.locals.guestConsentErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+        req.app.locals.guestCheckedUse = "checked" 
+        res.redirect('commercial-db/cdb-redirect-consents')
+    }
+})
+
+//
+// Find your pensions pages
+//
+
+router.get('/commercial-db/cdb-display-pensions', function (req, res) {
+    async function findPensionsByParticipant() {
+
+        let participantNumber = process.env.PARTICIPANT_NUMBER
+
+        let pensionDetailsAll = []
+        // set the local variables to false so that the elements are not displayed in the html unless they exist
+        req.app.locals.stateFlag = false
+
+        // initialise the arrays
+        req.app.locals.allPensionTypes = []
+        req.app.locals.statePensionDetails = []
+
+        let employmentStartDateString = ""
+        let employmentEndDateString = ""
+        let accruedCalculationDateString = ""
+        let ERICalculationDateString = ""
+        let pensionRetirementDateString = ""
+
+
+        const client = new MongoClient(uri)
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect()
+
+            pensionDetailsAll = await getAllPensions(client, participantNumber)
+              
+            // split into state and other pensions
+
+            for (i=0; i < pensionDetailsAll.length; i++) {
+            // convert dates to string and display as dd mon yyyy
+                let employmentStartDateString = ""
+                let employmentEndDateString = ""
+                let accruedCalculationDateString = ""
+                let ERICalculationDateString = ""
+                let pensionRetirementDateString = ""
+
+                // Flag to display message
+                req.app.locals.NIPaidUP = false
+
+                if (pensionDetailsAll[i].accruedAmount == pensionDetailsAll[i].ERIAnnualAmount) {
+                    req.app.locals.NIPaidUP = true
+                }
+
+                // use include "-" to see if a date has been entered in the field, not null doesn't work
+                if (pensionDetailsAll[i].pensionRetirementDate.includes("-")) {
+                    pensionRetirementDateString = await formatDate(pensionDetailsAll[i].pensionRetirementDate)
+                }
+                /*
+                if (pensionDetailsAll[i].ERICalculationDate.includes("-")) {
+                    ERICalculationDateString = await formatDate(pensionDetailsAll[i].ERICalculationDate)
+                }
+                */
+
+                if (pensionDetailsAll[i].accruedCalculationDate.includes("-")) {
+                    accruedCalculationDateString = await formatDate(pensionDetailsAll[i].accruedCalculationDate)
+                }
+//                console.log('pensionDetailsAll[i].accruedCalculationDate ' + pensionDetailsAll[i].accruedCalculationDate + ' ' + pensionDetailsAll[i].pensionName)                
+//                console.log('accruedCalculationDateString ' + accruedCalculationDateString)                
+                if (pensionDetailsAll[i].employmentStartDate.includes("-")) {
+                    employmentStartDateString = await formatDate(pensionDetailsAll[i].employmentStartDate)
+                }
+                if (pensionDetailsAll[i].employmentEndDate.includes("-")) {                    
+                    employmentEndDateString = await formatDate(pensionDetailsAll[i].employmentEndDate)
+                }
+            // copy the date strings values to the array to display on the prototype
+                pensionDetailsAll[i].pensionRetirementDateString = pensionRetirementDateString
+                pensionDetailsAll[i].ERICalculationDateString = ERICalculationDateString
+                pensionDetailsAll[i].accruedCalculationDateString = accruedCalculationDateString
+                pensionDetailsAll[i].employmentStartDateString = employmentStartDateString
+                pensionDetailsAll[i].employmentEndDateString = employmentEndDateString
+            // convert the values to sterling
+            // convert values to monthly for prototype 5
+                let ERIAnnualAmountSterling = ""
+                let accruedAmountSterling = ""
+                let ERIPotSterling = ""
+                let monthlyAccruedAmount = pensionDetailsAll[i].accruedAmount / 12
+                let monthlyERIAnnualAmount = pensionDetailsAll[i].ERIAnnualAmount / 12
+
+                ERIAnnualAmountSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(monthlyERIAnnualAmount)              
+                if (pensionDetailsAll[i].pensionType == "DC") {                 
+                    accruedAmountSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pensionDetailsAll[i].accruedAmount)
+                }
+                else {
+                    accruedAmountSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(monthlyAccruedAmount)
+                }                                 
+            
+                ERIPotSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(pensionDetailsAll[i].ERIPot)           
+
+            // copy the sterling values to the array to display on the prototype
+
+                pensionDetailsAll[i].ERIAnnualAmountSterling = ERIAnnualAmountSterling
+                pensionDetailsAll[i].ERIPotSterling = ERIPotSterling
+                pensionDetailsAll[i].accruedAmountSterling = accruedAmountSterling
+
+                // set the status to display the still saving status
+                if (pensionDetailsAll[i].pensionStatus == "I") {
+                    pensionDetailsAll[i].pensionStatusYN = "No"
+                }
+                else {
+                    pensionDetailsAll[i].pensionStatusYN = "Yes"
+                }
+                // find pension type text
+                for (j=0; j < penTypes.length; j++) {
+                    if (pensionDetailsAll[i].pensionType == penTypes[j].type) {
+                        pensionDetailsAll[i].penTypeDescription = penTypes[j].text
+                    }
+                } 
+                // split pensions in to state pension and others
+                if (pensionDetailsAll[i].pensionOrigin !== "S") {
+                    req.app.locals.pensionsFoundFlag = true
+                    req.app.locals.allPensionTypes.push(pensionDetailsAll[i])
+                }
+                else if (pensionDetailsAll[i].pensionOrigin == "S") {
+                    req.app.locals.stateFlag = true
+                    // there will only be one record for State Pension!
+                    req.app.locals.statePensionDetails = pensionDetailsAll[i]
+                }                
+            }
+        } 
+        finally {
+            // Close the connection to the MongoDB cluster
+            await client.close()
+            res.render('commercial-db/cdb-display-pensions')
+        }
+    }
+
+    findPensionsByParticipant().catch(console.error)
+   
+    async function getAllPensions(client, pptNumber) {
+        // pensionOwnerType = "M"  only includes manually entered pensions and not examples
+        // return all pensions if participant = 0 
+
+        if (pptNumber == "0") {
+            const results = await client.db(dataBaseName).collection("pensionDetails")
+            .find({pensionOwnerType: "M"})
+            // save them to an array and sort by newest first
+            .sort({pensionStartDate: -1, pensionName: 1})        
+            .toArray()
+            return results
+
+        }
+        // return pensions for the selected participant
+        else {
+            const results = await client.db(dataBaseName).collection("pensionDetails")
+            // find all documents
+            .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
+            // save them to an array and sort by newest first
+            .sort({pensionStartDate: -1, pensionName: 1})        
+            .toArray()
+            return results
+        }
+    }
+
+}) 
+
+
+// additional page of pension details 
+router.get('/commercial-db/cdb-single-pension-details*', function (req, res) {
+
+    async function findPensionDetails() {
+
+        req.app.locals.pensionDetails = []
+        req.app.locals.pensionProvider = []
+
+        let pensionId = req.query.pensionId
+        let providerId = req.query.providerId
+        let pensionType = req.query.pensionType
+
+        let employmentStartDateString = ""
+        let pensionStartDateString = ""
+        let employmentEndDateString = ""
+        let ERICalculationDateString = ""  
+        let accruedCalculationDateString = ""
+        let pensionRetirementDateString =""
+
+        // get the values from the session variables
+        console.log('pensionType ' + pensionType)
+        if (pensionType == "ST") {
+            req.app.locals.pensionDetails = req.app.locals.statePensionDetails
+        }
+        else {
+            for (i=0; i < req.app.locals.allPensionTypes.length; i++) {
+                if (req.app.locals.allPensionTypes[i]._id == pensionId) {
+                    req.app.locals.pensionDetails = req.app.locals.allPensionTypes [i]
+                }  
+            }          
+        }
+        console.log('pensionDetails ' + JSON.stringify(req.app.locals.pensionDetails))
+
+
+        const client = new MongoClient(uri);
+
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect();
+//            req.app.locals.pensionDetails = await getPensionById(client, pensionId)
+            req.app.locals.pensionProvider = await getProviderById(client, providerId)
+            // if paid all NI set string to not display message in details page
+/*            if (req.app.locals.pensionDetails.accruedAmount !== req.app.locals.pensionDetails.ERIAnnualAmount) {
+                req.app.locals.NINotPaidUP = true
+            }
+            */
+//            console.log('req.app.locals.pensionProvider.administratorURL ' + req.app.locals.pensionProvider.administratorURL)
+            if (req.app.locals.pensionProvider.administratorURL) {
+                req.app.locals.pensionProvider.administratorShortURL = req.app.locals.pensionProvider.administratorURL.replace(/^https?\:\/\//i, "")
+            }
+            if (req.app.locals.pensionProvider.administratorAnnualReportURL) {
+                req.app.locals.pensionProvider.administratorAnnualReportShortURL = req.app.locals.pensionProvider.administratorAnnualReportURL.replace(/^https?\:\/\//i, "")
+            }
+            if (req.app.locals.pensionProvider.administratorCostsChargesURL) {
+                req.app.locals.pensionProvider.administratorCostsChargesShortURL = req.app.locals.pensionProvider.administratorCostsChargesURL.replace(/^https?\:\/\//i, "")
+            }
+            if (req.app.locals.pensionProvider.administratorImplementationURL) {
+                req.app.locals.pensionProvider.administratorImplementationShortURL = req.app.locals.pensionProvider.administratorImplementationURL.replace(/^https?\:\/\//i, "")
+            }
+            if (req.app.locals.pensionProvider.administratorSIPURL) {  
+                req.app.locals.pensionProvider.administratorSIPShortURL = req.app.locals.pensionProvider.administratorSIPURL.replace(/^https?\:\/\//i, "")
+            }
+            if (req.app.locals.pensionDetails.pensionStartDate.includes("-")) {
+                pensionStartDateString = await formatDate(req.app.locals.pensionDetails.pensionStartDate)
+            }             
+            req.app.locals.pensionDetails.pensionStartDateString = pensionStartDateString
+
+            for (i=0; i < penTypes.length; i++) {
+                if (req.app.locals.pensionDetails.pensionType == penTypes[i].type) {
+                    console.log('req.app.locals.pensionDetails.pensionType ' + req.app.locals.pensionDetails.pensionType)
+                    req.app.locals.pensionDetails.pensionTypeName = penTypes[i].text
+                    if (req.app.locals.pensionDetails.pensionOrigin == "P") {
+                        req.app.locals.pensionDetails.pensionTypeDescription = penTypes[i].descriptionPrivate
+                        req.app.locals.pensionDetails.moneyHelperURL =  penTypes[i].moneyHelperURL
+                    }
+                    else {
+                        req.app.locals.pensionDetails.pensionTypeDescription = penTypes[i].description
+                        req.app.locals.pensionDetails.moneyHelperURL =  penTypes[i].moneyHelperURL
+
+                    }
+                }
+            } 
+        } finally {
+            // Close the connection to the MongoDB cluster
+            await client.close();    
+            res.render('commercial-db/cdb-single-pension-details')
+        }
+    }
+
+    findPensionDetails().catch(console.error)
+
+    // get the pension details
+    async function getPensionById(client, pensionId) {
+        const results = await client.db(dataBaseName).collection("pensionDetails")
+        .findOne({ _id : ObjectId(pensionId)})
+//        console.log('results getPensionById' + JSON.stringify(results))
+        return results
+    }
+    // get the provider details
+    async function getProviderById(client, providerId) {
+        const results = await client.db(dataBaseName).collection("pensionProvider")
+        // find all documents
+        .findOne({ _id : ObjectId(providerId)})
+        return results
+    }
+})
+
+//
+// identity pages
+//
+
+
+//
+// PensionFinder - consent and authorisation pages
+//
+// route for get for managing consent for individual dashboard providers
+// the * is a wildcard for the prototype number in this get
+
+router.get('./consents/individual-consents', function (req, res) {
+    async function findPensionsByOwner() {
+    console.log('getIndividualConsent')    
+
+        const client = new MongoClient(uri)
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect()
+
+                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
+                req.app.locals.pensionIdentifiers=pensionDetailsAll
+            
+            }            
+
+             
+        finally {
+            // Close the connection to the MongoDB cluster
+            await client.close()
+            res.render('./consents/individual-consents')
+        }
+    }
+
+   
+
+   
+    async function getAllPensions(client, pptNumber) {
+        const results = await client.db(dataBaseName).collection("pensionDetails")
+        // find all documents
+        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
+        // save them to an array
+        .sort({pensionName: 1})        
+        .toArray()
+//        console.log('results ' + JSON.stringify(results))
+        return results
+    }
+
+}) 
+
+
+//consent for dashbioard provider code end
+
+router.post('/find-all-or-directed', function (req, res) {
+    const whichFind = req.session.data['which-find']
+    switch (whichFind) {
+        case "directed-find":
+            req.app.locals.firstPageLoad = true
+            req.app.locals.directedListNames =[]
+            req.app.locals.directedOrAll = "the pension providers you have selected"
+            res.redirect('consents/directed-find')
+            break      
+        case "find-all":
+            req.app.locals.directedOrAll = "all UK pension providers"
+            res.redirect('consents/search')
+            break
+
+    }
+})
+// consents page PensionFinder
+ 
+router.post('/consents-all', function (req, res) {
+
+    // copy checked status from checkboxes
+
+    const consent1 = req.session.data['consents-1']
+    const consent2 = req.session.data['consents-2']
+    const consent3 = req.session.data['consents-3']
+    const consent4 = req.session.data['consents-4']
+
+    // set the checked status in the variable so that the box remains checked when the user leaves and comes ack to this page
+    // couldn't get the prototype kit recommended way to work !! https://govuk-prototype-kit.herokuapp.com/docs/examples/pass-data
+/*
+    if (consent1 == null) {
+        req.app.locals.checkedConsent1 = ""
+    }
+    else {
+        req.app.locals.checkedConsent1 = "checked"
+    }
+    if (consent2 == null) {
+        req.app.locals.checkedConsent2 = ""
+    }
+    else {
+        req.app.locals.checkedConsent2 = "checked"
+    }
+
+    if (consent3 == null) {
+        req.app.locals.checkedConsent3 = ""
+    }
+    else {
+        req.app.locals.checkedConsent3 = "checked"
+    }
+
+    if (consent4 == null) {
+        req.app.locals.checkedConsent4 = ""
+    }
+    else {
+        req.app.locals.checkedConsent4 = "checked"
+    }
+*/
+
+// set the error fields if not all the consents are checked
+    if (consent1 == null || consent2 == null || consent3 == null || consent4 == null) {
+
+        req.app.locals.consentsErrorString = "To find your pensions you must agree to all of these consents"
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        res.render('consents/consents-all')
+    } 
+    else {
+        req.app.locals.consentsErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+        res.redirect('consents/enter-your-details')
+    }
+
+})
+
+// directed find menu 
+
+router.post('/find-all-or-directed', function (req, res) {
+    const whichFind = req.session.data['which-find']
+    switch (whichFind) {
+        case "directed-find":
+            req.app.locals.firstPageLoad = true
+            req.app.locals.directedListNames =[]
+            req.app.locals.directedOrAll = "the pension providers you have selected"
+            res.redirect('consents/directed-find')
+            break      
+        case "find-all":
+            req.app.locals.directedOrAll = "all UK pension providers"
+            res.redirect('consents/search')
+            break
+
+    }
+})
+
+// directed find
+
+router.get('/consents/directed-find', function (req, res) {
+    req.app.locals.firstPageLoad = true
+    req.app.locals.listStarted = false
+    req.app.locals.directedListNames =[]
+    res.render('consents/directed-find')
+})
+
+router.post('/search-for-provider', function (req, res) {
+    // filter function
+
+    req.app.locals.firstPageLoad = false
+    let providerSearchValue = req.session.data['provider-search-value']
+    req.app.locals.providerSearchValue = providerSearchValue
+  //error if no value entered
+    if (providerSearchValue == "") {
+        req.app.locals.errorString = "Field is blank - Enter a pension provider name"
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        res.render('consents/directed-find')
+    }
+    else {
+        req.app.locals.errorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = "" 
+
+        // if more than one term entered make them both required to narrow down the search
+
+        if (providerSearchValue !== null) {
+
+    // do a filtered search on the json
+
+            searchResults= filterItems( providerListDirectedFind, providerSearchValue)
+            req.app.locals.searchListNames = searchResults
+
+            if (searchResults.length > 1) {
+                req.app.locals.pensionProviderPlural = 'pension providers'
+            }
+            else {
+                req.app.locals.pensionProviderPlural = 'pension provider'
+            }
+        }
+        res.render('consents/directed-find')
+    }
+    function filterItems(arr, query) {
+      return arr.filter(function(el) {
+        return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      })
+    }
+
+})
+
+router.post('/add-provider-to-list', function (req, res) {
+    req.app.locals.listStarted = true
+    let selectedProviders =[]
+    selectedProviders = req.session.data['provider-list']
+
+    console.log('req.app.locals.directedListNames ' + req.app.locals.directedListNames)
+    console.log('selectedProviders' + selectedProviders)
+//    console.log('providerList' + providerList)
+    if (selectedProviders) {
+        let providerList = req.app.locals.directedListNames
+        for (i=0; i < selectedProviders.length; i++) {
+            providerList.push(selectedProviders[i])
+        }
+        req.app.locals.directedListNames = providerList
+    }
+    res.render('consents/directed-find')
+
+})
+
+router.post('/remove-provider/:providerName', function (req, res) {
+    for (i=0 ; i<req.app.locals.directedListNames.length; i++ ) {
+        if (req.app.locals.directedListNames[i] == req.params.providerName)
+            req.app.locals.directedListNames.splice([i],1)
+    }
+    res.render('consents/directed-find')
+
+
+})
+
+router.post('/consents-select-action', function (req, res) {
+
+    const consentsSelection = req.session.data['select-action']
+    switch (consentsSelection) {
+        case "find":
+            res.redirect('consents/find-options-start')
+            break        
+        case "directed-find":
+            res.redirect('consents/directed-find')
+            break
+        case "delegates":
+            req.app.locals.firstPageLoad = true
+            res.redirect('consents/select-delegate')
+            break
+        case "manage-consents":
+            res.redirect('consents/manage-consents')
+            break
+        }
+
+})
+
+router.post('/enter-your-details', function (req, res) {
+    // initialise variables
+    req.app.locals.emailAddress = ""
+    req.app.locals.address = ""
+    req.app.locals.niNumber = ""
+    req.app.locals.telNumber = ""  
+//    req.app.locals.lastName = ""
+//    req.app.locals.firstName = ""
+    req.app.locals.altName = ""
+    req.app.locals.prevAddress = ""
+
+    let altName = req.session.data['alt-name']
+
+    let emailAddress = req.session.data['email']
+    let telNumber = req.session.data['telephone-number']
+    let niNumber = req.session.data['ni-number']
+
+    let address1 = req.session.data['prev-address-line-1']
+    let address2 = req.session.data['prev-address-line-2']
+    let town = req.session.data['prev-address-town']
+    let county = req.session.data['prev-address-county']
+    let postcode = req.session.data['prev-address-postcode']
+    let prevAddress = address1 + ', ' + address2 + ', ' + town + ', ' + county + ', ' + postcode
+    console.log('req.session.data[prev-address-line-1] ' + req.session.data['prev-address-line-1'])
+    console.log('adress1 ' + address1)
+    console.log('prevAddress ' + prevAddress)
+
+
+    req.app.locals.prevAddress = prevAddress
+    req.app.locals.emailAddress = emailAddress
+    req.app.locals.niNumber = niNumber
+    req.app.locals.telNumber = telNumber  
+    req.app.locals.altName = altName
+
+    req.app.locals.firstName = 'Jane'
+    req.app.locals.lastName = 'Smith'
+    req.app.locals.dob = '01 APR 1982'
+    req.app.locals.address = '42 High Street, Reading, Berks, RG1 4WD'
+
+//    res.redirect('/consents/find-all-or-directed')
+    res.redirect('/consents/search')
+
+
+})
 
 
 //
