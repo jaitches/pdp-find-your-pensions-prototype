@@ -20,74 +20,48 @@
             <div id="details-hint" class="govuk-hint pdp-consent-font">
               We will use your details to find your pensions.         
             </div>
-            <h2 class="govuk-heading-m pdp-consent-font">
-                The identity service has given us:
-            </h2>
-            <div class="govuk-form-group">
-              <label class="govuk-label pdp-consent-font" for="first-name">
-                First name
-              </label>
-              <input class="govuk-input govuk-input--width-30 pdp-consent-font" id="first-name" name="first-name" type="text" value= "Jane" disabled>
-            </div>
-            <div class="govuk-form-group">
-              <label class="govuk-label pdp-consent-font" for="last-name">
-                Last name
-              </label>
-              <input class="govuk-input govuk-input--width-30 pdp-consent-font" id="last-name" name="last-name" type="text" value="Smith" disabled>
-            </div>
-            <div class="govuk-form-group">
-              <div class="govuk-date-input" id="dob">
-                <label class="govuk-label pdp-consent-font" for="event-name">
-                  Date of Birth
-                </label>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label pdp-consent-font" for="dob-day">
-                      Day
-                    </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2 pdp-consent-font" id="dob-day" name="dob-day" type="text" pattern="[0-9]*" inputmode="numeric" value="01" disabled>
-                  </div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label pdp-consent-font" for="dob-month">
-                      Month
-                    </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-2 pdp-consent-font" id="dob-month" name="dob-month" type="text" pattern="[0-9]*" inputmode="numeric" value="APR" disabled>
-                  </div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label pdp-consent-font" for="dob-year">
-                      Year
-                    </label>
-                    <input class="govuk-input govuk-date-input__input govuk-input--width-4 pdp-consent-font" id="dob-year" name="dob-year" type="text" pattern="[0-9]*" inputmode="numeric" value="1982" disabled>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="govuk-form-group">
-              <label class="govuk-label pdp-consent-font" for="address-line-1">
-                Address
-              </label>
-              <input class="govuk-input pdp-consent-font" id="address-line-1" name="address-line-1" type="text" value="42 High Street" disabled>
-            </div>
-
-            <div class="govuk-form-group">
-              <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="address-town" name="address-town" type="text" value="Reading" disabled>
-            </div>
-
-            <div class="govuk-form-group">
-              <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="address-county" name="address-county" type="text" value="Berks" disabled>
-            </div>
-
-            <div class="govuk-form-group">
-              <label class="govuk-label pdp-consent-font" for="address-postcode">
-                Postcode
-              </label>
-              <input class="govuk-input govuk-input--width-10 pdp-consent-font" id="address-postcode" name="address-postcode" type="text" value="RG1 4WD" disabled>
-            </div>
+            <dl class="govuk-summary-list">
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      First name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Jane
+    </dd>
+    <dd class="govuk-summary-list__actions">
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Last name
+    </dt>
+    <dd class="govuk-summary-list__value">
+      Smith
+    </dd>
+    <dd class="govuk-summary-list__actions">
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Date of birth
+    </dt>
+    <dd class="govuk-summary-list__value">
+      1 April 1982
+    </dd>
+    <dd class="govuk-summary-list__actions">
+    </dd>
+  </div>
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      Address
+    </dt>
+    <dd class="govuk-summary-list__value">
+      42 High Street<br>Reading<br>Berkshire<br>RG1 4WD
+    </dd>
+    <dd class="govuk-summary-list__actions">
+    </dd>
+  </div>
+</dl>
 
             <br>
             <h2 class="govuk-heading-m pdp-consent-font">
@@ -178,26 +152,22 @@
                 </div>
                 <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
                   <div class="govuk-form-group">
+                    <label class="govuk-label pdp-consent-font" for="prev-address-line-1">
+                      Email address <span class="govuk-visually-hidden">line 1 of 2</span>
+                    </label>
                     <input class="govuk-input pdp-consent-font" id="email" name="email" type="email" spellcheck="false">
+                  </div>
+                  <div class="govuk-form-group">
+                    <label class="govuk-label pdp-consent-font" for="prev-address-county">
+                      UK Telephone Number
+                    </label>
+                    <input class="govuk-input govuk-!-width-two-thirds pdp-consent-font" id="prev-address-county" name="prev-address-county" type="text">
                   </div> 
                   <div class="govuk-form-group">
-                
               </div>
               </div>
 
-              <div class="govuk-accordion__section ">
-                <div class="govuk-accordion__section-header">
-                  <h2 class="govuk-accordion__section-heading">
-                    <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-                      UK telephone number
-                    </span>
-                  </h2>
-                </div>
-                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-                  <div class="govuk-form-group">
-                    <input class="govuk-input govuk-input--width-20 pdp-consent-font" id="telephone-number" name="telephone-number" type="tel">
-                  </div> 
-                  <div class="govuk-form-group">
+
                 
               </div>
               </div>

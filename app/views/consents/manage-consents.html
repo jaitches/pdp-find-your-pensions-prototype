@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="govuk-form-group govuk-form-group--error">
+<!-- Write your comments here 
+<div class="govuk-form-group govuk-form-group--error"> 
   <fieldset class="govuk-fieldset" aria-describedby="pension-hint pension-error">
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
       <h1 class="govuk-fieldset__heading">
@@ -17,43 +17,41 @@
       Manage your preferences for which dashboard providers can access your pension information
     </div>
     <span id="pension-error" class="govuk-error-message">
-      <span class="govuk-visually-hidden">Error:</span> Select which dashboard provider can access your pensions or select none
+      <span class="govuk-visually-hidden">Error:</span> Select which dashboard provider can access your pensions or select option none
     </span>
+  -->
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <form action="/manage-pension-access" method="post" novalidate>
+        <div class="govuk-form-group">
+          <h1 class="govuk-heading-xl pdp-consent-heading-font">
+            Manage access to pensions
+          </h1>
+          <p class="pdp-consent-font">
+            Manage your preferences for which dashboard providers can access your pension information
+          </p>    
+          
     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
       <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="pension" name="pension" type="checkbox" value="moneyhelper" aria-describedby="pension-item-hint">
+        <input class="govuk-checkboxes__input" id="pension-1" name="pension-1" type="checkbox" value="pension-1" aria-describedby="pension-item-hint">
         <label class="govuk-label govuk-checkboxes__label" for="pension">
           MoneyHelper
         </label>
         <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
-          I consent to MoneyHelper having access to my pensions. You can select which pensions MoneyHelper displays.
+          I consent to MoneyHelper having access to my pensions. <a href="individual-consents?dashboard=MoneyHelper">You can select which of your pensions MoneyHelper can display</a>
         </div>
       </div>
       <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="pension-2" name="pension" type="checkbox" value="aviva">
+        <input class="govuk-checkboxes__input" id="pension-2" name="pension-2" type="checkbox" value="pension-2">
         <label class="govuk-label govuk-checkboxes__label" for="pension-2">
           Aviva
         </label>
         <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
-          I consent to Aviva having access to my pensions. You can select which pensions Aviva displays.
+          I consent to MoneyHelper having access to my pensions. <a href="individual-consents?dashboard='Aviva'">You can select which of your pensions Aviva can display</a>
         </div>
       </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="pension-3" name="pension" type="checkbox" value="pensionbee">
-        <label class="govuk-label govuk-checkboxes__label" for="pension-3">
-          Pension Bee
-        </label>
-        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
-          I consent to Pension Bee having access to my pensions. You can select which pensions Pension Bee displays.
-        </div>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="pension-4" name="pension" type="checkbox" value="none">
-        <label class="govuk-label govuk-checkboxes__label" for="pension-4">
-          None
-        </label>
-        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
-          I do not wish to grant pension access to any of the providers
+      
+    
         </div>
       </div>
     </div>
