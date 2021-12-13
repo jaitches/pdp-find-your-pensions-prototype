@@ -131,6 +131,29 @@ router.post('/fyp-login', function(req,res) {
 
     }
 })
+// create dashboard account - reset flag so sign in doesn't error second time round
+
+// password reset, if user doesn't go to the create account first then raise an error
+router.post('/password-reset', function(req,res) {
+    console.log('guest ' + req.app.locals.guest)
+    if (!req.app.locals.fypRegistered && !req.app.locals.guest) {
+        req.app.locals.loginErrorString = "Error: Enter a valid email address "
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        res.render('find-your-pensions/password-reset')
+    }    
+    else {
+        req.app.locals.guest = false
+        req.app.locals.loginErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+
+        res.redirect('find-your-pensions/password-reset-confirmation')
+
+    }
+})
+
+
 
 // create dashboard account - reset flag so sign in doesn't error second time round
 router.get('/find-your-pensions/fyp-create-account', function(req,res) {
@@ -209,8 +232,66 @@ router.post('/guest-consent', function(req,res) {
 //
 // PensionFinder - consent and authorisation pages
 //
+// route for get for managing consent for individual dashboard providers
+// the * is a wildcard for the prototype number in this get
+
+router.get('./consents/individual-consents', function (req, res) {
+    async function findPensionsByOwner() {
+    console.log('getIndividualConsent')    
+
+        const client = new MongoClient(uri)
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect()
+
+                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
+                req.app.locals.pensionIdentifiers=pensionDetailsAll
+            
+            }            
+
+             
+        finally {
+            // Close the connection to the MongoDB cluster
+            await client.close()
+            res.render('./consents/individual-consents')
+        }
+    }
+
+   
+
+   
+    async function getAllPensions(client, pptNumber) {
+        const results = await client.db(dataBaseName).collection("pensionDetails")
+        // find all documents
+        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
+        // save them to an array
+        .sort({pensionName: 1})        
+        .toArray()
+//        console.log('results ' + JSON.stringify(results))
+        return results
+    }
+
+}) 
 
 
+//consent for dashbioard provider code end
+
+router.post('/find-all-or-directed', function (req, res) {
+    const whichFind = req.session.data['which-find']
+    switch (whichFind) {
+        case "directed-find":
+            req.app.locals.firstPageLoad = true
+            req.app.locals.directedListNames =[]
+            req.app.locals.directedOrAll = "the pension providers you have selected"
+            res.redirect('consents/directed-find')
+            break      
+        case "find-all":
+            req.app.locals.directedOrAll = "all UK pension providers"
+            res.redirect('consents/search')
+            break
+
+    }
+})
 // consents page PensionFinder
  
 router.post('/consents-all', function (req, res) {
@@ -663,48 +744,6 @@ router.get('/find-your-pensions/fyp-single-pension-details*', function (req, res
             }             
             req.app.locals.pensionDetails.pensionStartDateString = pensionStartDateString
 
-            /*
-            if (req.app.locals.pensionDetails.ERICalculationDate.includes("-")) {
-                ERICalculationDateString = await formatDate(req.app.locals.pensionDetails.ERICalculationDate)
-            } 
-                   
-            if (req.app.locals.pensionDetails.accruedCalculationDate.includes("-")) {
-                accruedCalculationDateString = await formatDate(req.app.locals.pensionDetails.accruedCalculationDate)
-            } 
-
-            if (req.app.locals.pensionDetails.pensionRetirementDate.includes("-")) {
-                pensionRetirementDateString = await formatDate(req.app.locals.pensionDetails.pensionRetirementDate)
-            }
-
-            if (req.app.locals.pensionDetails.employmentStartDate.includes("-")) {
-                employmentStartDateString = await formatDate(req.app.locals.pensionDetails.employmentStartDate)
-            }
-
-            if (req.app.locals.pensionDetails.employmentEndDate.includes("-")) {
-                employmentEndDateString = await formatDate(req.app.locals.pensionDetails.employmentEndDate)
-            }
-
-            req.app.locals.pensionDetails.employmentStartDateString = employmentStartDateString
-            req.app.locals.pensionDetails.employmentEndDateString = employmentEndDateString
-            req.app.locals.pensionDetails.ERICalculationDateString = ERICalculationDateString
-            req.app.locals.pensionDetails.accruedCalculationDateString = accruedCalculationDateString
-            req.app.locals.pensionDetails.pensionRetirementDateString = pensionRetirementDateString
-
-            let monthlyAccruedAmount = req.app.locals.pensionDetails.accruedAmount / 12
-            let monthlyERIAnnualAmount = req.app.locals.pensionDetails.ERIAnnualAmount / 12
-
-                req.app.locals.pensionDetails.ERIAnnualAmountSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(monthlyERIAnnualAmount)              
-                if (req.app.locals.pensionDetails.pensionType == "DC") {                 
-                    req.app.locals.pensionDetails.accruedAmountSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(req.app.locals.pensionDetails.accruedAmount)
-                }
-                            
-            else {
-                req.app.locals.pensionDetails.ERIAnnualAmountSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(req.app.locals.pensionDetails.ERIAnnualAmount)
-                req.app.locals.pensionDetails.accruedAmountSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(preq.app.locals.pensionDetails.accruedAmount)
-            }
-
-            req.app.locals.pensionDetails.ERIPotSterling = Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP' }).format(req.app.locals.pensionDetails.ERIPot)
-*/
             for (i=0; i < penTypes.length; i++) {
                 if (req.app.locals.pensionDetails.pensionType == penTypes[i].type) {
                     console.log('req.app.locals.pensionDetails.pensionType ' + req.app.locals.pensionDetails.pensionType)
