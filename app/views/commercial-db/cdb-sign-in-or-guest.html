@@ -1,0 +1,54 @@
+{% extends "layout_unbranded_commercial.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - Login
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <form action="/sign-in-or-register" method="post" class="form">
+        {{ govukRadios({
+          idPrefix: "which-find",
+          name: "signin-or-guest",
+          fieldset: {
+            legend: {
+              text: "Would you like to sign in or create an account to save your details?",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--l pdp-heading-font"
+            }
+          },
+          items: [
+
+            {
+              value: "signin",
+              text: "Sign in or create an account",
+              hint: {
+                text: "Creating an account takes 2 minutes and your details will be saved."
+              }
+            },
+            {
+              value: "guest",
+              text: "Continue without an account",
+              hint: {
+                text: "Your details will not be saved and you’ll have to re-enter your details every time you use the service "
+              }
+            }
+          ]
+        }) }}
+      <br>
+      <p>
+        If you create an account MoneyHelper can store a list of your pensions.
+      </p>
+
+      <p>
+        If you do not sign in to a MoneyHelper account you will need to sign in to your identity account and consent to us finding your pensions each time you visit us. This could take 15 minutes.
+      </p>
+      <button class="govuk-button pdp-button" data-module="govuk-button">
+        Continue
+      </button>
+
+    </form>
+  </div>
+</div>
+{% endblock %}
