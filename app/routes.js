@@ -265,11 +265,15 @@ router.post('/guest-consent', function(req,res) {
 // PensionFinder - consent and authorisation pages
 //
 // route for get for managing consent for individual dashboard providers
-// the * is a wildcard for the prototype number in this get
 
-router.get('./consents/individual-consents', function (req, res) {
+
+
+
+router.get('/consents/individual-consents', function (req, res) {
     async function findPensionsByOwner() {
-    console.log('getIndividualConsent')    
+    console.log('getIndividualConsent') 
+    req.app.locals.dashboard = req.query.dashboard 
+    
 
         const client = new MongoClient(uri)
         try {
