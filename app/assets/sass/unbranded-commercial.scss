@@ -40,25 +40,32 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 }
 
 .pdp-button-warning:hover {
-	background-color: #6A207F;
+	background-color: #FFC04C;
 	color: #384455;
 }
 
 .pdp-button:hover,
 .pdp-button:link {
 	background-color: #6A207F;
-	box-shadow: 0 2px 0 #e5a044;	
+//	box-shadow: 0 2px 0 #e5a044;
+	box-shadow: none;	
 }
 
 // header
+
 .pdp-header-logo {
 	font-family: "Teko", sans-serif;
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 3em;
 	color: #6A207F;
+	margin-bottom: 0px;
+
 }
 .pdp-header-float-right {
 	float: right;
+}
+.pdp-header-float-left {
+	float: left;
 }
 .pdp-header-no-border {
 	border-bottom: none;
@@ -68,7 +75,7 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 }
 .pdp-header {
 //	border-bottom: 1px solid white;
-	background-color: #FFD700;
+	background-color: #FFC04C;
 	width: 100%;
 	font-family: "Ubuntu", sans-serif;
 }
@@ -80,25 +87,61 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 .pdp-header-button {
 	margin-bottom: 0px;
 	box-shadow: none !important;
-	font-size: 0.8em;
+	font-size: 1em;
 
 }
+
+.pdp-header-button-register {
+	margin-bottom: 0px;
+	box-shadow: none !important;
+	font-size: 1em;
+	background-color: #FFC04C;
+	border: 2px solid #6A207F;
+	color: #6A207F !important;
+}
+.pdp-header-button-register:hover,
+.pdp-header-button-register:link {
+	background-color: #FFC04C;
+	box-shadow: none;	
+}
+
 .pdp-full-width {
-    background-color: #FFD700;
+    background-color: #FFC04C;
     max-width: none;
+}
+.pdp-header-padding-left {
+	padding-left: 10px;
+}
+
+.pdp-header-nav-box {
+	border: 2px solid #6A207F;
+}
+
+// content
+
+.pdp-image-box {
+	min-height:380px;
+	background-colour: #CCCCE5;
+	
 }
 
 // footer
 .pdp-footer {
-  border-top: 0px ;
-  background-color: #FFD700;
-  padding-top: 10px;
+	border-top: 0px ;
+	background-color: #000080;
+	padding-top: 10px;
+	border-top-width: 5px;
+	border-top-style: solid;
+	border-top-color: #FFC04C;
 
 }
-
+.pdp-footer-full-width {
+    background-color: #000080;
+    max-width: none;
+}
 .pdp-footer-ul {
 	list-style: none;
-	color: #6A207F
+	color: #FFFFFF
 }
 .pdp-footer-li {
 	padding: 10px;
