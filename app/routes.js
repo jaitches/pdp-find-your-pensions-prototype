@@ -271,6 +271,7 @@ router.post('/guest-consent', function(req,res) {
 
 router.get('/consents/individual-consents', function (req, res) {
     async function findPensionsByOwner() {
+    let participantNumber = process.env.PARTICIPANT_NUMBER
     console.log('getIndividualConsent') 
     req.app.locals.dashboard = req.query.dashboard 
     
@@ -280,7 +281,7 @@ router.get('/consents/individual-consents', function (req, res) {
             // Connect to the MongoDB cluster
             await client.connect()
 
-                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
+                pensionDetailsAll = await getAllPensions(client, participantNumber)
                 req.app.locals.pensionIdentifiers=pensionDetailsAll
             
             }            
@@ -292,7 +293,7 @@ router.get('/consents/individual-consents', function (req, res) {
             res.render('./consents/individual-consents')
         }
     }
-
+    findPensionsByOwner () .catch(console.error)  
    
 
    
@@ -303,7 +304,7 @@ router.get('/consents/individual-consents', function (req, res) {
         // save them to an array
         .sort({pensionName: 1})        
         .toArray()
-//        console.log('results ' + JSON.stringify(results))
+        console.log('results ' + JSON.stringify(results))
         return results
     }
 

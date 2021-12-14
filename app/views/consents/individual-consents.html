@@ -13,9 +13,9 @@
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
               <h1 class="govuk-fieldset__heading pdp-consent-font">
-                Select which pensions {{dashboards}} can access
-                const consent1 = req.session.data['consents-1']
+                Select which pensions {{dashboard}} can access
               </h1>
+           
             </legend>
           
 
@@ -36,7 +36,9 @@
           </fieldset>
         </div>
 
-        <button type="submit" class="govuk-button pdp-consents-button">Continue</button>
+        <a href="/consents/manage-consents" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Save and return
+          </a>
       </form>
     </div>
   </div>
