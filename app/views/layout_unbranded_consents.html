@@ -8,15 +8,14 @@
   <link href="/public/stylesheets/unbranded-consents.css" media="all" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 
-
   {% for stylesheetUrl in extensionConfig.stylesheets %}
     <link href="{{ stylesheetUrl }}" rel="stylesheet" type="text/css" />
   {% endfor %}
 {% endblock %}
 
 {% block header %}
-<div class="govuk-header__container govuk-width-container pdp-header-no-border">
-  <div class="govuk-header__container govuk-width-container">
+<div class="govuk-header pdp-consents-header">
+  <div class="govuk-header__container govuk-width-container ">
     <div class="pdp-consents-maps-logo ">
       <a href=#><img src="/public/images/maps-logo-header.jpeg" alt="Money and Pensions Service logo" class="pdp-consents-footer-img" width="20%">
       </a>
@@ -30,15 +29,11 @@
   </div>
 </div>
 <p>
+
 <!--add header menu here below header banner-->
 <header class="govuk-width-container pdp-header-no-border">
   <div class="govuk-width-container">
         <ul id="navigation" class="govuk-header__navigation pdp-header-nav" aria-label="Navigation menu">
-          <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-            <a class="govuk-navigation-item" href="/consents/index-first-visit">
-              Search for your pension
-            </a>
-          </li>
           <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
             <a class="govuk-navigation-item" href="/consents/find-all-or-directed">
               Find your pension
@@ -50,13 +45,8 @@
             </a>
           </li>
           <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-            <a class="govuk-navigation-item" href="/consents/enter-your-details">
-              Your details
-            </a>
-          </li>
-          <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-            <a class="govuk-navigation-item" href="/consents/directed-find">
-              Select providers
+            <a class="govuk-navigation-item" href="/delegates/search-delegate">
+              Delegate
             </a>
           </li>
         </ul>

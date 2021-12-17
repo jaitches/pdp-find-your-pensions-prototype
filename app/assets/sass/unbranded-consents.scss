@@ -8,7 +8,8 @@
 @import "node_modules/govuk-frontend/govuk/settings/all";
 
 // Override the default GOV.UK Frontend font stack
-$govuk-font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
+$govuk-font-family: "Poppins", sans-serif;
+
 
 // Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
 $govuk-canvas-background-colour: $govuk-body-background-colour;
