@@ -12,16 +12,20 @@ $govuk-font-family: "Ubuntu", sans-serif;
 
 // Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
 $govuk-canvas-background-colour: $govuk-body-background-colour;
-
+// colours
+$color-header:#6A207F;
+$color-heading-font: #6A207F;
+$color-box-background-1: #CCCCE5;
 @import "application";
 
 .body {
 	  font-family: "Ubuntu", sans-serif !important;
 }
-// Font
+
 .pdp-heading-font {
-	color: #6A207F;
+	color: $color-heading-font;
 }
+
 // button
 .pdp-button {
   	font-family: "Ubuntu", sans-serif;
@@ -105,7 +109,7 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 	box-shadow: none;	
 }
 
-.pdp-full-width {
+.pdp-header-full-width {
     background-color: #FFC04C;
     max-width: none;
 }
@@ -116,13 +120,61 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 .pdp-header-nav-box {
 	border: 2px solid #6A207F;
 }
-
+//
 // content
+//
 
-.pdp-image-box {
+.pdp-text-box-colour-left {
 	min-height:380px;
-	background-colour: #CCCCE5;
-	
+	background-color: $color-box-background-1;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block;
+}
+.pdp-text-box-colour-right {
+	float: right;
+	min-height:380px;
+	background-color: $color-box-background-1;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block;
+}
+
+.pdp-text-in-box {
+	font-size: 2em;
+}
+
+.pdp-text-box-normal {
+	min-height:380px;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block;
+}
+.pdp-text-box-image-1 {
+	float: right;
+	height:380px;
+	background-image: url('/public/images/family-walk.jpeg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block
+}
+
+.pdp-full-width-container {
+	padding-bottom: 0px;
+	padding-top: 0px;	
+}
+
+// step by step 
+
+.pdp-step-header {
+	font-size: 1.2rem !important;
 }
 
 // footer

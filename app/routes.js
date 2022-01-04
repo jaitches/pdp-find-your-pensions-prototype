@@ -78,22 +78,20 @@ router.get('/', function (req,res) {
     res.render('index')
 })
 
-router.post('/which-start-page', function (req, res) {
+router.post('/prototype-or-admin', function (req, res) {
 
     const whichPage = req.session.data['which-start']
-    switch (whichPage) {
-        case "first-visit":
-            res.redirect('/commercial-db/cdb-index')
-            break        
-        case "revisit":
+    switch (whichPage) {        
+        case "consumer-prototype":
             res.redirect('/find-your-pensions/fyp-index')
+            break        
+        case "delegate-prototype":
+            res.redirect('/delegate/delegate-index')
             break
-        case "manage-consents":
-            res.redirect('/consents/main-menu')
-            break
-         case "manage-pensions":
+        case "admin":
             res.redirect('/admin/manage-pensions')
-            break   }
+            break   
+        }
 })
 
 //

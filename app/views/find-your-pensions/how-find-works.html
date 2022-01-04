@@ -1,0 +1,39 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <h1 class="govuk-heading-xl pdp-heading-font">
+        How we find your pensions
+      </h1>     
+      <p>
+        The first time you use this service you will need to verify your identity and consent to the Pension Finder service searching for your pensions. 
+      </p>
+      <p>
+        If you create an account with us we will store information about where we can contact your pension providers. We do not store your pension values or other pension details. When you ask to view your pensions we ask all your pension providers that we know about to send us your pension information. We display what your pension providers have sent us.
+      </p>
+      <p>
+        When you visit us again we use the information we have stored about how to contact your pension provider to contact them again. We do not store any figures or other information about your pensions, we ask for it every time.
+      </p>
+      <p>
+        This means there can be a small delay while we wait for the pension companies to send us your information.
+      </p>
+      <p>
+        If you know that you have a new pension then you need to search for your pensions again at the Pension Finder service. This may happen if you:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          Have started a new job recently
+        </li>
+        <li>
+          Have opened a new private pension
+        </li>
+      </ul>
+      <a href="fyp-index" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+        Return
+      </a>
+{% endblock %}
