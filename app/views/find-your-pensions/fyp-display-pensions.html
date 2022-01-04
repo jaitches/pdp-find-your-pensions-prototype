@@ -70,7 +70,7 @@
           </div> <!-- half col -->
         </div> <!-- row -->
         <div class="pdp-details-link-right">
-          <a href="/find-your-pensions/fyp-single-pension-details?pensionType=ST&pensionId={{statePensionDetails._id}}&providerId={{statePensionDetails.administratorReference}}" class="pdp-button govuk-button">
+          <a href="../00-single-pension-details?ptype=5&pensionId={{statePensionDetails._id}}&providerId={{statePensionDetails.administratorReference}}" class="pdp-button govuk-button">
             More details
           </a>
         </div>
@@ -204,7 +204,7 @@
       </div> <!-- row -->
 
       <div class="pdp-details-link-right">
-        <a href="/find-your-pensions/fyp-single-pension-details?pensionType={{details.pensionType}}&pensionId={{details._id}}&providerId={{details.administratorReference}}" class="pdp-button govuk-button">
+        <a href="../00-single-pension-details?ptype=5&pensionId={{details._id}}&providerId={{details.administratorReference}}" class="pdp-button govuk-button">
           More details
         </a>
       </div>   
@@ -215,6 +215,12 @@
       {% endif %}    
       
    
+      <h2 class="govuk-heading-m">
+        Do you want to assign a delegate?
+     </h2>
+     <a href="fyp-sign-in-or-guest" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+      Start now
+    </a>
     </div>
   </div>
 {% endblock %}
