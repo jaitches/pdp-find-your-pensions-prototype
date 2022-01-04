@@ -9,7 +9,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form action="/which-start-page" method="post" novalidate>
+      <form action="/prototype-or-admin" method="post" novalidate>
 
           {{ govukRadios({
             idPrefix: "which-start",
@@ -26,23 +26,15 @@
             items: [
               {
 
-                value: "first-visit",
-                text: "Go to the full prototype for the first visit - ??"
+                value: "consumer-prototype",
+                text: "Consumer prototype - consent to delegate access"
               },
               {
-
-                value: "revisit",
-                text: "Go to the full prototype for a subsequent visit - MoneyHelper"
+                value: "delegate-prototype",
+                text: "Delegate prototype - view client information"
               },
               {
-                value: "manage-consents",
-                text: "Go to PensionFinder index page for managing consents"
-              },    
-              {
-                divider: "or"
-              },
-              {
-                value: "manage-pensions",
+                value: "admin",
                 text: "Manage pension details for a participant"
               }
             ]
@@ -53,29 +45,25 @@
           }) }}
 
       </form>
-
-      <dl class="govuk-summary-list">
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Participant number
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{participantNumber}}
-          </dd>
-        </div>
-        <div class="govuk-summary-list__row">
-          <dt class="govuk-summary-list__key">
-            Database
-          </dt>
-          <dd class="govuk-summary-list__value">
-            {{pensionsDatabase}}
-          </dd>
-        </div>
-      </dl>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-m">
+        Participant number
+      </h2>
+      <p>
+        {{participantNumber}}
+      </p>
+      <h2 class="govuk-heading-m">
+        Database
+      </h2>
+      <p> 
+        {{pensionsDatabase}}
+      </p>
     </div>
   </div>
 
 {% endblock %}
+
   {% block footer %}
     {{ govukFooter({
       meta: {

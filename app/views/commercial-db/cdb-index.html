@@ -6,33 +6,117 @@
 
 {% block content %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-heading-xl pdp-heading-font">
-        {% if serviceName %} {{ serviceName }} {% endif %}
-      </h1>
+    <div class="govuk-grid-column-full-width ">
+      <div class="pdp-full-width-container">
+        <div class="pdp-text-box-colour-left">
+          <h1 class="govuk-heading-xl pdp-heading-font">
+            Pensions
+          </h1>
+          <p class="pdp-text-in-box">
+            See all your pensions information together in one place
+          </p>
+          <a href="cdb-sign-in-or-guest" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+            See your pensions
+          </a>         </div>
+        <div class="pdp-text-box-image-1">        
+        </div>
+      </div>
+      <div class="pdp-full-width-container">
+        <div class="pdp-text-box-normal">
+          <h2 class="govuk-heading-m">
+            View your pensions
+          </h2>
+            <p>Find pensions that you may have lost touch with</p>
+            <p>View information about each of your pensions</p>        
+            <p>View values for each of your pensions</p>
+            <p>Find out who provides your pensions</p>
+            <p>Find contact information for your pension providers</p>        
+        </div> 
+        <div class="pdp-text-box-colour-right">
+          <h2 class="govuk-heading-m">
+            Steps to view your pensions
+          </h2>
+          <div id="step-by-step-navigation" class="app-step-nav app-step-nav--large app-step-nav--active" data-show-text="Show" data-hide-text="Hide" data-show-all-text="Show all" data-hide-all-text="Hide all">
+            <ol class="app-step-nav__steps">
+              <li class="app-step-nav__step js-step">
+                <div class="app-step-nav__header pdp-step-header js-toggle-panel" data-position="1">
+                  <h2 class="app-step-nav__title pdp-step-header">
+                    <span class="app-step-nav__circle app-step-nav__circle--number">
+                      <span class="app-step-nav__circle-inner">
+                        <span class="app-step-nav__circle-background">
+                          <span class="govuk-visually-hidden">Step</span> 1
+                        </span>
+                      </span>
+                    </span>
 
-      <p>Use this service to:</p>
+                    <span class="js-step-title">
+                      Create an account
+                    </span>
+                  </h2>
+                </div>
+              </li>
 
-      <ul class="govuk-list govuk-list--bullet">
-        <li>find pensions that you may have lost touch with</li>
-        <li>view information about each of your pensions</li>        
-        <li>view values for each of your pensions</li>
-        <li>find out who provides your pensions</li>
-        <li>find contact information for your pension providers</li>      
-      </ul>
-      <p>
-        You'll need to verify your identity the first time you use this service so that we know that you are who you say you are.
-      </p>
+              <li class="app-step-nav__step js-step" id="get-a-provisional-licence" >
+                <div class="app-step-nav__header js-toggle-panel" data-position="2">
+                  <h2 class="app-step-nav__title pdp-step-header">
+                    <span class="app-step-nav__circle app-step-nav__circle--number">
+                      <span class="app-step-nav__circle-inner">
+                        <span class="app-step-nav__circle-background">
+                          <span class="govuk-visually-hidden">Step</span> 2
+                        </span>
+                      </span>
+                    </span>
 
-     <!--
-      <p>
-        We will ask you to set up an account so that we can store information about your pensions. This means that on later visits you will not need to enter your consents and information to view your pensions. You can choose to use this service as a guest if you do not want to set up an account.
-      </p>
--->
+                    <span class="js-step-title">
+                      Verify your identity
+                    </span>
+                  </h2>
+                </div> 
 
-      <a href="cdb-sign-in-or-guest" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
-        Start now
-      </a>
+              </li>
+
+              <li class="app-step-nav__step js-step" id="driving-lessons-and-practice" >
+                <div class="app-step-nav__header js-toggle-panel" data-position="3">
+                  <h2 class="app-step-nav__title pdp-step-header">
+                    <span class="app-step-nav__circle app-step-nav__circle--number">
+                      <span class="app-step-nav__circle-inner">
+                        <span class="app-step-nav__circle-background">
+                          <span class="govuk-visually-hidden">Step</span> 3
+                        </span>
+                      </span>
+                    </span>
+
+                    <span class="js-step-title">
+                      Give your consent
+                    </span>
+                  </h2>
+                </div>
+              </li>
+
+              <li class="app-step-nav__step js-step" id="prepare-for-your-theory-test" >
+                <div class="app-step-nav__header js-toggle-panel" data-position="4">
+                  <h2 class="app-step-nav__title pdp-step-header">
+                    <span class="app-step-nav__circle app-step-nav__circle--number">
+                      <span class="app-step-nav__circle-inner">
+                        <span class="app-step-nav__circle-background">
+                          <span class="govuk-visually-hidden">Step</span> 4
+                        </span>
+                      </span>
+                    </span>
+
+                    <span class="js-step-title">
+                      View your pensions
+                    </span>
+                  </h2>
+                </div>
+              </li>
+
+            </ol>
+          </div>
+
+        </div>
+ 
+      </div>
     </div>
   </div>
 {% endblock %}

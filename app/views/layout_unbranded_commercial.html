@@ -17,17 +17,17 @@
 
 {% block header %}
 
-<div class="govuk-header__container govuk-width-container pdp-full-width pdp-header-no-border">
+<div class="govuk-header__container govuk-width-container pdp-header-full-width pdp-header-no-border">
   <header class="govuk-header pdp-header" role="banner" data-module="govuk-header">
     <div class="govuk-header__container govuk-width-container pdp-header-no-border">
 
       <div class="govuk-header__content pdp-header pdp-header-no-border">
-            <p class="pdp-header-logo">
-                Pension Life
-            </p>
-
-
-            <ul id="navigation" class="govuk-header__navigation pdp-header-nav" aria-label="Navigation menu">
+        <p class="pdp-header-logo">
+            Pension Life
+        </p>
+        <div>
+          <nav>
+            <ul id="navigation" class="govuk-header__navigation pdp-header-nav pdp-header-float-left" aria-label="Navigation menu">
 
               <li class="govuk-header__navigation-item">
                   Insurance
@@ -42,24 +42,34 @@
                   Equity Release
               </li>         
               <li class="govuk-header__navigation-item pdp-header-float-right">
-
               </li>
-              <a href="" role="button" draggable="false" class="govuk-button pdp-button pdp-header-button pdp-header-float-right" data-module="govuk-button">
-                Sign in
-              </a>             
             </ul>    
-         
-          </div>
+          </nav>      
+          <nav class="pdp-header-float-right">
+            <ul id="navigation" class="govuk-header__navigation pdp-header-nav pdp-header-float-left" aria-label="Navigation menu">
+              <li class="govuk-header__navigation-item">
+                <a href="cdb-login" role="button" draggable="false" class="govuk-button pdp-button pdp-header-button " data-module="govuk-button">
+                  Sign in
+                </a> 
+              </li> 
+              <li class="govuk-header__navigation-item">
+                <a href="cdb-create-account" role="button" draggable="false" class="govuk-button pdp-button pdp-header-button-register " data-module="govuk-button">
+                  Register
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
   </header>
-
 </div>
 {% endblock %}
 
 {% block footer %}
 <div class="govuk-footer pdp-footer">
-  <div class="govuk-width-container pdp-full-width">
-    <div class="govuk-grid-row">
+  <div class="govuk-width-container pdp-footer-full-width">
+    <div class="govuk-grid-row pdp-border-top">
       <div class="govuk-grid-column-one-third">
         <ul class="pdp-footer-ul">
           <li class="pdp-footer-li">

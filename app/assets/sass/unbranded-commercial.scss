@@ -12,16 +12,20 @@ $govuk-font-family: "Ubuntu", sans-serif;
 
 // Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
 $govuk-canvas-background-colour: $govuk-body-background-colour;
-
+// colours
+$color-header:#6A207F;
+$color-heading-font: #6A207F;
+$color-box-background-1: #CCCCE5;
 @import "application";
 
 .body {
 	  font-family: "Ubuntu", sans-serif !important;
 }
-// Font
+
 .pdp-heading-font {
-	color: #6A207F;
+	color: $color-heading-font;
 }
+
 // button
 .pdp-button {
   	font-family: "Ubuntu", sans-serif;
@@ -40,25 +44,32 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 }
 
 .pdp-button-warning:hover {
-	background-color: #6A207F;
+	background-color: #FFC04C;
 	color: #384455;
 }
 
 .pdp-button:hover,
 .pdp-button:link {
 	background-color: #6A207F;
-	box-shadow: 0 2px 0 #e5a044;	
+//	box-shadow: 0 2px 0 #e5a044;
+	box-shadow: none;	
 }
 
 // header
+
 .pdp-header-logo {
 	font-family: "Teko", sans-serif;
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 3em;
 	color: #6A207F;
+	margin-bottom: 0px;
+
 }
 .pdp-header-float-right {
 	float: right;
+}
+.pdp-header-float-left {
+	float: left;
 }
 .pdp-header-no-border {
 	border-bottom: none;
@@ -68,7 +79,7 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 }
 .pdp-header {
 //	border-bottom: 1px solid white;
-	background-color: #FFD700;
+	background-color: #FFC04C;
 	width: 100%;
 	font-family: "Ubuntu", sans-serif;
 }
@@ -80,25 +91,109 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 .pdp-header-button {
 	margin-bottom: 0px;
 	box-shadow: none !important;
-	font-size: 0.8em;
+	font-size: 1em;
 
 }
-.pdp-full-width {
-    background-color: #FFD700;
+
+.pdp-header-button-register {
+	margin-bottom: 0px;
+	box-shadow: none !important;
+	font-size: 1em;
+	background-color: #FFC04C;
+	border: 2px solid #6A207F;
+	color: #6A207F !important;
+}
+.pdp-header-button-register:hover,
+.pdp-header-button-register:link {
+	background-color: #FFC04C;
+	box-shadow: none;	
+}
+
+.pdp-header-full-width {
+    background-color: #FFC04C;
     max-width: none;
+}
+.pdp-header-padding-left {
+	padding-left: 10px;
+}
+
+.pdp-header-nav-box {
+	border: 2px solid #6A207F;
+}
+//
+// content
+//
+
+.pdp-text-box-colour-left {
+	min-height:380px;
+	background-color: $color-box-background-1;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block;
+}
+.pdp-text-box-colour-right {
+	float: right;
+	min-height:380px;
+	background-color: $color-box-background-1;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block;
+}
+
+.pdp-text-in-box {
+	font-size: 2em;
+}
+
+.pdp-text-box-normal {
+	min-height:380px;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block;
+}
+.pdp-text-box-image-1 {
+	float: right;
+	height:380px;
+	background-image: url('/public/images/family-walk.jpeg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	padding: 25px 25px;	
+	width: 50%;
+	box-sizing: border-box;
+	display: inline-block
+}
+
+.pdp-full-width-container {
+	padding-bottom: 0px;
+	padding-top: 0px;	
+}
+
+// step by step 
+
+.pdp-step-header {
+	font-size: 1.2rem !important;
 }
 
 // footer
 .pdp-footer {
-  border-top: 0px ;
-  background-color: #FFD700;
-  padding-top: 10px;
+	border-top: 0px ;
+	background-color: #000080;
+	padding-top: 10px;
+	border-top-width: 5px;
+	border-top-style: solid;
+	border-top-color: #FFC04C;
 
 }
-
+.pdp-footer-full-width {
+    background-color: #000080;
+    max-width: none;
+}
 .pdp-footer-ul {
 	list-style: none;
-	color: #6A207F
+	color: #FFFFFF
 }
 .pdp-footer-li {
 	padding: 10px;
