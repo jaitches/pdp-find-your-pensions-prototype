@@ -88,7 +88,6 @@ router.post('/prototype-or-admin', function (req, res) {
             break        
         case "delegate-prototype":
             res.redirect('/delegate/delegate-index')
-
             break
         case "admin":
             res.redirect('/admin/manage-pensions')
@@ -148,7 +147,8 @@ router.post('/sign-in-or-register', function (req, res) {
 
 // sign in, if user doesn't go to the create account first then raise an error
 router.post('/fyp-login', function(req,res) {
-    console.log('guest ' + req.app.locals.guest)
+    req.app.locals.loginErrorStringPassword = ""
+
     if (!req.app.locals.fypRegistered && !req.app.locals.guest) {
         req.app.locals.loginErrorString = "Error: Enter a valid user ID and password or create an account "
         req.app.locals.errorFormClass = "govuk-form-group--error"  
@@ -165,29 +165,16 @@ router.post('/fyp-login', function(req,res) {
 
     }
 })
-// create dashboard account - reset flag so sign in doesn't error second time round
 
-// password reset, if user doesn't go to the create account first then raise an error
-router.post('/password-reset', function(req,res) {
-    console.log('guest ' + req.app.locals.guest)
-    if (!req.app.locals.fypRegistered && !req.app.locals.guest) {
-        req.app.locals.loginErrorString = "Error: Enter a valid email address "
-        req.app.locals.errorFormClass = "govuk-form-group--error"  
-        req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('find-your-pensions/password-reset')
-    }    
-    else {
-        req.app.locals.guest = false
-        req.app.locals.loginErrorString = ""
-        req.app.locals.errorFormClass = ""
-        req.app.locals.errorInputClass = ""
+// password reset raise an error and redirect to create an account
+router.post('/fyp-password-reset', function(req,res) {   
+    req.app.locals.loginErrorStringPassword = "Error: No account has been found for this email. "
+    req.app.locals.errorFormClass = "govuk-form-group--error"  
+    req.app.locals.errorInputClass = "govuk-input--error" 
 
-        res.redirect('find-your-pensions/password-reset-confirmation')
-
-    }
+    res.render('find-your-pensions/fyp-password-reset')
+    
 })
-
-
 
 // create dashboard account - reset flag so sign in doesn't error second time round
 
