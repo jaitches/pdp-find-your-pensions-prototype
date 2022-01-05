@@ -20,34 +20,27 @@
               <span class="govuk-visually-hidden">Error:</span> {{loginErrorString}}
             </span>
 
+            <p>If you don't have an account you can <a href="/find-your-pensions/fyp-create-account" role="button">create one now</a>.</p>
+
             <div class="govuk-form-group">
               <label class="govuk-label" for="email">
                 Email address
               </label>
-              <input class="govuk-input" id="email" name="email" type="email" spellcheck="false" autocomplete="email" value="jane.smith@gmail.com">
+              <input class="govuk-input govuk-input--width-30" id="email" name="email" type="email" spellcheck="false" autocomplete="email">
             </div>
 
-            
             <div class="govuk-form-group">
               <label class="govuk-label" for="password">
                 Password
               </label>
-              <input class="govuk-input" id="password" name="password" type="password" value="4k£*hgu!">
+              <input class="govuk-input govuk-input--width-30" id="password" name="password" type="password">
             </div>
             <br>
           </fieldset>
         </div>
-        <p><a href="/find-your-pensions/fyp-password-reset" role="button">I've forgotten my login details</a></p>
-
-<!--        <button type="submit" class="govuk-button pdp-button" onclick="checkError()">Sign in</button> -->
-        <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
-          Continue 
-        </a>
-      <h2 class="govuk-heading-m pdp-heading-font">
-        Don't have an account?
-      </h2>
-      <p><a href="/find-your-pensions/fyp-create-account" role="button">Create an account</a>.</p>
-      <p></p>
+        <p><a href="/find-your-pensions/fyp-password-reset">Forgot password?</a></p>
+        
+        <button type="submit" class="govuk-button pdp-button" onclick="checkError()">Sign in</button> 
     </form>
   </div>
 </div>
