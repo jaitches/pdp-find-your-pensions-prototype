@@ -4,15 +4,6 @@
   {{serviceName}}
 {% endblock %}
 
-{% block pageScripts %}
-  <script src="/public/javascripts/step-by-step-nav.js"></script>
-  <script type="text/javascript">
-    var $element = $('#step-by-step-navigation')
-    var stepByStepNavigation = new GOVUK.Modules.AppStepNav()
-    stepByStepNavigation.start($element)
-  </script>
-{% endblock %}
-
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
@@ -30,7 +21,7 @@
         <li>find contact information for your pension providers</li>      
       </ul>
 
-      <a href="fyp-login" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+      <a href="fyp-sign-in-or-guest" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
         Start now
       </a>
     </div>

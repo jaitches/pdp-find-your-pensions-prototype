@@ -14,33 +14,32 @@
         Search pension providers
       </h1>
       <p class="pdp-consent-font"> 
-        To find your pensions, we can send the information you have given us to all 36,000 UK pension providers.
+        To find your pensions, we can send the information you have given us to all UK pension providers.
       </p>
       {{ govukRadios({
         idPrefix: "which-find",
         name: "which-find",
         fieldset: {
           legend: {
-            text: "Which pension providers do you want to search?",
+            text: "How do you want to search for your pensions?",
             classes: "govuk-fieldset__legend--m pdp-consent-font"
           }
         },
         items: [
 
           {
-            value: "directed-find",
-            text: "I want to reduce the number of pension providers you send my information to",
-            hint: {
-              text: "This option reduces the risk to your data because we share it with less people. "
-            },
-            classes: "pdp-consent-font"
-
-          },
-          {
             value: "find-all",
             text: "I want to search all pension providers",
             hint: {
               text: "We'll send your information to all UK pension providers."
+            },
+            classes: "pdp-consent-font"
+          },
+          {
+            value: "directed-find",
+            text: "I want to rselect the pension providers you send my information to",
+            hint: {
+              text: "This option reduces the risk to your data because we share it with less people. "
             },
             classes: "pdp-consent-font"
 
