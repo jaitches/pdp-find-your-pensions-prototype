@@ -301,7 +301,7 @@ router.get('/consents/individual-consents', function (req, res) {
 }) 
 
 
-//consent for dashbioard provider code end
+//consent for dashboard provider code end
 
 // route for get for managing consent for individual dashboard providers
 // the * is a wildcard for the prototype number in this get
