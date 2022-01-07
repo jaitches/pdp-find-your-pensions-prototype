@@ -317,6 +317,9 @@ router.get('/consents/individual-consents', function (req, res) {
 
 }) 
 
+
+//consent for dashboard provider code end
+
 // route for get for managing consent for individual dashboard providers
 
 router.get('./consents/individual-consents', function (req, res) {
