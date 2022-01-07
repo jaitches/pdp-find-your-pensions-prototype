@@ -9,10 +9,10 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <form action="/consents-select-action" method="post" class="form">
+      <form action="/consents-menu" method="post" class="form">
         {{ govukRadios({
-          idPrefix: "select-action",
-          name: "select-action",
+          idPrefix: "consent-menu",
+          name: "consent-menu",
           fieldset: {
             legend: {
               text: "What do you want to do?",
@@ -25,16 +25,16 @@
               value: "find",
               text: "Find your pensions",
               hint: {
-                text: "You may want to search for your pensions again if you have opened a new private pension or have started a new job."
+                text: "You may want to search for your pensions again e.g. if you have started a new job or opened a new private pension."
               }
             },
             {
-              value: "delegates",
+              value: "delegation",
               text: "Consent to an authorised persion viewing your pensions"
             },
             {
               value: "manage-consents",
-              text: "Change which organisations can display your pensions."
+              text: "Change which organisations can display your pensions"
             }
           ]
         }) }}

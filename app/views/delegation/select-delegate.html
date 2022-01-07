@@ -8,7 +8,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">  
-      <h1 class="govuk-heading-l">
+      <h1 class="govuk-heading-l pdp-consent-heading-font">
         Select who can see your pensions
       </h1>
     </div>
@@ -19,9 +19,12 @@
       <div class="govuk-form-group {{errorFormClass}}" id="form-group">
         <h2 class="govuk-label-wrapper">
           <label class="govuk-label govuk-label--m pdp-consent-font" for="delegate-search-value">
-            Enter the name of the person or organisation you want to give access to your pensions
+            Enter a the name or reference number of the person or organisation you want to give access to your pensions
           </label>
         </h2>
+          <div id="event-name-hint" class="govuk-hint">
+            Your financial advisor can tell you their Financial Services Register reference number.
+          </div>
         <span id="no-value-entered-error" class="govuk-error-message">
           <span class="govuk-visually-hidden pdp-consent-font">Error:</span> {{errorString}}
         </span>
@@ -73,7 +76,7 @@
       </form>
 
     {% else %}
-      {%if not firstPageLoad %}
+      {%if not delegateFirstPageLoad %}
         <p class="govuk-heading-s pdp-consent-font">
           There are no matching results.
         </p>

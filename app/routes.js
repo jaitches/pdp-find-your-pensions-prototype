@@ -252,11 +252,28 @@ router.post('/guest-consent', function(req,res) {
 
 
 //
-// PensionFinder - consent and authorisation pages
+// Pension Finder - consent and authorisation pages
 //
+
+// main menu 
+router.post('/consents-menu', function (req,res) {
+    const consentMenu = req.session.data['consent-menu']
+    switch (consentMenu) {
+        case "find":
+            res.redirect('consents/find-start')
+            break      
+        case "delegation":
+            res.redirect('delegation/del-start')
+            break        
+        case "manage-consents":
+            res.redirect('consents/manage-consents')
+            break
+
+    }
+
+})
+
 // route for get for managing consent for individual dashboard providers
-
-
 
 
 router.get('/consents/individual-consents', function (req, res) {
@@ -300,11 +317,7 @@ router.get('/consents/individual-consents', function (req, res) {
 
 }) 
 
-
-//consent for dashbioard provider code end
-
 // route for get for managing consent for individual dashboard providers
-// the * is a wildcard for the prototype number in this get
 
 router.get('./consents/individual-consents', function (req, res) {
     async function findPensionsByOwner() {
@@ -327,9 +340,6 @@ router.get('./consents/individual-consents', function (req, res) {
             res.render('./consents/individual-consents')
         }
     }
-
-   
-
    
     async function getAllPensions(client, pptNumber) {
         const results = await client.db(dataBaseName).collection("pensionDetails")
@@ -341,11 +351,9 @@ router.get('./consents/individual-consents', function (req, res) {
 //        console.log('results ' + JSON.stringify(results))
         return results
     }
-
 }) 
 
-
-//consent for dashbioard provider code end
+//consent for dashboard provider code end
 
 router.post('/find-all-or-directed', function (req, res) {
     const whichFind = req.session.data['which-find']
@@ -363,7 +371,7 @@ router.post('/find-all-or-directed', function (req, res) {
 
     }
 })
-// consents page PensionFinder
+// consents page Pension Finder
  
 router.post('/consents-all', function (req, res) {
 
@@ -440,7 +448,7 @@ router.post('/find-all-or-directed', function (req, res) {
     }
 })
 
-// directed find
+// directed find search
 
 router.get('/consents/directed-find', function (req, res) {
     req.app.locals.firstPageLoad = true
@@ -471,7 +479,7 @@ router.post('/search-for-provider', function (req, res) {
 
         if (providerSearchValue !== null) {
 
-    // do a filtered search on the json
+        // do a filtered search on the json
 
             searchResults= filterItems( providerListDirectedFind, providerSearchValue)
             req.app.locals.searchListNames = searchResults
@@ -493,6 +501,8 @@ router.post('/search-for-provider', function (req, res) {
 
 })
 
+// directed find add to list
+
 router.post('/add-provider-to-list', function (req, res) {
     req.app.locals.listStarted = true
     let selectedProviders =[]
@@ -512,6 +522,8 @@ router.post('/add-provider-to-list', function (req, res) {
 
 })
 
+// directed find remove provider from list
+
 router.post('/remove-provider/:providerName', function (req, res) {
     for (i=0 ; i<req.app.locals.directedListNames.length; i++ ) {
         if (req.app.locals.directedListNames[i] == req.params.providerName)
@@ -522,26 +534,7 @@ router.post('/remove-provider/:providerName', function (req, res) {
 
 })
 
-router.post('/consents-select-action', function (req, res) {
-
-    const consentsSelection = req.session.data['select-action']
-    switch (consentsSelection) {
-        case "find":
-            res.redirect('consents/find-options-start')
-            break        
-        case "directed-find":
-            res.redirect('consents/directed-find')
-            break
-        case "delegates":
-            req.app.locals.firstPageLoad = true
-            res.redirect('consents/select-delegate')
-            break
-        case "manage-consents":
-            res.redirect('consents/manage-consents')
-            break
-        }
-
-})
+// enter details for searching
 
 router.post('/enter-your-details', function (req, res) {
     // initialise variables
@@ -588,7 +581,63 @@ router.post('/enter-your-details', function (req, res) {
 })
 
 //
-// Find your pensions pages
+// Delegation pages
+//
+
+// delegation start - set first page load flag so error not displayed on first visit
+router.post('/delegate-start', function (req, res) {
+    req.app.locals.delegateFirstPageLoad = true
+    res.redirect('delegation/select-delegate')
+})
+
+router.post('/search-for-provider', function (req, res) {
+    // filter function
+
+    req.app.locals.delegateFirstPageLoad = false
+    let delegateSearchValue = req.session.data['delegate-search-value']
+    req.app.locals.providerSearchValue = providerSearchValue
+  //error if no value entered
+    if (delegateSearchValue == "") {
+        req.app.locals.delegateErrorString = "Field is blank - Enter a name or reference number"
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        res.render('consents/directed-find')
+    }
+    else {
+        req.app.locals.errorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = "" 
+
+        // if more than one term entered make them both required to narrow down the search
+
+        if (providerSearchValue !== null) {
+
+        // do a filtered search on the json
+
+            searchResults= filterItems( providerListDirectedFind, providerSearchValue)
+            req.app.locals.searchListNames = searchResults
+
+            if (searchResults.length > 1) {
+                req.app.locals.pensionProviderPlural = 'pension providers'
+            }
+            else {
+                req.app.locals.pensionProviderPlural = 'pension provider'
+            }
+        }
+        res.render('consents/directed-find')
+    }
+    function filterItems(arr, query) {
+      return arr.filter(function(el) {
+        return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      })
+    }
+
+})
+
+
+
+//
+// Find your pensions / MoneyHelper pages
 //
 
 router.get('/find-your-pensions/fyp-display-pensions', function (req, res) {
@@ -748,7 +797,8 @@ router.get('/find-your-pensions/fyp-display-pensions', function (req, res) {
 }) 
 
 
-// additional page of pension details 
+// more details page
+
 router.get('/find-your-pensions/fyp-single-pension-details*', function (req, res) {
 
     async function findPensionDetails() {
