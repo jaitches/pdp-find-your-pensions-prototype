@@ -9,6 +9,7 @@ const formatDate = require('./formatDate.js')
 const getPrototypeDetails = require('./getPrototypeDetails.js')
 const countryListJson = require('./countryList.json')
 const providerListDirectedFind = require('./providerListDirectedFind.json')
+const delegateList = require('./delegateList.json')
 
 // Use these arrays to store the options for the select element when updating the pensions
 // also populates the session variables for descriptions
@@ -112,12 +113,6 @@ router.post('/which-start-page', function (req, res) {
         case "full":
             res.redirect('/find-your-pensions/index')
             break
-     // case "consents":
-     //     res.redirect('/consents/enter-consents-start')
-     //     break
-     // case "identity":
-     //     res.redirect('/identity/start')
-     //     break
     }
 })
 
@@ -263,7 +258,7 @@ router.post('/consents-menu', function (req,res) {
             res.redirect('consents/find-start')
             break      
         case "delegation":
-            res.redirect('delegation/del-start')
+            res.redirect('consents/delegation-start')
             break        
         case "manage-consents":
             res.redirect('consents/manage-consents')
@@ -358,22 +353,6 @@ router.get('./consents/individual-consents', function (req, res) {
 
 //consent for dashboard provider code end
 
-router.post('/find-all-or-directed', function (req, res) {
-    const whichFind = req.session.data['which-find']
-    switch (whichFind) {
-        case "directed-find":
-            req.app.locals.firstPageLoad = true
-            req.app.locals.directedListNames =[]
-            req.app.locals.directedOrAll = "the pension providers you have selected"
-            res.redirect('consents/directed-find')
-            break      
-        case "find-all":
-            req.app.locals.directedOrAll = "all UK pension providers"
-            res.redirect('consents/search')
-            break
-
-    }
-})
 // consents page Pension Finder
  
 router.post('/consents-all', function (req, res) {
@@ -447,7 +426,6 @@ router.post('/find-all-or-directed', function (req, res) {
             req.app.locals.directedOrAll = "all UK pension providers"
             res.redirect('consents/search')
             break
-
     }
 })
 
@@ -537,7 +515,7 @@ router.post('/remove-provider/:providerName', function (req, res) {
 
 })
 
-// enter details for searching
+// enter details for Find
 
 router.post('/enter-your-details', function (req, res) {
     // initialise variables
@@ -588,55 +566,102 @@ router.post('/enter-your-details', function (req, res) {
 //
 
 // delegation start - set first page load flag so error not displayed on first visit
+
 router.post('/delegate-start', function (req, res) {
     req.app.locals.delegateFirstPageLoad = true
-    res.redirect('delegation/select-delegate')
+    res.redirect('consents/delegation/select-delegate')
 })
 
-router.post('/search-for-provider', function (req, res) {
+// search for delegate
+router.post('/search-delegate', function (req, res) {
     // filter function
 
     req.app.locals.delegateFirstPageLoad = false
     let delegateSearchValue = req.session.data['delegate-search-value']
-    req.app.locals.providerSearchValue = providerSearchValue
+    req.app.locals.delegateSearchValue = delegateSearchValue
   //error if no value entered
     if (delegateSearchValue == "") {
         req.app.locals.delegateErrorString = "Field is blank - Enter a name or reference number"
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('consents/directed-find')
     }
     else {
-        req.app.locals.errorString = ""
+        req.app.locals.delegateErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = "" 
 
-        // if more than one term entered make them both required to narrow down the search
-
-        if (providerSearchValue !== null) {
+        if (delegateSearchValue !== null) {
 
         // do a filtered search on the json
 
-            searchResults= filterItems( providerListDirectedFind, providerSearchValue)
-            req.app.locals.searchListNames = searchResults
-
-            if (searchResults.length > 1) {
-                req.app.locals.pensionProviderPlural = 'pension providers'
-            }
-            else {
-                req.app.locals.pensionProviderPlural = 'pension provider'
-            }
+            searchResults = filterItems( delegateList, delegateSearchValue)
+            req.app.locals.searchListDelegates = searchResults
         }
-        res.render('consents/directed-find')
     }
+    res.render('consents/delegation/select-delegate')
+
     function filterItems(arr, query) {
-      return arr.filter(function(el) {
+        return arr.filter(function(el) {
         return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
       })
     }
 
 })
 
+// select the person to delegate access to
+
+router.post('/select-delegate', function (req, res) {
+    let selectedDelegate = req.session.data['delegate-list']
+    req.app.locals.delegateName = selectedDelegate.split('(')[0]
+        if (selectedDelegate.includes('MaPS')) {
+        req.app.locals.delegateAddress = ""
+        req.app.locals.delegateOrganisation = "Money and Pensions Service"
+    }
+    else {
+        req.app.locals.delegateAddress = "102 Cromwell Road, London, SW18 7YD"
+        req.app.locals.delegateOrganisation = req.app.locals.delegateName.split(' '[1]) + "Associates"
+    }
+
+    res.redirect('consents/delegation/delegate-duration')
+})
+
+// get dates to display on duration page
+router.get('/consents/delegation/delegate-duration', function (req, res) {
+
+    let today_date = new Date()
+    let dateTomorrow = new Date()
+    let dateWeek = new Date()
+    let dateMonth = new Date()
+    let dateThreeMonths = new Date()
+
+    // work out the dates to display
+    dateTomorrow.setDate(today_date.getDate() + 1)
+    dateWeek.setDate(today_date.getDate() + 7)
+    dateMonth.setMonth(today_date.getMonth() + 1)
+    dateThreeMonths.setMonth(today_date.getMonth() + 3)
+
+    req.app.locals.dateTomorrow = formatDelegateDate(dateTomorrow)
+    req.app.locals.dateWeek = formatDelegateDate(dateWeek)
+    req.app.locals.dateMonth = formatDelegateDate(dateMonth)
+    req.app.locals.dateThreeMonths = formatDelegateDate(dateThreeMonths)
+
+    res.render('consents/delegation/delegate-duration')
+
+    // reformat the date to make them like govuk
+    function formatDelegateDate(date) {
+        console.log('date ' + date)
+        let dateArr = date.toDateString().split(' ')
+        let formattedDate = dateArr[2] + ' ' + dateArr[1] + ' ' + dateArr[3]
+        return formattedDate
+    } 
+})
+
+// delegate duration
+router.post('/delegate-duration', function (req, res) {
+    let delegateDuration = req.session.data['duration']
+    req.app.locals.delegateDuration = delegateDuration
+    res.redirect('consents/delegation/confirmation')
+})
 
 
 //
