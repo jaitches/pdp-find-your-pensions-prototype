@@ -1,15 +1,15 @@
 
 {% extends "layout_unbranded_consents.html" %}
 
-{% block pageTitle %}
-  {{serviceName}} - Select which pensions to see
+{% block pageTitle %} Pension Finder
+  {{serviceNameConsents}} - Select which person can view your pensions
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">  
-      <h1 class="govuk-heading-l">
-        Select who can see your pensions
+      <h1 class="govuk-heading-l pdp-consent-heading-font">
+        Select who can view your pensions
       </h1>
     </div>
   </div>
@@ -19,11 +19,14 @@
       <div class="govuk-form-group {{errorFormClass}}" id="form-group">
         <h2 class="govuk-label-wrapper">
           <label class="govuk-label govuk-label--m pdp-consent-font" for="delegate-search-value">
-            Enter the name of the person or organisation you want to give access to your pensions
+            Enter the name or reference number of the person you want to give access to view your pensions
           </label>
         </h2>
+          <div id="event-name-hint" class="govuk-hint">
+            Your financial advisor can tell you their Financial Services Register reference number.
+          </div>
         <span id="no-value-entered-error" class="govuk-error-message">
-          <span class="govuk-visually-hidden pdp-consent-font">Error:</span> {{errorString}}
+          <span class="govuk-visually-hidden pdp-consent-font">Error:</span> {{delegateErrorString}}
         </span>
         <input class="govuk-input govuk-!-width-three-quarters pdp-consent-font {{errorInputClass}}" id="delegate-search-value" name="delegate-search-value" type="text" value="{{delegateSearchValue}}">
         <p></p>
@@ -35,45 +38,45 @@
     {% if searchListDelegates.length > 0 %}
   
       <form action="/select-delegate" method="post" novalidate>  
-
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" aria-describedby="provider-hint">
+            {% if searchListDelegates|length > 1 %}
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m pdp-consent-font">
               <h2 class="govuk-fieldset__heading">
-                Add pension providers to the list
+                We found {{searchListDelegates|length}} people matching your search
               </h2>
             </legend>
             <div id="provider-hint pdp-consent-font" class="govuk-hint">
-              Select all that apply.
+              Select the person you want to have access to view your pensions
             </div>
+            {% else %}
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m pdp-consent-font">
+              <h2 class="govuk-fieldset__heading">
+                We found one person matching your search
+              </h2>
+            </legend>
+            <div id="provider-hint pdp-consent-font" class="govuk-hint">
+              Select this person if you want them to have access to view your pensions
+            </div>            
+            {% endif %}
+
             {% for details in searchListDelegates %}
-            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
-              <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input pdp-consent-font" id="delegate-list" name="delegate-list-list" type="checkbox" value="{{details}}">
-                <label class="govuk-label govuk-checkboxes__label pdp-consent-font" for="delegate-list">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="delegate-list" name="delegate-list" type="radio" value="{{details}}">
+                <label class="govuk-label govuk-radios__label" for="where-do-you-live">
                   {{details}}
                 </label>
               </div>
-            </div>
             {% endfor %}
           </fieldset>
         </div>
         <button class="govuk-button pdp-consents-button" data-module="govuk-button">
           Select and continue
         </button>     
-        {% if directedListNames|length > 0 %}
-          <a href="/consents/search" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-            Select and continue 
-          </a>
-        {% else %}
-          <a href=# disabled="disabled" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-            Select and continue 
-          </a>
-        {% endif %}
       </form>
 
     {% else %}
-      {%if not firstPageLoad %}
+      {%if not delegateFirstPageLoad %}
         <p class="govuk-heading-s pdp-consent-font">
           There are no matching results.
         </p>

@@ -9,6 +9,7 @@ const formatDate = require('./formatDate.js')
 const getPrototypeDetails = require('./getPrototypeDetails.js')
 const countryListJson = require('./countryList.json')
 const providerListDirectedFind = require('./providerListDirectedFind.json')
+const delegateList = require('./delegateList.json')
 
 // Use these arrays to store the options for the select element when updating the pensions
 // also populates the session variables for descriptions
@@ -87,7 +88,7 @@ router.post('/prototype-or-admin', function (req, res) {
             res.redirect('/find-your-pensions/fyp-index')
             break        
         case "delegate-prototype":
-            res.redirect('/delegate/delegate-index')
+            res.redirect('/delegates/start')
             break
         case "admin":
             res.redirect('/admin/manage-pensions')
@@ -112,12 +113,6 @@ router.post('/which-start-page', function (req, res) {
         case "full":
             res.redirect('/find-your-pensions/index')
             break
-     // case "consents":
-     //     res.redirect('/consents/enter-consents-start')
-     //     break
-     // case "identity":
-     //     res.redirect('/identity/start')
-     //     break
     }
 })
 
@@ -252,11 +247,28 @@ router.post('/guest-consent', function(req,res) {
 
 
 //
-// PensionFinder - consent and authorisation pages
+// Pension Finder - consent and authorisation pages
 //
+
+// main menu 
+router.post('/consents-menu', function (req,res) {
+    const consentMenu = req.session.data['consent-menu']
+    switch (consentMenu) {
+        case "find":
+            res.redirect('consents/find-start')
+            break      
+        case "delegation":
+            res.redirect('consents/delegation/start')
+            break        
+        case "manage-consents":
+            res.redirect('consents/manage-consents')
+            break
+
+    }
+
+})
+
 // route for get for managing consent for individual dashboard providers
-
-
 
 
 router.get('/consents/individual-consents', function (req, res) {
@@ -300,11 +312,9 @@ router.get('/consents/individual-consents', function (req, res) {
 
 }) 
 
-
 //consent for dashboard provider code end
 
 // route for get for managing consent for individual dashboard providers
-// the * is a wildcard for the prototype number in this get
 
 router.get('./consents/individual-consents', function (req, res) {
     async function findPensionsByOwner() {
@@ -327,9 +337,6 @@ router.get('./consents/individual-consents', function (req, res) {
             res.render('./consents/individual-consents')
         }
     }
-
-   
-
    
     async function getAllPensions(client, pptNumber) {
         const results = await client.db(dataBaseName).collection("pensionDetails")
@@ -341,29 +348,11 @@ router.get('./consents/individual-consents', function (req, res) {
 //        console.log('results ' + JSON.stringify(results))
         return results
     }
-
 }) 
 
+//consent for dashboard provider code end
 
-//consent for dashbioard provider code end
-
-router.post('/find-all-or-directed', function (req, res) {
-    const whichFind = req.session.data['which-find']
-    switch (whichFind) {
-        case "directed-find":
-            req.app.locals.firstPageLoad = true
-            req.app.locals.directedListNames =[]
-            req.app.locals.directedOrAll = "the pension providers you have selected"
-            res.redirect('consents/directed-find')
-            break      
-        case "find-all":
-            req.app.locals.directedOrAll = "all UK pension providers"
-            res.redirect('consents/search')
-            break
-
-    }
-})
-// consents page PensionFinder
+// consents page Pension Finder
  
 router.post('/consents-all', function (req, res) {
 
@@ -436,11 +425,10 @@ router.post('/find-all-or-directed', function (req, res) {
             req.app.locals.directedOrAll = "all UK pension providers"
             res.redirect('consents/search')
             break
-
     }
 })
 
-// directed find
+// directed find search
 
 router.get('/consents/directed-find', function (req, res) {
     req.app.locals.firstPageLoad = true
@@ -471,7 +459,7 @@ router.post('/search-for-provider', function (req, res) {
 
         if (providerSearchValue !== null) {
 
-    // do a filtered search on the json
+        // do a filtered search on the json
 
             searchResults= filterItems( providerListDirectedFind, providerSearchValue)
             req.app.locals.searchListNames = searchResults
@@ -493,6 +481,8 @@ router.post('/search-for-provider', function (req, res) {
 
 })
 
+// directed find add to list
+
 router.post('/add-provider-to-list', function (req, res) {
     req.app.locals.listStarted = true
     let selectedProviders =[]
@@ -512,6 +502,8 @@ router.post('/add-provider-to-list', function (req, res) {
 
 })
 
+// directed find remove provider from list
+
 router.post('/remove-provider/:providerName', function (req, res) {
     for (i=0 ; i<req.app.locals.directedListNames.length; i++ ) {
         if (req.app.locals.directedListNames[i] == req.params.providerName)
@@ -522,26 +514,7 @@ router.post('/remove-provider/:providerName', function (req, res) {
 
 })
 
-router.post('/consents-select-action', function (req, res) {
-
-    const consentsSelection = req.session.data['select-action']
-    switch (consentsSelection) {
-        case "find":
-            res.redirect('consents/find-options-start')
-            break        
-        case "directed-find":
-            res.redirect('consents/directed-find')
-            break
-        case "delegates":
-            req.app.locals.firstPageLoad = true
-            res.redirect('consents/select-delegate')
-            break
-        case "manage-consents":
-            res.redirect('consents/manage-consents')
-            break
-        }
-
-})
+// enter details for Find
 
 router.post('/enter-your-details', function (req, res) {
     // initialise variables
@@ -588,7 +561,110 @@ router.post('/enter-your-details', function (req, res) {
 })
 
 //
-// Find your pensions pages
+// Delegation pages
+//
+
+// delegation start - set first page load flag so error not displayed on first visit
+
+router.post('/delegate-start', function (req, res) {
+    req.app.locals.delegateFirstPageLoad = true
+    res.redirect('consents/delegation/select-delegate')
+})
+
+// search for delegate
+router.post('/search-delegate', function (req, res) {
+    // filter function
+
+    req.app.locals.delegateFirstPageLoad = false
+    let delegateSearchValue = req.session.data['delegate-search-value']
+    req.app.locals.delegateSearchValue = delegateSearchValue
+  //error if no value entered
+    if (delegateSearchValue == "") {
+        req.app.locals.delegateErrorString = "Field is blank - Enter a name or reference number"
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+    }
+    else {
+        req.app.locals.delegateErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = "" 
+
+        if (delegateSearchValue !== null) {
+
+        // do a filtered search on the json
+
+            searchResults = filterItems( delegateList, delegateSearchValue)
+            req.app.locals.searchListDelegates = searchResults
+        }
+    }
+    res.render('consents/delegation/select-delegate')
+
+    function filterItems(arr, query) {
+        return arr.filter(function(el) {
+        return el.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      })
+    }
+
+})
+
+// select the person to delegate access to
+
+router.post('/select-delegate', function (req, res) {
+    let selectedDelegate = req.session.data['delegate-list']
+    req.app.locals.delegateName = selectedDelegate.split('(')[0]
+        if (selectedDelegate.includes('MaPS')) {
+        req.app.locals.delegateAddress = ""
+        req.app.locals.delegateOrganisation = "Money and Pensions Service"
+    }
+    else {
+        req.app.locals.delegateAddress = "102 Cromwell Road, London, SW18 7YD"
+        req.app.locals.delegateOrganisation = req.app.locals.delegateName.split(' '[1]) + "Associates"
+    }
+
+    res.redirect('consents/delegation/delegate-duration')
+})
+
+// get dates to display on duration page
+router.get('/consents/delegation/delegate-duration', function (req, res) {
+
+    let today_date = new Date()
+    let dateTomorrow = new Date()
+    let dateWeek = new Date()
+    let dateMonth = new Date()
+    let dateThreeMonths = new Date()
+
+    // work out the dates to display
+    dateTomorrow.setDate(today_date.getDate() + 1)
+    dateWeek.setDate(today_date.getDate() + 7)
+    dateMonth.setMonth(today_date.getMonth() + 1)
+    dateThreeMonths.setMonth(today_date.getMonth() + 3)
+
+    req.app.locals.dateTomorrow = formatDelegateDate(dateTomorrow)
+    req.app.locals.dateWeek = formatDelegateDate(dateWeek)
+    req.app.locals.dateMonth = formatDelegateDate(dateMonth)
+    req.app.locals.dateThreeMonths = formatDelegateDate(dateThreeMonths)
+
+    res.render('consents/delegation/delegate-duration')
+
+    // reformat the date to make them like govuk
+    function formatDelegateDate(date) {
+        console.log('date ' + date)
+        let dateArr = date.toDateString().split(' ')
+        let formattedDate = dateArr[2] + ' ' + dateArr[1] + ' ' + dateArr[3]
+        return formattedDate
+    } 
+})
+
+// delegate duration
+router.post('/delegate-duration', function (req, res) {
+    let delegateDuration = req.session.data['duration']
+    req.app.locals.delegateDuration = delegateDuration
+    res.redirect('consents/delegation/confirmation')
+})
+
+
+//
+// Find your pensions / MoneyHelper pages
 //
 
 router.get('/find-your-pensions/fyp-display-pensions', function (req, res) {
@@ -748,7 +824,8 @@ router.get('/find-your-pensions/fyp-display-pensions', function (req, res) {
 }) 
 
 
-// additional page of pension details 
+// more details page
+
 router.get('/find-your-pensions/fyp-single-pension-details*', function (req, res) {
 
     async function findPensionDetails() {

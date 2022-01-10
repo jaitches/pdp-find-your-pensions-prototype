@@ -1,0 +1,47 @@
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %} Pension Finder
+  {{serviceNameConsents}} Confirmation
+{% endblock %}
+  
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <form action="/delegate-duration" method="post" novalidate>  
+
+        <h1 class="govuk-heading-l pdp-consent-heading-font">
+          You have given {{delegateName}} access to view your pensions
+        </h1>
+        <table class="govuk-table" style="width:60%">
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">Name</th>
+              <td class="govuk-table__cell">{{delegateName}}</td>
+            </tr>                
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">Organisation</th>
+              <td class="govuk-table__cell">{{delegateOrganisation}}</td>
+            </tr>
+            {% if delegateAddress %}
+
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">Address</th>
+              <td class="govuk-table__cell">{{delegateAddress}}</td>
+            </tr> 
+            {% endif %}
+            <tr class="govuk-table__row">
+              <th scope="row" class="govuk-table__header">Date access ends</th>
+              <td class="govuk-table__cell">{{delegateDuration}}</td>
+            </tr> 
+          </tbody>
+        </table>     
+
+        <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Return to MoneyHelper
+        </a>
+      </form>
+    </div>
+  </div>
+  
+{% endblock %}
