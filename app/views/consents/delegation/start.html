@@ -1,0 +1,49 @@
+{% extends "layout_unbranded_consents.html" %}
+
+{% block pageTitle %} Pension Finder
+  {{serviceNameConsents}} - Delegation Start
+{% endblock %}
+  
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <form action="/delegate-start" method="post" novalidate>  
+
+        <h1 class="govuk-heading-l pdp-consent-heading-font">
+          Giving other people access to view your pensions
+        </h1>
+
+        <p class="pdp-consent-font">
+          You can allow an authorised person to view your pensions:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet pdp-consent-font">
+          <li>a financial advisor</li>
+          <div class="govuk-radios__divider">or</div>
+          <li>someone who gives guidance on behalf of the Money and Pensions Service</li>
+        </ul>
+
+        <h2 class="govuk-heading-m">
+          Financial advisors
+        </h2>
+
+        <p>
+          You will only be able to select financial advisors who appear on the <a href="https://register.fca.org.uk/s/" target="_blank">Financial Services Register</a>.
+        </p>
+
+        <h2 class="govuk-heading-m">
+          Money and Pension Service guiders
+        </h2>
+        <p>
+          <a href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment">Pension Wise</a> is a free government service that offers free, impartial guidance. This service is provided by the Money and Pensions Service. To help the specialist understand your pension situation you can give them access to view your pensions.
+        </p>
+
+        <button class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Continue
+        </button>
+      </form>
+    </div>
+  </div>
+  
+{% endblock %}
