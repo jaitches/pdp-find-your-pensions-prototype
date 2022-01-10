@@ -10,20 +10,19 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <form action="/find-all-or-directed" method="post" class=novalidate>
-      <h1 class="govuk-heading-l pdp-consent-heading-font">
-        Search pension providers
-      </h1>
-      <p class="pdp-consent-font"> 
-        To find your pensions, we send the information you have given us to all UK pension providers.
-      </p>
+
       {{ govukRadios({
         idPrefix: "which-find",
         name: "which-find",
         fieldset: {
           legend: {
             text: "How do you want to search for your pensions?",
-            classes: "govuk-fieldset__legend--m pdp-consent-font"
+            classes: "govuk-fieldset__legend--l pdp-consent-font",
+            isPageHeading: true
           }
+        },
+        hint: {
+          text: "To find your pensions, we send the information you have given us to all UK pension providers."
         },
         items: [
 

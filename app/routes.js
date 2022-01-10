@@ -263,9 +263,7 @@ router.post('/consents-menu', function (req,res) {
         case "manage-consents":
             res.redirect('consents/manage-consents')
             break
-
     }
-
 })
 
 // route for get for managing consent for individual dashboard providers

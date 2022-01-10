@@ -8,27 +8,15 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">  
-      <a href="find-all-or-directed" class="govuk-back-link">Back</a>
-      <h1 class="govuk-heading-l pdp-consent-heading-font">Selecting providers
-        <span class="govuk-hint pdp-consent-font">
-         We will ask the pension providers that you add to your list if you have a pension with them..
-        </span>
+      <h1 class="govuk-heading-l pdp-consent-heading-font">
+        Enter the name of your pension provider
       </h1>
     </div>
   </div>
   <div class="govuk-grid-row">
-  <div class="govuk-grid-column-one-third">
-    <form action="/search-for-provider" method="post" novalidate>  
-
-
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/search-for-provider" method="post" novalidate> 
       <div class="govuk-form-group {{errorFormClass}}" id="form-group">
-        <h2 class="govuk-label-wrapper"><label class="govuk-label govuk-label--m pdp-consent-font" for="provider-search-value">
-            Enter the name of the pension provider
-          </label>
-          <div id="event-name-hint pdp-consent-font" class="govuk-hint">
-            For example, Aviva.
-          </div>
-
         <span id="no-value-entered-error" class="govuk-error-message">
           <span class="govuk-visually-hidden pdp-consent-font">Error:</span> {{errorString}}
         </span>
@@ -69,9 +57,21 @@
           </fieldset>
         </div>
         <button class="govuk-button pdp-consents-button" data-module="govuk-button">
-          Add to list
+          Add
         </button>
       </form>
+      <p>
+        We will only send your details to the pension providers on your list.
+      </p>
+      {% if directedListNames|length > 0 %}
+        <a href="/consents/search" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Continue 
+        </a>
+      {% else %}
+        <a href=# disabled="disabled" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Continue 
+        </a>
+      {% endif %}
 
     {% else %}
       {%if not firstPageLoad %}
@@ -88,7 +88,8 @@
     {% endif %}
     </div>
 
-    <div class="govuk-grid-column-two-thirds">
+
+    <div class="govuk-grid-column-one-third">
       <h2 class="govuk-heading-m pdp-consent-font">
         Your list of pension providers
       </h2>
@@ -110,16 +111,6 @@
         </tr>
         {% endfor %}
       </table>
-      {% if directedListNames|length > 0 %}
-        <a href="/consents/search" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-          Find pensions 
-        </a>
-      {% else %}
-        <a href=# disabled="disabled" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-          Find pensions 
-        </a>
-      {% endif %}
-
   </div>
 </div>
 
