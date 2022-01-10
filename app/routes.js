@@ -657,7 +657,9 @@ router.get('/consents/delegation/delegate-duration', function (req, res) {
 // delegate duration
 router.post('/delegate-duration', function (req, res) {
     let delegateDuration = req.session.data['duration']
-    req.app.locals.delegateDuration = delegateDuration
+
+    req.app.locals.delegateDurationDate = delegateDuration.substr(0,delegateDuration.indexOf('-'))
+    req.app.locals.delegateDuration = delegateDuration.substr(delegateDuration.indexOf('-') +1)
     res.redirect('consents/delegation/confirmation')
 })
 
