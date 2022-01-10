@@ -88,7 +88,7 @@ router.post('/prototype-or-admin', function (req, res) {
             res.redirect('/find-your-pensions/fyp-index')
             break        
         case "delegate-prototype":
-            res.redirect('/delegate/delegate-index')
+            res.redirect('/delegates/start')
             break
         case "admin":
             res.redirect('/admin/manage-pensions')
@@ -258,7 +258,7 @@ router.post('/consents-menu', function (req,res) {
             res.redirect('consents/find-start')
             break      
         case "delegation":
-            res.redirect('consents/delegation-start')
+            res.redirect('consents/delegation/start')
             break        
         case "manage-consents":
             res.redirect('consents/manage-consents')
@@ -311,7 +311,6 @@ router.get('/consents/individual-consents', function (req, res) {
     }
 
 }) 
-
 
 //consent for dashboard provider code end
 
