@@ -699,6 +699,7 @@ router.get('/find-your-pensions/fyp-display-pensions', function (req, res) {
 
             for (i=0; i < pensionDetailsAll.length; i++) {
             // convert dates to string and display as dd mon yyyy
+            console.log('id ' + pensionDetailsAll[i]._id)
                 let employmentStartDateString = ""
                 let employmentEndDateString = ""
                 let accruedCalculationDateString = ""
@@ -872,7 +873,6 @@ router.get('/find-your-pensions/fyp-single-pension-details*', function (req, res
                 req.app.locals.NINotPaidUP = true
             }
             */
-//            console.log('req.app.locals.pensionProvider.administratorURL ' + req.app.locals.pensionProvider.administratorURL)
             if (req.app.locals.pensionProvider.administratorURL) {
                 req.app.locals.pensionProvider.administratorShortURL = req.app.locals.pensionProvider.administratorURL.replace(/^https?\:\/\//i, "")
             }
