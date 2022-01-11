@@ -189,16 +189,6 @@ router.post('/create-account', function(req,res) {
     const dashboardConsentStore = req.session.data['consent-to-store']
     const dashboardConsentUse = req.session.data['consent-to-use']
 
-    // set the checked status in the variable so that the box remains checked when the user leaves and comes ack to this page
-    // couldn't get the prototype kit recommended way to work !! https://govuk-prototype-kit.herokuapp.com/docs/examples/pass-data
-
-    if (dashboardConsentStore == null) {
-        req.app.locals.checkedStore = ""
-    }
-    else {
-        req.app.locals.checkedStore = "checked"
-    }
-
     // set the error fields if not all the consents are checked
 
     if (dashboardConsentUse == null) {
@@ -361,35 +351,6 @@ router.post('/consents-all', function (req, res) {
     const consent3 = req.session.data['consents-3']
     const consent4 = req.session.data['consents-4']
 
-    // set the checked status in the variable so that the box remains checked when the user leaves and comes ack to this page
-    // couldn't get the prototype kit recommended way to work !! https://govuk-prototype-kit.herokuapp.com/docs/examples/pass-data
-
-    if (consent1 == null) {
-        req.app.locals.checkedConsent1 = ""
-    }
-    else {
-        req.app.locals.checkedConsent1 = "checked"
-    }
-    if (consent2 == null) {
-        req.app.locals.checkedConsent2 = ""
-    }
-    else {
-        req.app.locals.checkedConsent2 = "checked"
-    }
-
-    if (consent3 == null) {
-        req.app.locals.checkedConsent3 = ""
-    }
-    else {
-        req.app.locals.checkedConsent3 = "checked"
-    }
-
-    if (consent4 == null) {
-        req.app.locals.checkedConsent4 = ""
-    }
-    else {
-        req.app.locals.checkedConsent4 = "checked"
-    }
 
 // set the error fields if not all the consents are checked
     if (consent1 == null || consent2 == null || consent3 == null || consent4 == null) {
