@@ -11,7 +11,7 @@
       <form action="/delegate-duration" method="post" novalidate>  
 
         <h1 class="govuk-heading-l pdp-consent-heading-font">
-          You have given these people access to view your pensions
+          You have given access to an authorisaed person to view your pensions
         </h1>
         <table class="govuk-table" style="width:60%">
           <tbody class="govuk-table__body">
@@ -32,7 +32,7 @@
             {% endif %}
             <tr class="govuk-table__row">
               <th scope="row" class="govuk-table__header">Date access ends</th>
-              <td class="govuk-table__cell">{{delegateDuration}}</td>
+              <td class="govuk-table__cell">{{delegateDurationDate}} ({{delegateDuration}})</td>
             </tr> 
           </tbody>
         </table>     

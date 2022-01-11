@@ -414,12 +414,16 @@ router.post('/find-all-or-directed', function (req, res) {
     const whichFind = req.session.data['which-find']
     switch (whichFind) {
         case "directed-find":
+            req.app.locals.providerSearchValue = ""
+            req.app.locals.searchListNames = []
+            req.app.locals.directedFind = true
             req.app.locals.firstPageLoad = true
             req.app.locals.directedListNames =[]
             req.app.locals.directedOrAll = "the pension providers you have selected"
             res.redirect('consents/directed-find')
             break      
         case "find-all":
+            req.app.locals.directedFind = false
             req.app.locals.directedOrAll = "all UK pension providers"
             res.redirect('consents/search')
             break
@@ -486,9 +490,6 @@ router.post('/add-provider-to-list', function (req, res) {
     let selectedProviders =[]
     selectedProviders = req.session.data['provider-list']
 
-    console.log('req.app.locals.directedListNames ' + req.app.locals.directedListNames)
-    console.log('selectedProviders' + selectedProviders)
-//    console.log('providerList' + providerList)
     if (selectedProviders) {
         let providerList = req.app.locals.directedListNames
         for (i=0; i < selectedProviders.length; i++) {
@@ -656,7 +657,9 @@ router.get('/consents/delegation/delegate-duration', function (req, res) {
 // delegate duration
 router.post('/delegate-duration', function (req, res) {
     let delegateDuration = req.session.data['duration']
-    req.app.locals.delegateDuration = delegateDuration
+
+    req.app.locals.delegateDurationDate = delegateDuration.substr(0,delegateDuration.indexOf('-'))
+    req.app.locals.delegateDuration = delegateDuration.substr(delegateDuration.indexOf('-') +1)
     res.redirect('consents/delegation/confirmation')
 })
 

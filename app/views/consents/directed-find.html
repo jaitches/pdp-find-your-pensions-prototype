@@ -57,11 +57,11 @@
           </fieldset>
         </div>
         <button class="govuk-button pdp-consents-button" data-module="govuk-button">
-          Add
+          Add providers
         </button>
       </form>
       <p>
-        We will only send your details to the pension providers on your list.
+        When you have added all your pension providers to the list we will send your details to them so they can confirm that you have a pension with them.
       </p>
       {% if directedListNames|length > 0 %}
         <a href="/consents/search" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
@@ -91,7 +91,7 @@
 
     <div class="govuk-grid-column-one-third">
       <h2 class="govuk-heading-m pdp-consent-font">
-        Your list of pension providers
+        List of pension providers to search
       </h2>
       {% if not listStarted %}
         <p class="pdp-consent-font">

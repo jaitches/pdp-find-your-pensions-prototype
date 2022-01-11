@@ -73,11 +73,19 @@
 
             </tbody>
           </table>
-
-          <br>
+          {% if directedFind %}
+          <p>
+            We will ask these pension providers to confirm that you have a pension with them:
+          </p>
+          <ul class="govuk-list govuk-list--bullet pdp-consent-font">
+          {% for details in directedListNames %}
+            <li>{{details}}</li>
+          {% endfor %}
+          </ul>
+          {% endif %}
 
           <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-            Confirm and return
+            Confirm and return to {{serviceName}}
           </a>
       </div>
     </div>
