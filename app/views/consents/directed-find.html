@@ -85,6 +85,19 @@
           <li>searching for something less specific</li>
         </ul>
       {% endif %}
+            <p>
+        When you have added all your pension providers to the list we will send your details to them so they can confirm that you have a pension with them.
+      </p>
+      {% if directedListNames|length > 0 %}
+        <a href="/consents/search" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Continue 
+        </a>
+      {% else %}
+        <a href=# disabled="disabled" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+          Continue 
+        </a>
+      {% endif %}
+
     {% endif %}
     </div>
 
