@@ -255,7 +255,7 @@ router.post('/consents-menu', function (req,res) {
     const consentMenu = req.session.data['consent-menu']
     switch (consentMenu) {
         case "find":
-            res.redirect('consents/find-start')
+            res.redirect('consents/find-all-or-directed')
             break      
         case "delegation":
             res.redirect('consents/delegation/start')
