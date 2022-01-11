@@ -1,0 +1,106 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %}
+  {{serviceName}} - Register or login
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+      <form action="/create-account" method="post" class="form">
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="details-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading pdp-heading-font">
+                Create an account
+              </h1>
+            </legend>
+            <p>
+              Set up an account so that you can go straight to your pensions next time.
+            </p>
+<!--            <p>
+              You can also <a href="fyp-consents">use this service as a guest</a>.
+            </p>
+-->
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="first-name">
+                First name
+              </label>
+              <input class="govuk-input govuk-input--width-20" id="first-name" name="first-name" type="text" value="{{data['first-name']}}">
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="last-name">
+                Last name
+              </label>
+              <input class="govuk-input govuk-input--width-20" id="last-name" name="last-name" type="text" value="{{data['last-name']}}">
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="email">
+                Email address
+              </label>
+              <input class="govuk-input" id="email" name="fyp-email" type="fyp-email" spellcheck="false" autocomplete="email" value="{{data['fyp-email']}}">
+            </div>
+            
+            <div class="govuk-form-group">
+
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="fyp-password">
+                  Create a password
+                </label>
+                <input class="govuk-input" id="fyp-password" name="fyp-password" type="password" value="{{ data['fyp-password'] }}">
+              </div>
+
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="fyp-password2">
+                  Re-enter password
+                </label>
+                <input class="govuk-input" id="fyp-password2" name="fyp-password2" type="password" value="{{ data['fyp-password2'] }}">
+              </div>
+            </div>
+            <div class="govuk-form-group">
+
+              <fieldset class="govuk-fieldset">
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                  {% if not guest %}
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" id="consent-to-store" name="consent-to-store" type="checkbox" value="consent-to-store" {{checkedStore}}>
+                    <label class="govuk-label govuk-checkboxes__label" for="consent-to-store">
+                      I consent to MoneyHelper storing information about my pension providers.
+                    </label>
+                    <div id="store-pei-hint" class="govuk-hint govuk-checkboxes__hint">
+                      You will not need to search for your pensions next time you visit. This is optional.
+                    </div>
+                  </div>
+                  {% endif %}
+                  <div class="{{errorFormClass}}">
+                    <span id="dashboard-consent2-error" class="govuk-error-message">
+                      <span class="govuk-visually-hidden">Error:</span> {{dashboardConsentErrorString}}
+                    </span>              
+                    <div class="govuk-checkboxes__item">
+                      <input class="govuk-checkboxes__input" id="consent-to-use" name="consent-to-use" type="checkbox" value="consent-to-use" {{checkedUse}}>
+                      <label class="govuk-label govuk-checkboxes__label" for="consent-to-use">
+                        I consent to MoneyHelper contacting my pension providers to ask for my pension details.
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+ 
+            <br>
+            <button type="submit" class="govuk-button pdp-button" onclick="checkError()">Save and continue</button>
+
+
+            <h2 class="govuk-heading-m">
+              Already have an account? 
+            </h2>
+            <p><a href="fyp-login">Sign in to your account</a>
+            </p>             
+
+          </fieldset>
+        </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
