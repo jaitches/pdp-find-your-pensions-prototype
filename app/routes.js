@@ -68,6 +68,7 @@ const penAccrAmtType = [
 // ****** routes for main pages and prototypes
 //
 
+// display which participant and database is being used
 router.get('/', function (req,res) {
     req.app.locals.participantNumber = process.env.PARTICIPANT_NUMBER
     if (process.env.PENSIONS_DB == "pdp-test") {
@@ -96,98 +97,17 @@ router.post('/prototype-or-admin', function (req, res) {
         }
 })
 
-//Routes for index page with journey options
-router.post('/which-start-page', function (req, res) {
-
-    const whichStart = req.session.data['which-start']
-    switch (whichStart) {
-        case "consents":
-            res.redirect('/manage-consents')
-            break
-        case "adddelegate":
-            res.redirect('/find-your-pensions/fyp-display-pensions')
-            break
-        case "identity":
-            res.redirect('/identity/start')
-            break
-        case "full":
-            res.redirect('/find-your-pensions/index')
-            break
-    }
-})
-
 //
 // MoneyHelper dashboard pages
 //
-router.post('/sign-in-or-register', function (req, res) {
-    const loginOrGuest = req.session.data['signin-or-guest']
-    switch (loginOrGuest) {
-        case "signin":
-            req.app.locals.guest = false
-            req.app.locals.fypRegistered = false
-            res.redirect('/find-your-pensions/fyp-login')
-            break   
-        case "createaccount":
-            req.app.locals.guest = false
-            req.app.locals.fypRegistered = false
-            res.redirect('/find-your-pensions/fyp-create-account')
-            break          
-        case "guest":
-            req.app.locals.guestCheckedUse = "" 
-            req.app.locals.guest = true
-            res.redirect('/find-your-pensions/fyp-consents')
-            break
-    }
-})
-
-// sign in, if user doesn't go to the create account first then raise an error
-router.post('/fyp-login', function(req,res) {
-    req.app.locals.loginErrorStringPassword = ""
-
-    if (!req.app.locals.fypRegistered && !req.app.locals.guest) {
-        req.app.locals.loginErrorString = "Error: Enter a valid user ID and password or create an account "
-        req.app.locals.errorFormClass = "govuk-form-group--error"  
-        req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('find-your-pensions/fyp-login')
-    }    
-    else {
-        req.app.locals.guest = false
-        req.app.locals.loginErrorString = ""
-        req.app.locals.errorFormClass = ""
-        req.app.locals.errorInputClass = ""
-
-        res.redirect('find-your-pensions/fyp-redirect-consents')
-
-    }
-})
-
-// password reset raise an error and redirect to create an account
-router.post('/fyp-password-reset', function(req,res) {   
-    req.app.locals.loginErrorStringPassword = "Error: No account has been found for this email. "
-    req.app.locals.errorFormClass = "govuk-form-group--error"  
-    req.app.locals.errorInputClass = "govuk-input--error" 
-
-    res.render('find-your-pensions/fyp-password-reset')
-    
-})
-
-// create dashboard account - reset flag so sign in doesn't error second time round
-
-router.get('/find-your-pensions/fyp-create-account', function(req,res) {
-
-        req.app.locals.fypRegistered = true
-        req.app.locals.loginErrorString = ""
-        req.app.locals.errorFormClass = ""
-        req.app.locals.errorInputClass = ""
-        res.render('find-your-pensions/fyp-create-account')
-})
 
 // dashboard consents page 
-router.post('/create-account', function(req,res) {
-    req.app.locals.firstName = req.session.data['first-name']
+router.post('/fyp-consents', function(req,res) {
     // copy checked status from checkboxes
-    const dashboardConsentStore = req.session.data['consent-to-store']
-    const dashboardConsentUse = req.session.data['consent-to-use']
+    let dashboardConsentStore = req.session.data['consent-to-store']
+    let dashboardConsentUse = req.session.data['consent-to-use']
+    //    req.app.locals.checkedStore = dashboardConsentStore
+    //    req.app.locals.checkedUse = dashboardConsentUse
 
     // set the error fields if not all the consents are checked
 
@@ -196,36 +116,13 @@ router.post('/create-account', function(req,res) {
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
         req.app.locals.checkedUse = "" 
-        res.render('find-your-pensions/fyp-create-account')
+        res.render('find-your-pensions/fyp-consents')
     } 
     else {
         req.app.locals.dashboardConsentErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
-        req.app.locals.checkedUse = "checked" 
-        res.redirect('find-your-pensions/fyp-login')
-    }
-})
-
-
-router.post('/guest-consent', function(req,res) {
-    // copy checked status from checkboxes
-    const guestConsentUse = req.session.data['consent-to-use']
-
-    // set the error fields if not all the consents are checked
-
-    if (guestConsentUse == null) {
-        req.app.locals.guestConsentErrorString = "To find your pensions you must agree to this consent"
-        req.app.locals.errorFormClass = "govuk-form-group--error"  
-        req.app.locals.errorInputClass = "govuk-input--error" 
-        req.app.locals.guestCheckedUse = "" 
-        res.render('find-your-pensions/fyp-consents')
-    } 
-    else {
-        req.app.locals.guestConsentErrorString = ""
-        req.app.locals.errorFormClass = ""
-        req.app.locals.errorInputClass = ""
-        req.app.locals.guestCheckedUse = "checked" 
+        req.app.locals.checkedUse = "checked"
         res.redirect('find-your-pensions/fyp-redirect-consents')
     }
 })

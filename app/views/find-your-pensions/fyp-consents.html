@@ -2,14 +2,14 @@
 {% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} 
-{{serviceName}} - Consent to MoneyHelper storing and using your information
+{{serviceNameDashboard}} - MoneyHelper consents
 {% endblock %}
 
 {% block content %}
 <!--  only come to this page if you are a guest as these consents have been moved to the create an account page-->
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <form action="/guest-consent" method="post" novalidate>
+      <form action="/fyp-consents" method="post" novalidate>
         <h1 class="govuk-heading-l pdp-heading-font">
           Consent to MoneyHelper storing and using your information
         </h1>
@@ -19,25 +19,25 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-<!--              {% if not guest %}
+              {% if not guest %}
               <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" id="consent-to-store" name="consent-to-store" type="checkbox" value="consent-to-store" {{checkedStore}}>
                 <label class="govuk-label govuk-checkboxes__label" for="consent-to-store">
                   I consent to MoneyHelper storing information about my pension providers.
                 </label>
                 <div id="store-pei-hint" class="govuk-hint govuk-checkboxes__hint">
-                  You will not need to search for your pensions again if you consent to this. This is optional.
+                  You will not need to search for your pensions next time you visit. This is optional.
                 </div>
               </div>
               {% endif %}
--->           <div class="{{errorFormClass}}">
+              <div class="{{errorFormClass}}">
                 <span id="dashboard-consent2-error" class="govuk-error-message">
-                  <span class="govuk-visually-hidden">Error:</span> {{guestConsentErrorString}}
+                  <span class="govuk-visually-hidden">Error:</span> {{dashboardConsentErrorString}}
                 </span>              
                 <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input" id="consent-to-use" name="consent-to-use" type="checkbox" value="consent-to-use" {{guestCheckedUse}}>
+                  <input class="govuk-checkboxes__input" id="consent-to-use" name="consent-to-use" type="checkbox" value="consent-to-use" {{checkedUse}}>
                   <label class="govuk-label govuk-checkboxes__label" for="consent-to-use">
-                    I consent to MoneyHelper using my information to contact my pensions providers and find my pension details.
+                    I consent to MoneyHelper contacting my pension providers to ask for my pension details.
                   </label>
                 </div>
               </div>

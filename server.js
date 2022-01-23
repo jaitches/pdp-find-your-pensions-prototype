@@ -157,7 +157,7 @@ app.locals.useAutoStoreData = (useAutoStoreData === 'true')
 app.locals.useCookieSessionStore = (useCookieSessionStore === 'true')
 app.locals.promoMode = promoMode
 app.locals.releaseVersion = 'v' + releaseVersion
-app.locals.serviceName = config.serviceName
+app.locals.serviceNameDashboard = config.serviceNameMoneyHelper
 app.locals.serviceNameIdentity = config.serviceNameIdentity
 app.locals.serviceNameConsents = config.serviceNameConsents
 app.locals.serviceNameCommercial = config.serviceNameCommercial
