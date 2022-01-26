@@ -22,13 +22,8 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 	  font-family: "Poppins", sans-serif !important;
 }
 
-// Font
-.pdp-consent-heading-font {
-	color: #050505;
-	font-family: "Poppins", sans-serif !important;
-}
-.pdp-consent-font {
-	font-family: "Poppins", sans-serif !important;
+.pdp-consents-table {
+	width:60%;
 }
 
 //header
@@ -79,7 +74,6 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
   background: #E7EDF5;
   min-height: 60px;
 }
-
 
 .pdp-consents-footer-img {
 	padding-right:20px;
@@ -134,18 +128,12 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
   cursor: default;
 }
 
-
 // other styles
 .pdp-warning-message {
 	color : red;
 	font-weight: bold;
 }
-.pdp-caption {
-	background-color: #d4351c;
-	color: white;
-	width: 25%;
-	padding-left: 10px;
-}
+
 // header changes
 
 
@@ -171,6 +159,7 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 	text-align: center;
 	margin-bottom: 0px;
 }
+
 .pdp-service-name, 
 .pdp-service-name:hover,
 .pdp-service-name:visited,
@@ -188,7 +177,6 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 	border-color: #058282;
 
 }
-
 
 pdp-img {
     max-width: 100%;
@@ -211,8 +199,6 @@ pdp-img {
   border-radius: 10%;
 }
 
-
-
 .pdpid-grey-background {
 	background-color:#f5f8f9;
 }
@@ -233,4 +219,13 @@ pdp-img {
 .pdpid-center {
 	text-align: center !important;
 }
+// step by step
 
+.vl {
+  border-left: 6px solid green;
+  height: 500px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 0;
+}

@@ -11,13 +11,13 @@
     <div class="govuk-grid-column-two-thirds">
       <div class="govuk-form-group">
         <div class="govuk-form-group">
-          <h1 class="govuk-heading-xl pdp-consent-heading-font">
+          <h1 class="govuk-heading-xl">
             Searching for your pensions
           </h1>
 
-          <p class="govuk-body pdp-consent-font">We will send the following information to {{directedOrAll}}:</p>
+          <p class="govuk-body">We will send the following information to {{directedOrAll}}:</p>
           <table class="govuk-table">
-            <tbody class="govuk-table__body pdp-consent-font">
+            <tbody class="govuk-table__body">
               <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">First name</th>
                 <td class="govuk-table__cell">{{firstName}}</td>
@@ -77,7 +77,7 @@
           <p>
             We will ask these pension providers to confirm that you have a pension with them:
           </p>
-          <ul class="govuk-list govuk-list--bullet pdp-consent-font">
+          <ul class="govuk-list govuk-list--bullet">
           {% for details in directedListNames %}
             <li>{{details}}</li>
           {% endfor %}

@@ -8,7 +8,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">  
-      <h1 class="govuk-heading-l pdp-consent-heading-font">
+      <h1 class="govuk-heading-l">
         Select who can view your pensions
       </h1>
     </div>
@@ -18,7 +18,7 @@
     <form action="/search-delegate" method="post" novalidate>  
       <div class="govuk-form-group {{errorFormClass}}" id="form-group">
         <h2 class="govuk-label-wrapper">
-          <label class="govuk-label govuk-label--m pdp-consent-font" for="delegate-search-value">
+          <label class="govuk-label govuk-label--m" for="delegate-search-value">
             Enter the name or reference number of the person you want to give access to view your pensions
           </label>
         </h2>
@@ -26,9 +26,9 @@
             Your financial advisor can tell you their Financial Services Register reference number.
           </div>
         <span id="no-value-entered-error" class="govuk-error-message">
-          <span class="govuk-visually-hidden pdp-consent-font">Error:</span> {{delegateErrorString}}
+          <span class="govuk-visually-hidden">Error:</span> {{delegateErrorString}}
         </span>
-        <input class="govuk-input govuk-!-width-three-quarters pdp-consent-font {{errorInputClass}}" id="delegate-search-value" name="delegate-search-value" type="text" value="{{delegateSearchValue}}">
+        <input class="govuk-input govuk-!-width-three-quarters {{errorInputClass}}" id="delegate-search-value" name="delegate-search-value" type="text" value="{{delegateSearchValue}}">
         <p></p>
         <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Search</button>
       </div>
@@ -41,21 +41,21 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" aria-describedby="provider-hint">
             {% if searchListDelegates|length > 1 %}
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m pdp-consent-font">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
               <h2 class="govuk-fieldset__heading">
                 We found {{searchListDelegates|length}} people matching your search
               </h2>
             </legend>
-            <div id="provider-hint pdp-consent-font" class="govuk-hint">
+            <div id="provider-hint" class="govuk-hint">
               Select the person you want to have access to view your pensions
             </div>
             {% else %}
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m pdp-consent-font">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
               <h2 class="govuk-fieldset__heading">
                 We found one person matching your search
               </h2>
             </legend>
-            <div id="provider-hint pdp-consent-font" class="govuk-hint">
+            <div id="provider-hint" class="govuk-hint">
               Select this person if you want them to have access to view your pensions
             </div>            
             {% endif %}
@@ -77,11 +77,11 @@
 
     {% else %}
       {%if not delegateFirstPageLoad %}
-        <p class="govuk-heading-s pdp-consent-font">
+        <p class="govuk-heading-s">
           There are no matching results.
         </p>
-        <p class="govuk-body pdp-consent-font">Improve your search results by:</p>
-        <ul class="govuk-list govuk-list--bullet pdp-consent-font">
+        <p class="govuk-body">Improve your search results by:</p>
+        <ul class="govuk-list govuk-list--bullet">
           <li>double-checking your spelling</li>
           <li>using fewer keywords</li>
           <li>searching for something less specific</li>

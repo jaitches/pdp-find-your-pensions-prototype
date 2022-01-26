@@ -8,7 +8,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
-      <h1 class="govuk-heading-xl pdp-heading-font">
+      <h1 class="govuk-heading-xl">
         Your pensions
       </h1>
       <div class="pdp-download-print">
@@ -30,7 +30,7 @@
 
       {% if stateFlag %}
       <div class="pdp-pension-box-border" >
-        <h2 class="govuk-heading-l pdp-heading-with-caption pdp-heading-font">
+        <h2 class="govuk-heading-l pdp-heading-with-caption">
           State Pension
         </h2>
         <p class="govuk-caption-m">{{statePensionDetails.pensionReference}}</p>
@@ -97,7 +97,7 @@
       {% if pensionsFoundFlag %}
       {% for details in allPensionTypes %}
       <div class="pdp-pension-box-border" >
-        <h2 class="govuk-heading-l pdp-heading-with-caption pdp-heading-font">
+        <h2 class="govuk-heading-l pdp-heading-with-caption">
           {{details.pensionDescription}}
         </h2>
         <p class="govuk-caption-m">{{details.pensionReference}}</p>
@@ -248,7 +248,7 @@
       <p>
         You can allow an authorised person to view your pensions.
       </p>
-      <a href="/consents/delegation/start" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+      <a href="/c-and-a/delegation/start" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
       Give another person access to your pensions
       </a>
     </div>

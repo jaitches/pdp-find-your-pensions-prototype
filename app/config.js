@@ -4,6 +4,7 @@
 
 module.exports = {
   // Service name used in header. Eg: 'Renew your passport'
+  serviceName: 'Find your pensions',
   serviceNameDashboard: 'MoneyHelper',
   serviceNameConsents: 'Pension Finder',
   serviceNameIdentity: 'Verify your identity',  

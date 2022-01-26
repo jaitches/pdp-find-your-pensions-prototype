@@ -127,11 +127,9 @@ router.post('/fyp-consents', function(req,res) {
     }
 })
 
-
 //
 // identity pages
 //
-
 
 //
 // Pension Finder - consent and authorisation pages
@@ -142,21 +140,20 @@ router.post('/consents-menu', function (req,res) {
     const consentMenu = req.session.data['consent-menu']
     switch (consentMenu) {
         case "find":
-            res.redirect('consents/find-all-or-directed')
+            res.redirect('c-and-a/find/find-all-or-directed')
             break      
         case "delegation":
-            res.redirect('consents/delegation/start')
+            res.redirect('c-and-a/delegation/start')
             break        
         case "manage-consents":
-            res.redirect('consents/manage-consents')
+            res.redirect('c-and-a/consents/manage-consents')
             break
     }
 })
 
-// route for get for managing consent for individual dashboard providers
-
-
-router.get('/consents/individual-consents', function (req, res) {
+// route for managing consent for individual dashboard providers
+// rewrite this to display the dashboards to manage
+router.get('/c-and-a/consents/individual-consents', function (req, res) {
     async function findPensionsByOwner() {
     let participantNumber = process.env.PARTICIPANT_NUMBER
     console.log('getIndividualConsent') 
@@ -177,7 +174,7 @@ router.get('/consents/individual-consents', function (req, res) {
         finally {
             // Close the connection to the MongoDB cluster
             await client.close()
-            res.render('./consents/individual-consents')
+            res.render('./c-and-a/consents/individual-consents')
         }
     }
     findPensionsByOwner () .catch(console.error)  
@@ -197,46 +194,6 @@ router.get('/consents/individual-consents', function (req, res) {
 
 }) 
 
-//consent for dashboard provider code end
-
-// route for get for managing consent for individual dashboard providers
-
-router.get('./consents/individual-consents', function (req, res) {
-    async function findPensionsByOwner() {
-    console.log('getIndividualConsent')    
-
-        const client = new MongoClient(uri)
-        try {
-            // Connect to the MongoDB cluster
-            await client.connect()
-
-                pensionDetailsAll = await getAllPensions(client, participantNumber, ptypeNumber)
-                req.app.locals.pensionIdentifiers=pensionDetailsAll
-            
-            }            
-
-             
-        finally {
-            // Close the connection to the MongoDB cluster
-            await client.close()
-            res.render('./consents/individual-consents')
-        }
-    }
-   
-    async function getAllPensions(client, pptNumber) {
-        const results = await client.db(dataBaseName).collection("pensionDetails")
-        // find all documents
-        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
-        // save them to an array
-        .sort({pensionName: 1})        
-        .toArray()
-//        console.log('results ' + JSON.stringify(results))
-        return results
-    }
-}) 
-
-//consent for dashboard provider code end
-
 // consents page Pension Finder
  
 router.post('/consents-all', function (req, res) {
@@ -255,18 +212,21 @@ router.post('/consents-all', function (req, res) {
         req.app.locals.consentsErrorString = "To find your pensions you must agree to all of these consents"
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('consents/consents-all')
+        res.render('c-and-a/consents/consents-all')
     } 
     else {
         req.app.locals.consentsErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
-        res.redirect('consents/enter-your-details')
+        res.redirect('c-and-a/find/enter-your-details')
     }
 
 })
+//
+// directed find
+//
 
-// directed find menu 
+// directed find menu
 
 router.post('/find-all-or-directed', function (req, res) {
     const whichFind = req.session.data['which-find']
@@ -278,23 +238,23 @@ router.post('/find-all-or-directed', function (req, res) {
             req.app.locals.firstPageLoad = true
             req.app.locals.directedListNames =[]
             req.app.locals.directedOrAll = "the pension providers you have selected"
-            res.redirect('consents/directed-find')
+            res.redirect('c-and-a/find/directed-find')
             break      
         case "find-all":
             req.app.locals.directedFind = false
             req.app.locals.directedOrAll = "all UK pension providers"
-            res.redirect('consents/search')
+            res.redirect('c-and-a/find/search')
             break
     }
 })
 
 // directed find search
 
-router.get('/consents/directed-find', function (req, res) {
+router.get('/c-and-a/find/directed-find', function (req, res) {
     req.app.locals.firstPageLoad = true
     req.app.locals.listStarted = false
     req.app.locals.directedListNames =[]
-    res.render('consents/directed-find')
+    res.render('c-and-a/find/directed-find')
 })
 
 router.post('/search-for-provider', function (req, res) {
@@ -308,7 +268,7 @@ router.post('/search-for-provider', function (req, res) {
         req.app.locals.errorString = "Field is blank - Enter a pension provider name"
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('consents/directed-find')
+        res.render('c-and-a/find/directed-find')
     }
     else {
         req.app.locals.errorString = ""
@@ -331,7 +291,7 @@ router.post('/search-for-provider', function (req, res) {
                 req.app.locals.pensionProviderPlural = 'pension provider'
             }
         }
-        res.render('consents/directed-find')
+        res.render('c-and-a/find/directed-find')
     }
     function filterItems(arr, query) {
       return arr.filter(function(el) {
@@ -355,7 +315,7 @@ router.post('/add-provider-to-list', function (req, res) {
         }
         req.app.locals.directedListNames = providerList
     }
-    res.render('consents/directed-find')
+    res.render('c-and-a/find/directed-find')
 
 })
 
@@ -366,7 +326,7 @@ router.post('/remove-provider/:providerName', function (req, res) {
         if (req.app.locals.directedListNames[i] == req.params.providerName)
             req.app.locals.directedListNames.splice([i],1)
     }
-    res.render('consents/directed-find')
+    res.render('c-and-a/find/directed-find')
 
 
 })
@@ -412,7 +372,7 @@ router.post('/enter-your-details', function (req, res) {
     req.app.locals.dob = '01 APR 1982'
     req.app.locals.address = '42 High Street, Reading, Berks, RG1 4WD'
 
-    res.redirect('/consents/find-all-or-directed')
+    res.redirect('/c-and-a/find/find-all-or-directed')
 
 
 })
@@ -425,7 +385,7 @@ router.post('/enter-your-details', function (req, res) {
 
 router.post('/delegate-start', function (req, res) {
     req.app.locals.delegateFirstPageLoad = true
-    res.redirect('consents/delegation/select-delegate')
+    res.redirect('c-and-a/delegation/select-delegate')
 })
 
 // search for delegate
@@ -454,7 +414,7 @@ router.post('/search-delegate', function (req, res) {
             req.app.locals.searchListDelegates = searchResults
         }
     }
-    res.render('consents/delegation/select-delegate')
+    res.render('c-and-a/delegation/select-delegate')
 
     function filterItems(arr, query) {
         return arr.filter(function(el) {
@@ -478,11 +438,11 @@ router.post('/select-delegate', function (req, res) {
         req.app.locals.delegateOrganisation = req.app.locals.delegateName.split(' '[1]) + "Associates"
     }
 
-    res.redirect('consents/delegation/delegate-duration')
+    res.redirect('c-and-a/delegation/delegate-duration')
 })
 
 // get dates to display on duration page
-router.get('/consents/delegation/delegate-duration', function (req, res) {
+router.get('/c-and-a/delegation/delegate-duration', function (req, res) {
 
     let today_date = new Date()
     let dateTomorrow = new Date()
@@ -501,7 +461,7 @@ router.get('/consents/delegation/delegate-duration', function (req, res) {
     req.app.locals.dateMonth = formatDelegateDate(dateMonth)
     req.app.locals.dateThreeMonths = formatDelegateDate(dateThreeMonths)
 
-    res.render('consents/delegation/delegate-duration')
+    res.render('c-and-a/delegation/delegate-duration')
 
     // reformat the date to make them like govuk
     function formatDelegateDate(date) {
@@ -518,7 +478,7 @@ router.post('/delegate-duration', function (req, res) {
 
     req.app.locals.delegateDurationDate = delegateDuration.substr(0,delegateDuration.indexOf('-'))
     req.app.locals.delegateDuration = delegateDuration.substr(delegateDuration.indexOf('-') +1)
-    res.redirect('consents/delegation/confirmation')
+    res.redirect('c-and-a/delegation/confirmation')
 })
 
 

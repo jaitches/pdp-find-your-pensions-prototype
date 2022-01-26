@@ -8,13 +8,13 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <h1 class="govuk-heading-xl pdp-heading-font">
+      <h1 class="govuk-heading-xl">
         Your pensions
       </h1>
       <p></p>
       {% if stateFlag %}
       <div class="pdp-pension-box-border" >
-        <h2 class="govuk-heading-l pdp-heading-with-caption pdp-heading-font">
+        <h2 class="govuk-heading-l pdp-heading-with-caption">
           State Pension
         </h2>
         <p class="govuk-caption-m">{{statePensionDetails.pensionReference}}</p>
@@ -81,7 +81,7 @@
       {% if pensionsFoundFlag %}
       {% for details in allPensionTypes %}
       <div class="pdp-pension-box-border" >
-        <h2 class="govuk-heading-l pdp-heading-with-caption pdp-heading-font">
+        <h2 class="govuk-heading-l pdp-heading-with-caption">
           {{details.pensionDescription}}
         </h2>
         <p class="govuk-caption-m">{{details.pensionReference}}</p>
