@@ -371,9 +371,12 @@ router.post('/enter-your-details', function (req, res) {
 
 // delegation start - set first page load flag so error not displayed on first visit
 
-router.post('/delegate-start', function (req, res) {
+router.get('/c-and-a/delegation/select-delegate', function (req, res) {
     req.app.locals.delegateFirstPageLoad = true
-    res.redirect('c-and-a/delegation/identity-login')
+    req.app.locals.delegateSearchValue = ""
+    req.app.locals.searchListDelegates = []
+    res.render('c-and-a/delegation/select-delegate')
+
 })
 
 // search for delegate
