@@ -5,6 +5,10 @@
   {{serviceNameDashboard}} - Your pensions
 {% endblock %}
 
+{% block beforeContent %}
+  {% include "progress-bar-view.html" %}
+{% endblock %}
+
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
@@ -33,7 +37,7 @@
         <h2 class="govuk-heading-l pdp-heading-with-caption">
           State Pension
         </h2>
-        <p class="govuk-caption-m">{{statePensionDetails.pensionReference}}</p>
+<!--        <p class="govuk-caption-m">{{statePensionDetails.pensionReference}}</p> -->
         <p> 
           A regular payment from government that you qualify for when you reach State Pension age. The amount you get depends on your National Insurance record. 
         </p>

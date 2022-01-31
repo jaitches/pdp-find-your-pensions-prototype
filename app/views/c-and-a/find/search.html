@@ -1,14 +1,18 @@
 
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %}
   {{serviceNameConsents}} - Searching for your pensions
 {% endblock %}
 
+{% block beforeContent %}
+  {% include "progress-bar-search.html" %}
+{% endblock %}
+
 {% block content %}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full-width">
       <div class="govuk-form-group">
         <div class="govuk-form-group">
           <h1 class="govuk-heading-xl">
@@ -84,8 +88,10 @@
           </ul>
           {% endif %}
 
+
+
           <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-            Confirm and return to {{serviceName}}
+            Confirm and return to {{serviceNameDashboard}}
           </a>
       </div>
     </div>

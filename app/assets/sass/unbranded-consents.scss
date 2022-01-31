@@ -22,10 +22,6 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 	  font-family: "Poppins", sans-serif !important;
 }
 
-.pdp-consents-table {
-	width:60%;
-}
-
 //header
 
 .pdp-consents-header {
@@ -83,7 +79,6 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 // button
 
 .pdp-consents-button {
-  	font-family: "Poppins", arial, sans-serif;
 	background-color: #0090FF;
 	color: white ;
 	box-shadow: 0 2px 0 #e5a044;	
@@ -104,7 +99,6 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 }
 
 .pdp-consents-button-small {
-  	font-family: "Poppins", arial, sans-serif;
   	font-size: 12px;
   	margin-bottom: 10px;
   	padding: 4px 5px 4px;

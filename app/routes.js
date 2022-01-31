@@ -229,29 +229,20 @@ router.post('/consents-all', function (req, res) {
 // directed find menu
 
 router.post('/find-all-or-directed', function (req, res) {
-    const whichFind = req.session.data['which-find']
-    switch (whichFind) {
-        case "directed-find":
-            req.app.locals.providerSearchValue = ""
-            req.app.locals.searchListNames = []
-            req.app.locals.directedFind = true
-            req.app.locals.firstPageLoad = true
-            req.app.locals.directedListNames =[]
-            req.app.locals.directedOrAll = "the pension providers you have selected"
-            res.redirect('c-and-a/find/directed-find')
-            break      
-        case "find-all":
-            req.app.locals.directedFind = false
-            req.app.locals.directedOrAll = "all UK pension providers"
-            res.redirect('c-and-a/find/search')
-            break
-    }
+    req.app.locals.directedFind = false
+    req.app.locals.directedOrAll = "all UK pension providers"
+    res.redirect('c-and-a/find/search')
 })
 
 // directed find search
 
 router.get('/c-and-a/find/directed-find', function (req, res) {
+    req.app.locals.providerSearchValue = ""
+    req.app.locals.searchListNames = []
+    req.app.locals.directedFind = true
     req.app.locals.firstPageLoad = true
+    req.app.locals.directedListNames =[]
+    req.app.locals.directedOrAll = "the pension providers you have selected"
     req.app.locals.listStarted = false
     req.app.locals.directedListNames =[]
     res.render('c-and-a/find/directed-find')

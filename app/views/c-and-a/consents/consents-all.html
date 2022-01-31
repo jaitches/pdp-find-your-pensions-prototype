@@ -1,8 +1,12 @@
 
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} Pension Finder
 {{serviceNameConsents}} - Giving consent
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "progress-bar-search.html" %}
 {% endblock %}
 
 {% block content %}

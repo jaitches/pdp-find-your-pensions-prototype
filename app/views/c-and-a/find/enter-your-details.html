@@ -1,8 +1,12 @@
 
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} Pension Finder
-  {{serviceNameConsents}} - Enter your details
+  {{serviceName}} - Enter your details
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "progress-bar-search.html" %}
 {% endblock %}
 
 {% block content %}
@@ -13,12 +17,13 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset" aria-describedby="details-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <h1 class="govuk-fieldset__heading">
+              <h1 class="govuk-heading-xl">
                 Enter your details
               </h1>
             </legend>
             <div id="details-hint" class="govuk-hint">
-              We will use these details to find your pensions.         
+              These details will only be used to find your pensions and will not be used to for any other purpose. The pension providers will not use this information to contact you.
+    
             </div>
             <h2 class="govuk-heading-m">
               Details given to us by the identity service
@@ -95,10 +100,14 @@
               </div>
               <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
                 <div id="alt-name-hint" class="govuk-hint">
-                  If you have a used a different name to register a pension enter it here.
-               
-                <input class="govuk-input govuk-input govuk-input--width-30" id="alt-name" name="alt-name" type="text">
-              </div>
+                  If you have a used a different name to register a pension enter it here.               
+                  <input class="govuk-input govuk-input govuk-input--width-30" id="alt-name" name="alt-name" type="text">
+                </div>
+                <p>
+                  <a href="#prev-address" role="button" draggable="false" class="govuk-button pdp-consents-button pdp-consents-button-small">
+                    Enter another name
+                  </a>
+                </p>
               </div>
             </div>
 
@@ -106,7 +115,7 @@
               <div class="govuk-accordion__section-header">
                 <h2 class="govuk-accordion__section-heading">
                   <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-                    Previous address
+                    Previous or alternative address
                   </span>
                 </h2>
               </div>
@@ -139,7 +148,7 @@
                 <br>
                 <p>
                   <a href="#prev-address" role="button" draggable="false" class="govuk-button pdp-consents-button pdp-consents-button-small">
-                    Enter another previous address
+                    Enter another address
                   </a>
                 </p>
 
@@ -162,13 +171,19 @@
                   <label class="govuk-label" for="prev-address-line-1">
                     Email address <span class="govuk-visually-hidden">line 1 of 2</span>
                   </label>
-                  <input class="govuk-input" id="email" name="email" type="email" spellcheck="false">
+                   <div id="event-name-hint" class="govuk-hint">
+                    Your email address will only be used to search for your pensions. It will not to be used to contact you.
+                  </div>
+                  <input class="govuk-input" id="email" name="email" type="email" spellcheck="false" aria-describedby="telephone-hint">
                 </div>
                 <div class="govuk-form-group">
                   <label class="govuk-label" for="prev-address-county">
                     UK Telephone Number
                   </label>
-                  <input class="govuk-input govuk-!-width-two-thirds" id="prev-address-county" name="prev-address-county" type="text">
+                  <div id="telephone-hint" class="govuk-hint">
+                    Your telephone number will only be used to search for your pensions. It will not to be used to contact you.
+                  </div>
+                  <input class="govuk-input govuk-!-width-two-thirds" id="prev-address-county" name="prev-address-county" type="text" aria-describedby="telephone-hint">
                 </div> 
               </div>
             </div>

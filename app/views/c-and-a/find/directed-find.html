@@ -1,8 +1,12 @@
 
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} Pension Finder
-  {{serviceNameConsents}} - Select pension providers
+  {{serviceName}} - Select pension providers
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "progress-bar-search.html" %}
 {% endblock %}
 
 {% block content %}
@@ -24,8 +28,6 @@
         <input class="govuk-input govuk-!-width-three-quarters {{errorInputClass}}" id="provider-search-value" name="provider-search-value" type="text" value="{{providerSearchValue}}">
         <p></p>
         <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Search</button>
-        <h3 class="govuk-heading-s">Forgotten your pension provider's name?</h3> 
-        <p>You might be able to find their details using the <a href="https://www.gov.uk/find-pension-contact-details" target="_blank">Find pension contact details service</a>.      
       </div>
     </form>
 
@@ -107,7 +109,7 @@
         List of pension providers to search
       </h2>
       {% if not listStarted %}
-        <p">
+        <p>
           Your list of pension providers to search will appear here.
         </p>
       {% endif %}
@@ -126,6 +128,20 @@
       </table>
   </div>
 </div>
-
+<!--  <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Choosing which pension providers to send your details to
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="pdp-consent-font">You may want to choose which pension providers to search:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>if you have a new pension and you know who the pension provider is</li>
+            <li>if you know exactly where all your pensions are held</li>
+          </ul>
+        </div>
+      </details>
+    -->
 
 {% endblock %}
