@@ -123,7 +123,7 @@ router.post('/fyp-consents', function(req,res) {
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
         req.app.locals.checkedUse = "checked"
-        res.redirect('find-your-pensions/fyp-redirect-consents')
+        res.redirect('/c-and-a/redirect-identity')
     }
 })
 

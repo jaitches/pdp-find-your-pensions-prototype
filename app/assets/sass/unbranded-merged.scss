@@ -8,12 +8,51 @@
 @import "node_modules/govuk-frontend/govuk/settings/all";
 
 // Override the default GOV.UK Frontend font stack
-$govuk-font-family: "Roobert", sans-serif;
+$govuk-font-family: "Poppins", sans-serif;
+
 
 // Override the canvas background colour, which is normally grey to blend with the GOV.UK footer.
 $govuk-canvas-background-colour: $govuk-body-background-colour;
 
 @import "application";
+
+
+// button
+
+
+.pdp-consents-button-small {
+  	font-size: 12px;
+  	margin-bottom: 10px;
+  	padding: 4px 5px 4px;
+}
+
+.pdp-consents-button:hover,
+.pdp-consents-button:link,
+.govuk-button:link {
+	background-color: #0090FF;
+	box-shadow: 0 2px 0 #e5a044;	
+}
+
+.pdp-consents-button[disabled="disabled"]:hover,
+.govuk-button[disabled]:hover {
+  background-color: #0090FF;
+  cursor: default;
+}
+.govuk-button[disabled]:visited,
+.govuk-button[disabled]:active {
+  background-color: #0090FF;
+  cursor: default;
+}
+
+// other styles
+.pdp-warning-message {
+	color : red;
+	font-weight: bold;
+}
+
+.pdpid-center {
+	text-align: center !important;
+}
 
 .body {
 	  font-family: "Roobert", sans-serif !important;
@@ -23,7 +62,7 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 	color: #0f19a0;
 }
 // button
-.pdp-button {
+.pdp-button, .pdp-consents-button {
   	font-family: "Roobert", arial, sans-serif;
 	background-color: #c82a87;
 	color: white ;
@@ -45,7 +84,9 @@ $govuk-canvas-background-colour: $govuk-body-background-colour;
 }
 
 .pdp-button:hover,
-.pdp-button:link {
+.pdp-button:link,
+.pdp-consents-button:hover,
+.pdp-consents-button:link {
 	background-color: #c82a87;
 	box-shadow: 0 2px 0 #e5a044;	
 }

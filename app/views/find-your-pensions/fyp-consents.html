@@ -5,6 +5,10 @@
 {{serviceNameDashboard}} - MoneyHelper consents
 {% endblock %}
 
+{% block beforeContent %}
+  {% include "progress-bar-start.html" %}
+{% endblock %}
+
 {% block content %}
 <!--  only come to this page if you are a guest as these consents have been moved to the create an account page-->
   <div class="govuk-grid-row">
