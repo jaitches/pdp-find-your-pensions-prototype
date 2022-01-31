@@ -13,7 +13,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
       <h1 class="govuk-heading-l">
-        You have given access to an authorised person to view your pensions
+        Give access to an authorised person to view your pensions
       </h1>
       <table class="govuk-table" style="width:60%">
         <tbody class="govuk-table__body">
@@ -39,7 +39,7 @@
         </tbody>
       </table>     
 
-      <form action="/delegation-consents" method="post" novalidate>
+      <form action="/delegation-consent" method="post" novalidate>
       
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -50,7 +50,7 @@
             <span id="consents-error" class="govuk-error-message">
               <span class="govuk-visually-hidden">Error:
               </span>
-              {{delegateconsentsErrorString}}
+              {{delegateConsentsErrorString}}
             </span>
 
             <div class="govuk-checkboxes {{errorFormClass}}" data-module="govuk-checkboxes">
@@ -62,12 +62,15 @@
               </div>
             </div>
           </fieldset>
-        </form>
         <br>
 
-        <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-        Return to MoneyHelper
-        </a>
+        <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Continue</button>
+        <p> 
+          <a class="govuk-link" href="/find-your-pensions/fyp-display-pensions" onclick="cancelDelegation()">
+            Cancel without giving {{delegateName}} access to view your pensions
+          </a>
+        </p>
+      </form>
     </div>
   </div>
   

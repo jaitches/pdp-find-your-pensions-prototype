@@ -16,3 +16,11 @@ function removeProvider() {
 	   return false;
 	}
 }
+
+function cancelDelegation() {
+	if (confirm('Do you want to cancel giving access to an authorised person?')) {
+	} 
+	else {
+	   return false;
+	}
+}

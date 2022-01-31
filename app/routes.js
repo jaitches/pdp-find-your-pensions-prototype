@@ -475,19 +475,19 @@ router.post('/delegation-consent', function (req, res) {
 
     // copy checked status from checkboxes
 
-    const delConsent = req.session.data['consents-1']
+    const delConsent = req.session.data['delegation-consent-1']
+    console.log('delConsent ' + delConsent)
 
-
-// set the error fields if not all the consents are checked
+// set the error fields if the consent is not checked
     if (delConsent == null) {
 
-        req.app.locals.consentsErrorString = "To allow someone to view your pensions you must agree to this consents"
+        req.app.locals.delegateConsentsErrorString = "You must agree to this consent to allow an authorised person access to view your pensions "
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('c-and-a/find/search')
+        res.render('c-and-a/delegation/confirmation')
     } 
     else {
-        req.app.locals.consentsErrorString = ""
+        req.app.locals.delegateConsentsErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
         res.redirect('find-your-pensions/fyp-display-pensions')
