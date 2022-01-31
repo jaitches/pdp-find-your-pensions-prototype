@@ -1,46 +1,73 @@
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} Pension Finder
   {{serviceNameConsents}} - You have given these people access to view your pensions
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "delegation-progress-bar-time.html" %}
 {% endblock %}
   
 {% block content %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
-      <form action="/delegate-duration" method="post" novalidate>  
+      <h1 class="govuk-heading-l">
+        You have given access to an authorised person to view your pensions
+      </h1>
+      <table class="govuk-table" style="width:60%">
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Name</th>
+            <td class="govuk-table__cell">{{delegateName}}</td>
+          </tr>                
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Organisation</th>
+            <td class="govuk-table__cell">{{delegateOrganisation}}</td>
+          </tr>
+          {% if delegateAddress %}
 
-        <h1 class="govuk-heading-l">
-          You have given access to an authorised person to view your pensions
-        </h1>
-        <table class="govuk-table" style="width:60%">
-          <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">Name</th>
-              <td class="govuk-table__cell">{{delegateName}}</td>
-            </tr>                
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">Organisation</th>
-              <td class="govuk-table__cell">{{delegateOrganisation}}</td>
-            </tr>
-            {% if delegateAddress %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Address</th>
+            <td class="govuk-table__cell">{{delegateAddress}}</td>
+          </tr> 
+          {% endif %}
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Date access ends</th>
+            <td class="govuk-table__cell">{{delegateDurationDate}} ({{delegateDuration}})</td>
+          </tr> 
+        </tbody>
+      </table>     
 
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">Address</th>
-              <td class="govuk-table__cell">{{delegateAddress}}</td>
-            </tr> 
-            {% endif %}
-            <tr class="govuk-table__row">
-              <th scope="row" class="govuk-table__header">Date access ends</th>
-              <td class="govuk-table__cell">{{delegateDurationDate}} ({{delegateDuration}})</td>
-            </tr> 
-          </tbody>
-        </table>     
+      <form action="/delegation-consents" method="post" novalidate>
+      
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              <h2 class="govuk-fieldset__heading">
+                To allow {{delegateName}} to view your pensions you must consent to this statement
+              </h2>
+            </legend>
+            <span id="consents-error" class="govuk-error-message">
+              <span class="govuk-visually-hidden">Error:
+              </span>
+              {{delegateconsentsErrorString}}
+            </span>
+
+            <div class="govuk-checkboxes {{errorFormClass}}" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="consents-1" name="delegation-consent-1" type="checkbox" value="share-providers" {{checkedConsent1}}>
+                <label class="govuk-label govuk-checkboxes__label" for="delegation-consent-1"  >
+                  I consent to {{delegateName}} having access to view my pensions for {{delegateDuration}}
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <br>
 
         <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
         Return to MoneyHelper
         </a>
-      </form>
     </div>
   </div>
   

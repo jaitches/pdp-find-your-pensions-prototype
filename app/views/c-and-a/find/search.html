@@ -13,7 +13,7 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
-      <div class="govuk-form-group">
+      <form action="/consents-all" method="post" novalidate>
         <div class="govuk-form-group">
           <h1 class="govuk-heading-xl">
             Searching for your pensions
@@ -87,12 +87,38 @@
           {% endfor %}
           </ul>
           {% endif %}
+          </p>  
+          <form action="/consents-all" method="post" novalidate>
+        
+            <fieldset class="govuk-fieldset">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                <h2 class="govuk-fieldset__heading">
+                  To view your pensions you must consent to this statement
+                </h2>
+              </legend>
+              <span id="consents-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:
+                </span>
+                {{consentsErrorString}}
+              </span>
 
+              <div class="govuk-checkboxes {{errorFormClass}}" data-module="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="consents-1" name="consents-1" type="checkbox" value="share-providers" {{checkedConsent1}}>
+                  <label class="govuk-label govuk-checkboxes__label" for="consents-1"  >
+                    I consent to the Money and Pensions Service storing, sharing and using my information, so that I can see my pensions
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          <br>
 
+          <p>
+            <a href="consents-help">More information about this consent</a>
+          </p>
+        <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Continue</button>
 
-          <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-            Confirm and return to {{serviceNameDashboard}}
-          </a>
       </div>
     </div>
   </div>

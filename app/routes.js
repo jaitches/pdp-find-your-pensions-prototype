@@ -201,24 +201,21 @@ router.post('/consents-all', function (req, res) {
     // copy checked status from checkboxes
 
     const consent1 = req.session.data['consents-1']
-    const consent2 = req.session.data['consents-2']
-    const consent3 = req.session.data['consents-3']
-    const consent4 = req.session.data['consents-4']
 
 
 // set the error fields if not all the consents are checked
-    if (consent1 == null || consent2 == null || consent3 == null || consent4 == null) {
+    if (consent1 == null) {
 
-        req.app.locals.consentsErrorString = "To find your pensions you must agree to all of these consents"
+        req.app.locals.consentsErrorString = "To find your pensions you must agree to this consents"
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('c-and-a/consents/consents-all')
+        res.render('c-and-a/find/search')
     } 
     else {
         req.app.locals.consentsErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
-        res.redirect('c-and-a/find/enter-your-details')
+        res.redirect('find-your-pensions/fyp-display-pensions')
     }
 
 })
@@ -376,7 +373,7 @@ router.post('/enter-your-details', function (req, res) {
 
 router.post('/delegate-start', function (req, res) {
     req.app.locals.delegateFirstPageLoad = true
-    res.redirect('c-and-a/delegation/select-delegate')
+    res.redirect('c-and-a/delegation/identity-login')
 })
 
 // search for delegate
@@ -472,6 +469,31 @@ router.post('/delegate-duration', function (req, res) {
     res.redirect('c-and-a/delegation/confirmation')
 })
 
+// delegation consent on confirmation page
+ 
+router.post('/delegation-consent', function (req, res) {
+
+    // copy checked status from checkboxes
+
+    const delConsent = req.session.data['consents-1']
+
+
+// set the error fields if not all the consents are checked
+    if (delConsent == null) {
+
+        req.app.locals.consentsErrorString = "To allow someone to view your pensions you must agree to this consents"
+        req.app.locals.errorFormClass = "govuk-form-group--error"  
+        req.app.locals.errorInputClass = "govuk-input--error" 
+        res.render('c-and-a/find/search')
+    } 
+    else {
+        req.app.locals.consentsErrorString = ""
+        req.app.locals.errorFormClass = ""
+        req.app.locals.errorInputClass = ""
+        res.redirect('find-your-pensions/fyp-display-pensions')
+    }
+
+})
 
 //
 // Find your pensions / MoneyHelper pages

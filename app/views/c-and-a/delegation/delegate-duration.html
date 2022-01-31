@@ -1,9 +1,11 @@
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} Pension Finder
   {{serviceNameConsents}} - How long do you want delegate to have access to view your pensions?
 {% endblock %}
-  
+{% block beforeContent %}
+  {% include "delegation-progress-bar-time.html" %}
+{% endblock %}
 {% block content %}
 
   <div class="govuk-grid-row">

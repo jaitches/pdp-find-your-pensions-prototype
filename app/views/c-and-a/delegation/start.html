@@ -1,10 +1,14 @@
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 
 {% block pageTitle %} Delegation
   {{serviceNameConsents}} - Giving other people access to view your pensions
 {% endblock %}
   
+{% block beforeContent %}
+  {% include "delegation-progress-bar-start.html" %}
+{% endblock %}
+
 {% block content %}
 
   <div class="govuk-grid-row">
@@ -16,7 +20,10 @@
         </h1>
 
         <p>
-          You can allow an authorised person to view your pensions:
+          You can allow an authorised person to view your pensions if they have asked you to do so.
+        </p>        
+        <p>
+          An authorised person is:
         </p>
 
         <ul class="govuk-list govuk-list--bullet">
@@ -32,37 +39,11 @@
           There is a time limit that the person will be able to view your pensions. The maximum amount of time you can give access is 3 months.
         </p>
 
-        <h2 class="govuk-heading-m">
-          ID Verification
-        </h2>
-
-        <p>
-          Before you can give other people access to view your pensions you will need to log into the ID verification service to prove who you are.
-        </p>
-
-        <h2 class="govuk-heading-m">
-          Financial advisors
-        </h2>
-
-        <p>
-          You will only be able to select financial advisors who appear on the <a href="https://register.fca.org.uk/s/" target="_blank">Financial Services Register</a>.
-        </p>
-
-        <h2 class="govuk-heading-m">
-          Money and Pension Service guiders
-        </h2>
-        <p>
-          <a href="https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise/book-a-free-pension-wise-appointment">Pension Wise</a> is a government service that offers free, impartial guidance. This service is provided by the Money and Pensions Service. To help the specialist understand your pension situation you can give them access to view your pensions.
-        </p>
-<!--
         <button class="govuk-button pdp-consents-button" data-module="govuk-button">
           Continue
-        </button>
--->
+        </button>  
 
-        <a href="/c-and-a/delegation/identity-login" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-          Continue
-        </a>
+
       </form>
     </div>
   </div>

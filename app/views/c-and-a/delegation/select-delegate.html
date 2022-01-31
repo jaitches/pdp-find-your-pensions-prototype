@@ -1,14 +1,17 @@
 
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} Pension Finder
   {{serviceNameConsents}} - Select which person can view your pensions
+{% endblock %}
+{% block beforeContent %}
+  {% include "delegation-progress-bar-who.html" %}
 {% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">  
-      <h1 class="govuk-heading-l">
+      <h1 class="govuk-heading-xl">
         Select who can view your pensions
       </h1>
     </div>
@@ -22,9 +25,6 @@
             Enter the name or reference number of the person you want to give access to view your pensions
           </label>
         </h2>
-          <div id="event-name-hint" class="govuk-hint">
-            Your financial advisor can tell you their Financial Services Register reference number.
-          </div>
         <span id="no-value-entered-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{delegateErrorString}}
         </span>
@@ -33,7 +33,6 @@
         <button type="submit" class="govuk-button pdp-consents-button" onclick="checkError()">Search</button>
       </div>
     </form>
-
 
     {% if searchListDelegates.length > 0 %}
   
@@ -76,6 +75,7 @@
       </form>
 
     {% else %}
+
       {%if not delegateFirstPageLoad %}
         <p class="govuk-heading-s">
           There are no matching results.
