@@ -985,7 +985,7 @@ router.post('/add-pension-details', function (req, res) {
         } finally {
             // Close the connection to the MongoDB cluster
             await client.close()
-            res.redirect('add-pension')
+            res.redirect('/admin/add-pension')
         }
     }
 
