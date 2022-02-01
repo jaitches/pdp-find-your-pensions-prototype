@@ -206,7 +206,7 @@ router.post('/consents-all', function (req, res) {
 // set the error fields if not all the consents are checked
     if (consent1 == null) {
 
-        req.app.locals.consentsErrorString = "To find your pensions you must agree to this consents"
+        req.app.locals.consentsErrorString = "To find your pensions you must agree to this consent"
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
         res.render('c-and-a/find/search')
