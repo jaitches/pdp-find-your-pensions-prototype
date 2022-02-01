@@ -25,7 +25,7 @@
             <div class="govuk-checkboxes" data-module="govuk-checkboxes">
               {% if not guest %}
               <div class="govuk-checkboxes__item">
-                <input class="govuk-checkboxes__input" id="consent-to-store" name="consent-to-store" type="checkbox" value="consent-to-store" {{checkedStore}}>
+                <input class="govuk-checkboxes__input" id="consent-to-store" name="consent-to-store" type="checkbox" value="consent-to-store">
                 <label class="govuk-label govuk-checkboxes__label" for="consent-to-store">
                   I consent to MoneyHelper storing information about my pension providers.
                 </label>
@@ -39,7 +39,7 @@
                   <span class="govuk-visually-hidden">Error:</span> {{dashboardConsentErrorString}}
                 </span>              
                 <div class="govuk-checkboxes__item">
-                  <input class="govuk-checkboxes__input" id="consent-to-use" name="consent-to-use" type="checkbox" value="consent-to-use" {{checkedUse}}>
+                  <input class="govuk-checkboxes__input" id="consent-to-use" name="consent-to-use" type="checkbox" value="consent-to-use" >
                   <label class="govuk-label govuk-checkboxes__label" for="consent-to-use">
                     I consent to MoneyHelper contacting my pension providers to ask for my pension details.
                   </label>

@@ -115,14 +115,14 @@ router.post('/fyp-consents', function(req,res) {
         req.app.locals.dashboardConsentErrorString = "To find your pensions you must agree to this consent"
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        req.app.locals.checkedUse = "" 
+//        req.app.locals.checkedUse = "" 
         res.render('find-your-pensions/fyp-consents')
     } 
     else {
         req.app.locals.dashboardConsentErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
-        req.app.locals.checkedUse = "checked"
+//        req.app.locals.checkedUse = "checked"
         res.redirect('/c-and-a/redirect-identity')
     }
 })
