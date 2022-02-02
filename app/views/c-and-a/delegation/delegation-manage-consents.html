@@ -1,0 +1,65 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %} Pension Finder
+  {{serviceName}} - Select pension providers
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "delegation-progress-bar-who.html" %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">  
+      <h1 class="govuk-heading-l">
+        Which pensions do you want {{delegateName}} to have access to view?
+      </h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form action="/delegation-consents" method="post" novalidate> 
+      <div class="govuk-form-group {{errorFormClass}}" id="form-group">
+        <span id="no-value-entered-error" class="govuk-error-message">
+          <span class="govuk-visually-hidden">Error:</span> {{errorString}}
+        </span>
+        </h2>
+
+      {% if pensionIdentifiers.length > 0 %}
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="provider-hint">
+            <p>
+              You can choose which pensions {{delegateName}} has access to view.
+            <div id="provider-hint" class="govuk-hint">
+              Select all that apply.
+            </div>
+            {% for details in pensionIdentifiers %}
+            <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+              <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="pei-list" name="pei-list" type="checkbox" value="{{details}}">
+                <label class="govuk-label govuk-checkboxes__label" for="pei-list">
+                  {{details}}
+                </label>
+              </div>
+            </div>
+            {% endfor %}
+          </fieldset>
+        </div>
+        {% else %}
+        <p>
+          You have not authorised anyone to view your pensions
+        </p>
+
+        {% endif %}        <br>
+        <a href="delegate-duration" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+        Continue
+        </a>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

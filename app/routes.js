@@ -429,7 +429,7 @@ router.post('/select-delegate', function (req, res) {
         req.app.locals.delegateOrganisation = req.app.locals.delegateName.split(' '[1]) + "Associates"
     }
 
-    res.redirect('c-and-a/delegation/delegate-duration')
+    res.redirect('c-and-a/delegation/delegation-manage-consents')
 })
 
 // get dates to display on duration page
@@ -469,7 +469,7 @@ router.post('/delegate-duration', function (req, res) {
 
     req.app.locals.delegateDurationDate = delegateDuration.substr(0,delegateDuration.indexOf('-'))
     req.app.locals.delegateDuration = delegateDuration.substr(delegateDuration.indexOf('-') +1)
-    res.redirect('c-and-a/delegation/confirmation')
+    res.redirect('c-and-a/delegation/consent')
 })
 
 // delegation consent on confirmation page
@@ -487,13 +487,13 @@ router.post('/delegation-consent', function (req, res) {
         req.app.locals.delegateConsentsErrorString = "You must agree to this consent to allow an authorised person access to view your pensions "
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('c-and-a/delegation/confirmation')
+        res.render('c-and-a/delegation/consent')
     } 
     else {
         req.app.locals.delegateConsentsErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
-        res.redirect('find-your-pensions/fyp-display-pensions')
+        res.redirect('c-and-a/delegation/confirm')
     }
 
 })
@@ -529,11 +529,13 @@ router.get('/find-your-pensions/fyp-display-pensions', function (req, res) {
 
             pensionDetailsAll = await getAllPensions(client, participantNumber)
               
+            req.app.locals.pensionIdentifiers = []
             // split into state and other pensions
 
             for (i=0; i < pensionDetailsAll.length; i++) {
+                // save the pension name into the pension identifier list PeIs
+                req.app.locals.pensionIdentifiers.push(pensionDetailsAll[i].pensionDescription)
             // convert dates to string and display as dd mon yyyy
-            console.log('id ' + pensionDetailsAll[i]._id)
                 let employmentStartDateString = ""
                 let employmentEndDateString = ""
                 let accruedCalculationDateString = ""

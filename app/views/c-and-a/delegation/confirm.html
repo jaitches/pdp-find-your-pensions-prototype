@@ -1,0 +1,45 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %} Delegation
+  {{serviceNameConsents}} - Giving other people access to view your pensions
+{% endblock %}
+  
+{% block beforeContent %}
+  {% include "delegation-progress-bar-confirm.html" %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <form action="/delegate-start" method="post" novalidate>  
+
+        <h1 class="govuk-heading-l">
+          Access to view your pensions
+        </h1>
+
+        <p>
+          People you have authorised to view your pensions.
+        </p>
+        <table class="govuk-table">
+          <tr class="govuk-table__row govuk-body-s" >
+            <td class="govuk-table__cell">{{delegateName}}</td>
+            <td class="govuk-table__cell">{{delegateOrganisation}}</td>
+          </tr>
+        </table>
+
+        <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+        Continue
+        </a>
+
+        <p>
+          To remove access you can <a href="withdraw-consent">withdraw your consent</a>
+        </p>
+
+
+      </form>
+    </div>
+  </div>
+  
+{% endblock %}
