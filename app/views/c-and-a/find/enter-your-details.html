@@ -18,11 +18,11 @@
           <fieldset class="govuk-fieldset" aria-describedby="details-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
               <h1 class="govuk-heading-l">
-                Enter your details
+                Help us find your pensions
               </h1>
             </legend>
             <div id="details-hint" class="govuk-hint">
-              These details will only be used to find your pensions and will not be used to for any other purpose. The pension providers will not use this information to contact you.
+              These details will only be used to help find pensions that match the information you enter. The pension providers will not use this information to contact you or for any other reason.
     
             </div>
             <h2 class="govuk-heading-m">
@@ -83,10 +83,10 @@
             <input class="govuk-input govuk-input govuk-input--width-10" id="ni-number" name="ni-number" type="text">
           </div> 
           <h2 class="govuk-heading-m">
-              Enter more information to find your pensions
+              Enter more information to find a match with your pensions
           </h2>
           <div id="details-hint" class="govuk-hint">
-            These additional details could also help us find your pensions.
+            These additional details could also help us find your pensions. If you think you've registered a pension with different details please enter them below
           </div>
 
           <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
@@ -100,7 +100,7 @@
               </div>
               <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
                 <div id="alt-name-hint" class="govuk-hint">
-                  If you have a used a different name to register a pension enter it here.               
+                  If you have used a different name to register a pension enter it here.               
                   <input class="govuk-input govuk-input govuk-input--width-30" id="alt-name" name="alt-name" type="text">
                 </div>
                 <p>
@@ -120,7 +120,7 @@
                 </h2>
               </div>
               <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-                <p class='govuk-body'>If you have a used a different address to register a pension enter it here.</p>
+                <p class='govuk-body'>If you have used a different address to register a pension enter it here.</p>
                 <div class="govuk-form-group">
                   <label class="govuk-label" for="prev-address-line-1">
                     Building and street <span class="govuk-visually-hidden">line 1 of 2</span>
@@ -145,6 +145,14 @@
                   </label>
                   <input class="govuk-input govuk-!-width-two-thirds" id="prev-address-county" name="prev-address-county" type="text">
                 </div> 
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="prev-address-postcode">
+                    Postcode
+                  </label>
+                  <input class="govuk-input govuk-input--width-10" id="prev-address-postcode" name="prev-address-postcode" type="text" autocomplete="postal-code">
+                </div>
+
+
                 <br>
                 <p>
                   <a href="#prev-address" role="button" draggable="false" class="govuk-button pdp-consents-button pdp-consents-button-small">
@@ -166,7 +174,7 @@
               <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
                 <div class="govuk-form-group">
                   <p>
-                    These details will only be used to find your pensions and will not be used to contact you.
+                    These details will only be used to find a match with your pensions and will not be used to contact you.
                   </p>
                   <label class="govuk-label" for="prev-address-line-1">
                     Email address <span class="govuk-visually-hidden">line 1 of 2</span>
