@@ -1,5 +1,5 @@
 
-{% extends "layout_unbranded.html" %}
+{% extends "layout_canda.html" %}
 
 {% block pageTitle %} Pension Finder
   {{serviceName}} - Select pension providers
@@ -24,7 +24,6 @@
         <span id="no-value-entered-error" class="govuk-error-message">
           <span class="govuk-visually-hidden">Error:</span> {{errorString}}
         </span>
-        </h2>
 
       {% if pensionIdentifiers.length > 0 %}
         <div class="govuk-form-group">
@@ -52,7 +51,7 @@
         </p>
 
         {% endif %}        <br>
-        <a href="delegate-duration" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+        <a href="delegate-duration" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
         Continue
         </a>
 

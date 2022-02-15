@@ -193,8 +193,9 @@ router.get('/c-and-a/consents/individual-consents', function (req, res) {
     }
 
 }) 
-
+/*
 // consents page Pension Finder
+// moved to the confirmation page
  
 router.post('/consents-all', function (req, res) {
 
@@ -219,6 +220,8 @@ router.post('/consents-all', function (req, res) {
     }
 
 })
+*/
+
 //
 // directed find
 //
@@ -360,8 +363,7 @@ router.post('/enter-your-details', function (req, res) {
     req.app.locals.dob = '01 APR 1982'
     req.app.locals.address = '42 High Street, Reading, Berks, RG1 4WD'
 
-    res.redirect('/c-and-a/find/find-all-or-directed')
-
+    res.redirect('/c-and-a/find/search')
 
 })
 

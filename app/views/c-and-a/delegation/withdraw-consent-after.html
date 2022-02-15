@@ -1,4 +1,4 @@
-{% extends "layout_unbranded.html" %}
+{% extends "layout_canda.html" %}
 
 
 {% block pageTitle %} Delegation
@@ -22,11 +22,11 @@
         <tr class="govuk-table__row" >
           <td class="govuk-table__cell">{{delegateName}}</td>
           <td class="govuk-table__cell"> until {{delegateDurationDate}}</td>
-          <td class="govuk"><button class="govuk-button pdp-consents-button-warning">Remove access</button></td>
+          <td class="govuk"><button class="govuk-button--warning">Remove access</button></td>
         </tr>
       </table>       
 
-      <a href="confirm" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+      <a href="confirm" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
       Return
       </a>
     </div>

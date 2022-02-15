@@ -1,0 +1,57 @@
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %} 
+{{serviceNameDashboard}} - MoneyHelper consents
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "progress-bar-start.html" %}
+{% endblock %}
+
+{% block content %}
+<!--  only come to this page if you are a guest as these consents have been moved to the create an account page-->
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form action="/fyp-consents-all" method="post" novalidate>
+        <h1 class="govuk-heading-l">
+          We need your consent to find your pensions
+        </h1>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+              <div class="{{errorFormClass}}">
+                <span id="dashboard-consent-error" class="govuk-error-message">
+                  <span class="govuk-visually-hidden">Error:</span> {{dashboardConsentErrorString}}
+                </span>  
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="consent-1" name="consent-1" type="checkbox">
+                  <label class="govuk-label govuk-checkboxes__label" for="consent-1">
+                    I consent to MoneyHelper storing and using information about my pension providers 
+                  </label>
+                  <div id="nationality-item-hint" class="govuk-hint govuk-checkboxes__hint">
+                    <a href="fyp-consent-help-dashboard">More information about this consent</a>
+                  </div>
+                </div>
+                          
+                <div class="govuk-checkboxes__item">
+                  <input class="govuk-checkboxes__input" id="consent-2" name="consent-2" type="checkbox">
+                  <label class="govuk-label govuk-checkboxes__label" for="consent-2">
+                    I consent to the Money and Pensions Service storing, sharing and using my information, so that I can see my pensions
+                  </label>
+                  <div id="consent-2-hint" class="govuk-hint govuk-checkboxes__hint">
+                    <a href="fyp-consent-help-dashboard">More information about this consent</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+       <button type="submit" class="govuk-button pdp-button" onclick="checkError()">Continue</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
