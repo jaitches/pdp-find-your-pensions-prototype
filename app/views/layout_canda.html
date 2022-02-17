@@ -10,6 +10,21 @@
   {% endfor %}
 {% endblock %}
 
+{% block header %}
+  {# Set serviceName in config.js. #}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceName: serviceName,
+    serviceUrl: "/",
+    containerClasses: "govuk-width-container"
+  }) }}
+  <div class="govuk-header__container govuk-width-container pdp-header-no-border">
+    <a href="https://www.moneyhelper.org.uk/en"><img src="/public/images/mh-logo.jpeg" alt="Money Helper logo" class="pdp-consents-footer-img" width="15%">
+    </a>
+  </div>
+
+{% endblock %}
+
 
 {% block bodyEnd %}
   {% block scripts %}

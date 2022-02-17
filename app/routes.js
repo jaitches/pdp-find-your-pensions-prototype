@@ -116,7 +116,7 @@ router.post('/fyp-consents', function(req,res) {
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
 //        req.app.locals.checkedUse = "" 
-        res.render('find-your-pensions/fyp-consents')
+        res.redirect('find-your-pensions/fyp-consents')
     } 
     else {
         req.app.locals.dashboardConsentErrorString = ""
@@ -193,11 +193,11 @@ router.get('/c-and-a/consents/individual-consents', function (req, res) {
     }
 
 }) 
-/*
+
 // consents page Pension Finder
 // moved to the confirmation page
  
-router.post('/consents-all', function (req, res) {
+router.post('/confirm-search', function (req, res) {
 
     // copy checked status from checkboxes
 
@@ -210,7 +210,7 @@ router.post('/consents-all', function (req, res) {
         req.app.locals.consentsErrorString = "To find your pensions you must agree to this consent"
         req.app.locals.errorFormClass = "govuk-form-group--error"  
         req.app.locals.errorInputClass = "govuk-input--error" 
-        res.render('c-and-a/find/search')
+        res.redirect('c-and-a/find/search')
     } 
     else {
         req.app.locals.consentsErrorString = ""
@@ -220,7 +220,7 @@ router.post('/consents-all', function (req, res) {
     }
 
 })
-*/
+
 
 //
 // directed find

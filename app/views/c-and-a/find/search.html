@@ -13,13 +13,15 @@
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
-      <form action="/consents-all" method="post" novalidate>
+      <form action="/confirm-search" method="post" novalidate>
         <div class="govuk-form-group">
           <h1 class="govuk-heading-l">
             Searching for your pensions
           </h1>
 
           <p class="govuk-body">To search for your pensions we will send the following information to {{directedOrAll}}:</p>
+
+          <p class="govuk-body">To search for your pensions we will send the following information to UK pension providers:</p>
           <table class="govuk-table">
             <tbody class="govuk-table__body">
               <tr class="govuk-table__row">
@@ -102,7 +104,7 @@
                 <div class="govuk-checkboxes__item">
                   <input class="govuk-checkboxes__input" id="consents-1" name="consents-1" type="checkbox" value="share-providers">
                   <label class="govuk-label govuk-checkboxes__label" for="consents-1">
-                    I consent to the Money and Pensions Service storing, sharing and using my information, so that I can see my pensions
+                    I consent to the Money and Pensions Service storing, sharing and using my information, so that I can see my pensions.
                   </label>
                 </div>
               </div>

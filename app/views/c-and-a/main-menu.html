@@ -1,5 +1,5 @@
 
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_canda.html" %}
 
 {% block pageTitle %}
   {{serviceName}} - What do you want to do?
@@ -25,7 +25,7 @@
               value: "find",
               text: "Find your pensions",
               hint: {
-                text: "You may want to search for your pensions again e.g. if you have started a new job or opened a new private pension."
+                text: "Search for your pensions again e.g. if you have started a new job or opened a new private pension."
               }
             },
             {
@@ -35,6 +35,13 @@
             {
               value: "manage-consents",
               text: "Change which organisations can display your pensions"
+            },
+            {
+              value: "delete-user",
+              text: "Remove all your information that we hold in this service",
+              hint: {
+                text: "This will delete all the information we hold about you e.g. which pensions you have."
+              }
             }
           ]
         }) }}

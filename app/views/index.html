@@ -1,83 +1,36 @@
-
-{% extends "layout_unbranded_admin.html" %}
+{% extends "layout_unbranded.html" %}
 
 {% block pageTitle %}
-  GOV.UK Prototype Kit
+  {{serviceNameDashboard}}
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "progress-bar-start.html" %}
 {% endblock %}
 
 {% block content %}
-
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <form action="/prototype-or-admin" method="post" novalidate>
+    <div class="govuk-grid-column-full-width">
+      <h1 class="govuk-heading-l">
+        {{serviceNameDashboard}}
+      </h1>
+     
+      <p>Use this service to:</p>
 
-          {{ govukRadios({
-            idPrefix: "which-start",
-            name: "which-start",
-            fieldset: {
-              legend: {                
-                text: "What do you want to do?",
+      <ul class="govuk-list govuk-list--bullet">
+        <li>see all of your pensions in one place</li>        
+        <li>find pensions that you may have lost touch with</li>
+        <li>find contact information for your pension providers</li>      
+      </ul>
 
-                isPageHeading: true,
-                classes: "govuk-fieldset__legend--l"
-              }
-            },
-
-            items: [
-              {
-
-                value: "consumer-prototype",
-                text: "Consumer prototype - consent to delegate access"
-              },
-              {
-                value: "delegate-prototype",
-                text: "Delegate prototype - view client information"
-              },
-              {
-                value: "admin",
-                text: "Manage pension details for a participant"
-              }
-            ]
-          }) }}
-
-          {{ govukButton({
-            text: "Continue"
-          }) }}
-
-      </form>
-    </div>
-    <div class="govuk-grid-column-one-third">
-      <h2 class="govuk-heading-m">
-        Participant number
-      </h2>
+      <a href="/find-your-pensions/fyp-consents" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+        Start now
+      </a>
       <p>
-        {{participantNumber}}
+        This service is backed by the UK Government and provided by the <a href="https://moneyandpensionsservice.org.uk" target="_blank">Money and Pensions Service</a>.
       </p>
-      <h2 class="govuk-heading-m">
-        Database
-      </h2>
-      <p> 
-        {{pensionsDatabase}}
-      </p>
+
     </div>
   </div>
 
 {% endblock %}
-
-  {% block footer %}
-    {{ govukFooter({
-      meta: {
-        items: [
-          {
-            href: "https://govuk-prototype-kit.herokuapp.com/",
-            text: "GOV.UK Prototype Kit " + releaseVersion
-          },
-          {
-            href: "/prototype-admin/clear-data",
-            text: "Clear data"
-          }
-        ],
-        visuallyHiddenTitle: "Footer links"
-      }
-    }) }}
-  {% endblock %}
