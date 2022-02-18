@@ -1,0 +1,41 @@
+{% extends "layout_canda.html" %}
+
+{% block pageTitle %}
+  {{serviceNameDashboard}} - Verify your identity
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "progress-bar-identity.html" %}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <h1 class="govuk-heading-l">
+        Remove your details
+      </h1>
+ 
+      <p>
+        We hold the following information about you on this service:
+      </p>      
+      <ul class="govuk-list govuk-list--bullet">
+        <li>a list of your pension schemes</li>
+      </ul>
+
+      <p>
+        You can delete all the records we hold about you and you pensions.
+      </p>
+
+      <p>
+        If you delete your details you can use the service again but you will need to search for all your pensions again.
+      </p>
+
+      <a href="main-menu" role="button" draggable="false" class="govuk-button govuk-button--warning" data-module="govuk-button">
+        Delete 
+      </a>      
+      <a href="main-menu" role="button" draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        Return 
+      </a>
+    </div>
+  </div>
+{% endblock %}

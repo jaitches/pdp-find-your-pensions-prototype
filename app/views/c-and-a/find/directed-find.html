@@ -1,5 +1,5 @@
 
-{% extends "layout_unbranded.html" %}
+{% extends "layout_canda.html" %}
 
 {% block pageTitle %} Pension Finder
   {{serviceName}} - Select pension providers
@@ -13,12 +13,12 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">  
       <h1 class="govuk-heading-l">
-        Enter the name of your pension provider
+        Enter the name of your pension
       </h1>
     </div>
   </div>
   <p>
-    If you don't know the names of all your pension providers you <a href="find-all-or-directed">should seach all of your pensions</a>
+    If you don't know the names of your pensions you can <a href="find-all-or-directed">search all pensions</a>
   </p>
   <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
@@ -62,7 +62,7 @@
           </fieldset>
         </div>
         <button class="govuk-button pdp-consents-button" data-module="govuk-button">
-          Add providers
+          Add pensions
         </button>
       </form>
       <p>
@@ -91,7 +91,7 @@
         </ul>
       {% endif %}
       <p>
-        When you have added all your pension providers to the list we will send your details to them so they can confirm that you have a pension with them.
+        When you have added your pensions to the list we will send your details to them so they can confirm that you have a pension with them.
       </p>
       {% if directedListNames|length > 0 %}
         <a href="/c-and-a/find/search" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
@@ -113,7 +113,7 @@
       </h2>
       {% if not listStarted %}
         <p>
-          Your list of pension providers to search will appear here.
+          Your list of pension to search for will appear here.
         </p>
       {% endif %}
 
@@ -123,7 +123,7 @@
           <td class="govuk-table__cell">{{details}}</td>
           <td class="govuk-table__cell">
               <form action="/remove-provider/{{details}}" method="post" class="form">
-               <button class="govuk-button pdp-consents-button-warning" onclick="removeProvider()" data-module="govuk-button">Remove</button>
+               <button class="govuk-button govuk-button--warning pdp-consents-button-warning" onclick="removeProvider()" data-module="govuk-button">Remove</button>
              </form>
           </td>
         </tr>

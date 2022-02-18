@@ -1,70 +1,47 @@
-{% extends "layout_unbranded_consents.html" %}
+{% extends "layout_canda.html" %}
 
 {% block pageTitle %}
 {{serviceNameConsents}} - Manage access to pensions
 {% endblock %}
 
 {% block content %}
-<!-- Write your comments here 
-<div class="govuk-form-group govuk-form-group--error"> 
-  <fieldset class="govuk-fieldset" aria-describedby="pension-hint pension-error">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <h1 class="govuk-fieldset__heading">
-        Manage access to pensions
-      </h1>
-    </legend>
-    <div id="pension-hint" class="govuk-hint">
-      Manage your preferences for which dashboard providers can access your pension information
-    </div>
-    <span id="pension-error" class="govuk-error-message">
-      <span class="govuk-visually-hidden">Error:</span> Select which dashboard provider can access your pensions or select option none
-    </span>
-  -->
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full-width">
       <form action="/manage-pension-access" method="post" novalidate>
         <div class="govuk-form-group">
           <h1 class="govuk-heading-l pdp-consent-heading-font">
-            Manage access to pensions
+            Select which organisations can display your pensions
           </h1>
-          <p class="pdp-consent-font">
-            Manage your preferences for which dashboard providers can access your pension information
+          <p>
+            These organisations store information about your pensions so that you can view them on their webistes. If you  remove an organisation you will not be able to see your pensions on their website.
           </p>    
+          <p>
+            Untick the box against an organisation to remove their access to your pension provider information.
+          </p>
           
-    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="pension-1" name="pension-1" type="checkbox" value="pension-1" aria-describedby="pension-item-hint">
-        <label class="govuk-label govuk-checkboxes__label" for="pension">
-          MoneyHelper
-        </label>
-        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
-          I consent to MoneyHelper having access to my pensions. <a href="individual-consents?dashboard=MoneyHelper">You can select which of your pensions MoneyHelper can display</a>
-        </div>
-      </div>
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="pension-2" name="pension-2" type="checkbox" value="pension-2">
-        <label class="govuk-label govuk-checkboxes__label" for="pension-2">
-          Aviva
-        </label>
-        <div id="pension-item-hint" class="govuk-hint govuk-checkboxes__hint">
-          I consent to MoneyHelper having access to my pensions. <a href="individual-consents?dashboard=Aviva">You can select which of your pensions Aviva can display</a>
-        </div>
-      </div>
-      
-    
-        </div>
-      </div>
-    </div>
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="pension-1" name="pension-1" type="checkbox" value="pension-1" checked>
+              <label class="govuk-label govuk-checkboxes__label" for="pension">
+                MoneyHelper
+              </label>
+            </div>
 
-  </fieldset>
-</div>  
-
-
-  <a href="/find-your-pensions/fyp-display-pensions" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
-  Confirm and return to MoneyHelper
-  </a>
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="pension-2" name="pension-2" type="checkbox" value="pension-2" checked>
+              <label class="govuk-label govuk-checkboxes__label" for="pension-2">
+                Aviva
+              </label>
+            </div> 
+            <br/>
+            <a href="/c-and-a/main-menu" role="button" draggable="false" class="govuk-button pdp-consents-button" data-module="govuk-button">
+            Confirm
+            </a>
+          </div>
+        </div>
       </form>
     </div>
-  </div>
+  </div> 
 
 {% endblock %}

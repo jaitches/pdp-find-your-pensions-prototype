@@ -5,13 +5,14 @@
   {{serviceName}} - Search pension providers
 {% endblock %}
 {% block beforeContent %}
-
   {% include "progress-bar-search.html" %}
 {% endblock %}
 
 {% block content %}
 
+
   <div class="govuk-grid-row">
+
     <div class="govuk-grid-column-two-thirds">
       <form action="/find-all-or-directed" method="post" class="form">
         <h1 class="govuk-heading-l">
@@ -19,18 +20,26 @@
         </h1>
 
         <p>
-          To search for your pensions we send the information you have given us to UK pension providers to find any matching records.
+          To search for your pensions we send the information you have given us to all UK pension providers to find any matching records.
         </p>
 
-        <button class="govuk-button pdp-consents-button" data-module="govuk-button">
-          Search
-        </button>
-
         <p>
-          If you already know the names of all of your pensions or you have a new pension to add to your list of pensions to display you can <a href="directed-find">enter the details</a> to search for your pensions with them.
+          If you know the name of a new pension to add to your list of pensions to display you can <a href="directed-find">enter the details</a> to search for those pensions.
         </p>
      </form>
     </div>
+    <div class="govuk-grid-column-one-third">
+      <h2 class="govuk-heading-s">
+        These are your pensions we have already found:
+      </h2>
+
+      {% for details in foundPensions %}
+        <p class="govuk-body-s">
+          {{details}}
+        </p>
+      {% endfor %}
+  </div>
+
   </div>
 
 {% endblock %}

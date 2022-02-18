@@ -70,6 +70,10 @@ const penAccrAmtType = [
 
 // display which participant and database is being used
 router.get('/', function (req,res) {
+    // set messages for directed find / search all to be search all until a directed find is performed
+    req.app.locals.directedOrAll = "all pension providers"
+    req.app.locals.sourceMenu = false
+
     req.app.locals.participantNumber = process.env.PARTICIPANT_NUMBER
     if (process.env.PENSIONS_DB == "pdp-test") {
         req.app.locals.pensionsDatabase = "Test"
@@ -78,6 +82,7 @@ router.get('/', function (req,res) {
         req.app.locals.pensionsDatabase = "Live prototype"
     }
     res.render('index')
+
 })
 
 
@@ -136,11 +141,12 @@ router.post('/fyp-consents', function(req,res) {
 //
 
 // main menu 
-router.post('/consents-menu', function (req,res) {
+router.post('/canda-menu', function (req,res) {
     const consentMenu = req.session.data['consent-menu']
+    req.app.locals.sourceMenu = true
     switch (consentMenu) {
         case "find":
-            res.redirect('c-and-a/find/find-all-or-directed')
+            res.redirect('identity/identity-login')
             break      
         case "delegation":
             res.redirect('c-and-a/delegation/start')
@@ -148,6 +154,10 @@ router.post('/consents-menu', function (req,res) {
         case "manage-consents":
             res.redirect('c-and-a/consents/manage-consents')
             break
+        case "delete-user":
+            res.redirect('c-and-a/delete-user')
+            break
+
     }
 })
 
@@ -166,7 +176,7 @@ router.get('/c-and-a/consents/individual-consents', function (req, res) {
             await client.connect()
 
                 pensionDetailsAll = await getAllPensions(client, participantNumber)
-                req.app.locals.pensionIdentifiers=pensionDetailsAll
+                req.app.locals.pensionIdentifiers = pensionDetailsAll
             
             }            
 
@@ -198,11 +208,7 @@ router.get('/c-and-a/consents/individual-consents', function (req, res) {
 // moved to the confirmation page
  
 router.post('/confirm-search', function (req, res) {
-
-    // copy checked status from checkboxes
-
     const consent1 = req.session.data['consents-1']
-
 
 // set the error fields if not all the consents are checked
     if (consent1 == null) {
@@ -216,7 +222,55 @@ router.post('/confirm-search', function (req, res) {
         req.app.locals.consentsErrorString = ""
         req.app.locals.errorFormClass = ""
         req.app.locals.errorInputClass = ""
-        res.redirect('find-your-pensions/fyp-display-pensions')
+        if (req.app.locals.sourceMenu == true) {
+            res.redirect('/c-and-a/main-menu')
+        }
+        else {
+            res.redirect('find-your-pensions/fyp-display-pensions')
+        }
+    }
+
+})
+
+// search
+
+router.get('/c-and-a/find/find-all-or-directed', function (req, res) {
+    req.app.locals.foundPensions = []
+
+    async function findPensionsByOwner() {
+    let participantNumber = process.env.PARTICIPANT_NUMBER    
+
+        const client = new MongoClient(uri)
+        try {
+            // Connect to the MongoDB cluster
+            await client.connect()
+
+                pensionDetailsAll = await getAllPensions(client, participantNumber)
+                for (i=0; i < pensionDetailsAll.length; i++) {
+                    // save the pension name into the pension identifier list PeIs
+                    req.app.locals.foundPensions.push(pensionDetailsAll[i].pensionDescription)
+                }
+            }            
+
+        finally {
+            // Close the connection to the MongoDB cluster
+            console.log('req.app.locals.foundPensions ' +req.app.locals.foundPensions)
+            await client.close()
+            res.render('./c-and-a/find/find-all-or-directed')
+        }
+    }
+    findPensionsByOwner () .catch(console.error)  
+   
+
+   
+    async function getAllPensions(client, pptNumber) {
+        const results = await client.db(dataBaseName).collection("pensionDetails")
+        // find all documents
+        .find({pensionOwnerType: "M", pensionParticipant :  pptNumber})
+        // save them to an array
+        .sort({pensionName: 1})        
+        .toArray()
+        return results
     }
 
 })
@@ -363,8 +417,12 @@ router.post('/enter-your-details', function (req, res) {
     req.app.locals.dob = '01 APR 1982'
     req.app.locals.address = '42 High Street, Reading, Berks, RG1 4WD'
 
-    res.redirect('/c-and-a/find/search')
-
+    if (req.app.locals.sourceMenu == true) {
+        res.redirect('/c-and-a/find/find-all-or-directed')
+    }
+    else {
+        res.redirect('/c-and-a/find/search')
+    }
 })
 
 //
@@ -476,7 +534,7 @@ router.post('/delegate-duration', function (req, res) {
 
 // delegation consent on confirmation page
  
-router.post('/delegation-consent', function (req, res) {
+router.post('/delegate-consent', function (req, res) {
 
     // copy checked status from checkboxes
 
@@ -498,6 +556,15 @@ router.post('/delegation-consent', function (req, res) {
         res.redirect('c-and-a/delegation/confirm')
     }
 
+})
+
+router.post('/delegate-confirm', function (req, res) {
+    if (req.app.locals.sourceMenu == true) {
+        res.redirect('/c-and-a/main-menu')
+    }
+    else {
+        res.redirect('/find-your-pensions/fyp-display-pensions')
+    }
 })
 
 //
