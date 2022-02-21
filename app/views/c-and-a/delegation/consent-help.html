@@ -1,5 +1,5 @@
 
-{% extends "layout_unbranded.html" %}
+{% extends "layout_canda.html" %}
 
 {% block pageTitle %}
   {{serviceNameConsents}} - Searching for your pensions
@@ -16,7 +16,7 @@
       <form action="/consents-all" method="post" novalidate>
         <div class="govuk-form-group">
           <h1 class="govuk-heading-l">
-            Consenting to an authorised person viewing your pension information
+            Consenting to storing, sharing and using your data
           </h1>
           <h2 class="govuk-heading-m">
             Who we are?
@@ -42,41 +42,18 @@
           <p>
             Consent is a necessary part of using digital services where data sharing is required (you may have seen it with cookies). In order to keep your information secure and keep you in control of its usage we have a number of consents you can agree or disagree to. Please note that if you disagree to some consents you will not be able to access some functionalities of the service.
           </p>
-
           <h2 class="govuk-heading-m">
-            Consent to MoneyHelper storing information about my pension providers
+            Consent to an authorised person having access to view your pensions
           </h2>
           <p>
-            If you agree to this, MoneyHelper can store your information and preferences. This means when you access your account after your first search they will be able to retrieve the pension information you have already searched for automatically (also displaying any updated value information).
-          </p>
-          <p>
-            If you do not agree to this consent, when you next access your account, after your first login, you will have to go through the entire process of searching for your pensions again.
-          </p>
-          <p>
-            The information stored by agreeing to this consent is:
-          </p>
-          <ul class="govuk-list govuk-list--bullet">
-            <li>information about your pensions</li>
-            <li>consent expiry information</li>
-          </ul>
-          <p>
-            This consent will expire after eighteen months when you will be asked to consent again.
+            If you agree to this, the authorised person will be able to view your pensions via a software provider for the period of time you have said. They will only be able to see the pensions that you selected.,
           </p>
 
-          <h2 class="govuk-heading-m">
-            Consent to MoneyHelper contacting my pension providers to ask for my pension details
-          </h2>
           <p>
-            If you agree to this, MoneyHelper will contact your pension providers to ask for the information about your pensions to dispay.
+            If you do not agree to this, the Money and Pensions Service will not allow the authorised person you selected access to view your pensions.
           </p>
-          <p>
-            The information shared with pension providers is encrypted and is never used for contact or marketing purposes.
-          </p>
-          <p>
-            If you do not agree to this, MoneyHelper cannot contact your pensions providers and you will not be able to use the service.
-          </p> 
 
-          <a href="fyp-consents" role="button" draggable="false" class="govuk-button pdp-button" data-module="govuk-button">
+          <a href="consent" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
             Return
           </a>
       </div>

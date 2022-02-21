@@ -1,0 +1,233 @@
+
+{% extends "layout_canda.html" %}
+
+{% block pageTitle %}
+  {{serviceNameConsents}} - Privacy notice
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "progress-bar-search.html" %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full-width">
+      <form action="/consents-all" method="post" novalidate>
+        <div class="govuk-form-group">
+          <h1 class="govuk-heading-l">
+
+            Consenting to storing, sharing and using your data
+          </h1>
+          <h2 class="govuk-heading-m">
+            Who we are?
+          </h2> 
+          <p>
+            We are the Money and Pensions Service (MaPS)
+          </p>
+          <h2 class="govuk-heading-m" id="privacy">
+            Privacy Notice
+          </h2> 
+          <p>
+            This privacy notice (the “Privacy Notice”) applies to the personal information processing activities carried out by us, the Money and Pension Service (including our dashboard suppliers required to deliver the digital service to support dashboards. We describe why and how we collect and use your personal data as part of this service.
+          </p>
+          <p>
+            We decide the legal basis (your consent), means and purposes for the collection, processing and storing of this personal. Therefore, we are the data controller in respect of your personal information. Our dashboard suppliers are [tbc] and will be a data processor of your personal information on our behalf.
+          </p>
+          <p>
+            This privacy policy supplements our other notices and privacy policies.
+          </p>
+          <p>
+            This Privacy Notice does not apply to our Identity Service supplier. It will need to request specific information from you to help verify your identity. This is a security measure. Our Identity Service supplier has their own <a href=#privacy>Privacy Notice</a>.
+          </p>
+          <p>
+            This service is not intended for children, and we do not knowingly collect data relating to children.
+          </p>
+          <h2 class="govuk-heading-m">
+            What is personal information?
+          </h2>
+          <p>
+            “Personal information” means information about a living individual who can be identified from that information (personal identifiers), either by itself or when combined with other information. This includes personal identifiers as well as name, identification number, location data, online identifier, genetic identity factors or pseudonymous data.
+          </p>
+          <p>
+            No sensitive or special category information is processed by us for dashboards.
+          </p>
+          <p>
+            We will use some personal information to run management and corporate reporting, research and analytics, to improve the services we provide; and provide other organisations with aggregated and anonymous reports. Any personal information used for these purposes will be anonymised so no one can identify you from that information.
+          </p>
+
+          <h2 class="govuk-heading-m">
+            Purpose of processing
+          </h2>
+          <p>
+            Using the personal information you provide to us and consent to us processing (and the information we receive from our Identity Service supplier), to issue requests to UK pension schemes to identify a matching record with a scheme. If there’s a match the pension scheme can provide the details of your pension for you to view on your selected dashboard. We want to ensure that you fully understand how your information may be used, which we have grouped together as follows:
+          </p>
+          <p>
+            Identity Data includes:
+          </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>your self-asserted Identity Data (national insurance number, previous names and addresses, email address and mobile phone number); and</li>
+            <li>your Identity data verified by our Identity Service (your first name, surname, current address and date of birth).</li>
+          </ul>
+          <p>
+            Technical Data includes:
+          </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>digital tokens generated or processed by us that contain personal identifier information for operational effectiveness; and </li>
+            <li>internet protocol (IP) address, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access this website.</li>
+          </ul>
+          <p>
+            Usage Data includes information about how you use our service.
+          </p>
+          <p>
+            As well as collecting data from you and our Identity Service we also collect it from:
+          </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Automated technologies or interactions. As you interact with our website, we will automatically collect Technical Data about your equipment, browsing actions and patterns. We collect this personal data by using cookies, server logs and other similar technologies. We may also receive Technical Data about you if you visit other websites employing our cookies. Please see our <a href=#>cookie policy</a> for further details.</li>
+            <li>With your consent we will only use, share or store your information where it is necessary for us to carry out our lawful dashboard activities and without prejudicing your interests or fundamental rights and freedoms. This includes:</li>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>Sending you to our Identity Service supplier to verify your digital identity and for a digital identifier to be generated to represent your verified identity.</li>
+              <li>Holding the digital identifier to re-authenticate your identity when you return.</li>
+              <li>Sharing your Identity Data with the selected pension providers for the purposes of finding your pension records.</li>
+              <li>Receiving a different digital identifier from your pension provider for a found pension and sharing this with your chosen dashboard.</li>
+              <li>Selecting the website for your pension information to be displayed on.</li>
+              <li>Selecting whether a delegate (a FA or MaPS’ guider) to view your pension.</li>
+            </ul>
+          </ul>
+          <p>
+            When we ask for your consent, we:
+          </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Will always inform you why we need your personal data.</li>
+            <li>Will ask only for the personal data we need.</li>
+            <li>Will protect it and make sure no unauthorised person has access to it.</li>
+            <li>Will make sure we don’t keep it longer than is necessary.</li>
+            <li>We will also process your personal information to develop, test, monitor and review the performance of services, internal systems and security arrangements to provide you with a better, safer service. This may include staff training (but we make the information anonymous beforehand wherever possible).</li>
+          </ul>
+
+          <h2 class="govuk-heading-m">
+            Cookie Policy
+          </h2>
+          <p>
+            <a href=#>More information about our cookie policy.</a>
+          </p>
+
+          <h2 class="govuk-heading-m">
+            Third party links
+          </h2>
+          <p>
+            The service include links to your dashboard and the Identity Service websites, plug-ins and applications. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these websites and are not responsible for their privacy statements. When you leave our website, we encourage you to read the privacy policy of every website you visit.
+          </p>
+
+          <h2 class="govuk-heading-m">
+            Your rights
+          </h2>
+          <p>
+            We respect an individual’s rights to privacy and to the protection of personal information. We have a responsibility to protect this information and ensure its confidentiality, integrity and availability. We also want you to be in control of your personal data.
+          </p>
+          <p>
+            Informed – we explain to you why and how personal data about you is being processed when you consent to us processing it.
+          </p>
+          <p>
+            Access, Rectification, Erase, Withdraw Consent – you can do this at any time at [C&A Link] as well as vary our cookie policy. In some cases, we might decide to keep information, even if you ask us not to. This could be for legal or regulatory reasons. We will always tell you why we keep the information.
+          </p>
+          <p>
+            As we only process your personal data with your consent or retain any personal identity data the Restriction, Objection and Portability rights do not apply. There will be no automated decision-making or profiling.
+          </p>
+
+          <h2 class="govuk-heading-m">
+            How we use and share your information
+          </h2>
+          <p>
+            For dashboards, we will only share your personal data with your consent except:
+          </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>Where we are required by law and to law enforcement agencies or government entities.</li>
+            <li>Where required for a re-organisation, transfer or other transaction relating to our business</li>
+            <li>Where permitted by law, it is necessary to fulfil our statutory objectives or those of a third party, and it is not inconsistent with the purposes listed in this Privacy Notice.</li>
+          </ul>
+          <p>
+            When we share information with third parties it is on a limited basis following due diligence and in accordance with our internal procedures and it will never be for marketing purposes.
+          </p>
+          <p>We have data processing agreement with our dashboard supplier to make sure your personal information is protected.
+          </p>
+          <h2 class="govuk-heading-m" id="retention">
+            How long we keep your information
+          </h2>
+          <p>
+          Retention periods depend on the amount, nature and sensitivity of the personal data, the potential risk of harm from unauthorised use or disclosure of your personal data, the purposes for which we process your personal data and whether we can achieve those purposes through other means, and the applicable legal, regulatory, tax, accounting or other requirements. We will only retain your personal data for as long as reasonably necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, regulatory, tax, accounting or reporting requirements.</p>
+          <p>
+            No personal identity information is retained after we send your requests to your selected pension schemes. We retain personal identifier information and consents for a limited period of time to improve operational effectiveness and your user experience. Details of retention periods for different aspects of your personal data are available in our <a href=#retention>retention policy</a>.
+          </p>
+          <p>
+            We may on exception retain your information for longer periods, particularly where we need to withhold destruction or disposal based on an order from the courts or an investigation by law enforcement agencies.
+          </p>
+          <p>
+            This ensures that the organisation will be able to produce records as evidence.
+          </p>
+          <p>
+            We may also retain your personal data for a longer period in the event of a complaint or if we reasonably believe there is a prospect of litigation in respect to our relationship with you.
+          </p>
+
+          <h2 class="govuk-heading-m">
+            Security
+          </h2>
+          <p>
+            We are committed to ensuring that your information is secure with us and with our dashboard supplier. We take various steps to protect the information you provide from loss, misuse, and unauthorised access or disclosure by; ensuring only authorised persons can access your data and running website scanning and penetration test activities. These steps consider the sensitivity of the information we collect, process and store, and the current state of technology.
+          </p>
+          <p>
+            In addition, we limit access to your personal data to those employees, suppliers and other third parties as part of delivering our service. They will only process your personal data on our instructions, and they are subject to a duty of confidentiality.
+          </p>
+          <p>
+            If a security breach causes an unauthorised intrusion into our system that materially affects you or the privacy of your data, we will notify you as soon as possible. We will also notify the Information Commissioner’s Office (ICO) within 72 hours of becoming aware of the breach.
+          </p>
+
+          <h2 class="govuk-heading-m">
+            No fee usually required
+          </h2>
+          <p>
+            You will not have to pay a fee to access your personal data (or to exercise any of the other rights). However, we may charge a reasonable fee if we think your request is clearly unfounded, repetitive or excessive. Alternatively, we could refuse to comply with your request in these circumstances.
+
+          <h2 class="govuk-heading-m">
+            Where is your data stored?
+          </h2>
+          <p>
+            Whenever we transfer your personal data out of the UK and only as part of delivering our service, we ensure a similar degree of protection is afforded to it by ensuring at least one of the following safeguards is implemented We will only transfer your personal data to countries that provide an adequate level of protection for personal data. In our supplier contracts, we specify these transfers have same protection for personal data that they would have in the UK.
+
+          <h2 class="govuk-heading-m">
+            Updates
+          </h2>
+          <p>
+            We may update our Privacy Notice from time to time and publish the update on our website.
+          </p>
+          <h2 class="govuk-heading-m">
+            Not covered
+          </h2>
+          <p>
+            MaPS has another Privacy Notice which relates to its other functions.
+          </p>
+
+          <h2 class="govuk-heading-m" id="contact">
+            Contact us and communicating with us
+          </h2>
+          <p>
+            If you have any queries about how we use your personal information that are not answered here, or if you wish to complain to our Data Protection Officer, please contact us at <a href="mailto:dpo@maps.org.uk">dpo@maps.org.uk</a> or 020 7943 0500.
+          </p>
+          <p>
+            <a href=#contact>More information is available on our website</a> including how to complain about the service and to our Data Protection.
+          </p>
+          <p>
+            If you are contact with us or supplier, we may process your personal information under a variety of means (including via email, post and/or telephone). You should let us know if your contact details change or no longer want us to contact you. We may monitor, or record, this contact (including under other communications, for example by text).
+          </p>
+          <p>
+            Our principal address is Holborn Centre, 120 Holborn, London EC1N 2TD and our contact details can be located at moneyandpensionsservice.org.uk/contact-us/. More information about MaPS can be <a href="https://moneyandpensionsservice.org.uk">found on our website</a>.
+          </p>
+          <p>
+            If you have any concerns you can visit the <a href="https://ico.org.uk">Information Commissioner’s Office (ICO) website.
+          </p>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
